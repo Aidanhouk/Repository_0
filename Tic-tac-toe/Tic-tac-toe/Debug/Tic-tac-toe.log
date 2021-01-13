@@ -1,0 +1,44 @@
+﻿  endCheck.cpp
+  main.cpp
+  mainGame.cpp
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(153): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(154): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(158): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(159): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(170): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(175): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(183): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(187): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(201): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(202): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(205): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(206): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(210): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(215): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  menu.cpp
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\menu.cpp(133): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\menu.cpp(137): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\menu.cpp(144): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\menu.cpp(148): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  _AI_makes_move.cpp
+  Generating Code...
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(199): warning C4701: potentially uninitialized local variable 'dir' used
+d:\загрузки\github\repository_0\tic-tac-toe\tic-tac-toe\maingame.cpp(202): warning C4701: potentially uninitialized local variable 'rowOrCol' used
+  Tic-tac-toe.vcxproj -> D:\Загрузки\GitHub\Repository_0\Tic-tac-toe\Debug\Tic-tac-toe.exe
