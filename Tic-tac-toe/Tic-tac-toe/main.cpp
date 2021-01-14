@@ -18,6 +18,9 @@ int main()
 	bool gameContinues{ 1 };
 
 	while (gameContinues) {
+		// каждый раз устанавливаем значения по умолчанию
+		n = 3, p = 2, res = 0;
+
 		// открываем меню
 		openMenu(n, p);
 
