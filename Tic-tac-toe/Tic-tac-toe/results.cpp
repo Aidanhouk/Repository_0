@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "results.h"
 
-using namespace sf;
-
 void results(int res, int p, bool &gameConinues)
 {
+	using sf::Text;
+	using sf::Color;
+
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 
@@ -54,6 +55,7 @@ void results(int res, int p, bool &gameConinues)
 		{
 			// закрытие окна
 			if (event.type == sf::Event::Closed) {
+				gameConinues = 0;
 				result.close();
 			}
 			// нажата кнопка мыши?
