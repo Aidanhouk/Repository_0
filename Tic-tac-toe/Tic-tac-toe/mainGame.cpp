@@ -7,7 +7,7 @@
 #include "_AI_makes_move.h"
 #include "endCheck.h"
 
-void mainGame(int n, int p)
+void mainGame(int n, int p, int &res)
 {
 	using sf::RectangleShape;
 	using sf::Vector2f;
@@ -22,10 +22,6 @@ void mainGame(int n, int p)
 	srand(static_cast<unsigned int>(time(0)));
 	rand();
 
-	sf::Text drawText("DRAW", font, 70);
-	drawText.setFillColor(Color::White);
-	drawText.setPosition((n - 2) * 50, 110);
-
 	// создаем поле размерностью nxn
 	int **field = new int*[n];
 	for (int i = 0; i < n; ++i) {
@@ -39,14 +35,14 @@ void mainGame(int n, int p)
 	bool turn{ 1 };
 	// игра закончена?
 	bool endOfGame{ 0 };
-	// игра закончилась ничьей?
-	bool draw{ 0 };
 	// за кого играет AI, 0 - нолики, 1 - крестики
 	bool markAI{ static_cast<bool>(rand() % 2) };
 	// нужны, чтобы перечеркнуть выигрышную линию
 	int rowOrCol, dir;
 	// сколько осталось пустых ячеек, если 0, то это ничья
 	int blanks{ n*n };
+	// сюда запишем результат, 0 - ничья, 1 - выиграли крестики, 2 - нолики
+	int whoWin{ 0 };
 	// сюда будут записывать все ходы, нужно для работы AI
 	std::vector<int> moves;
 	moves.reserve(n*n);
@@ -97,13 +93,12 @@ void mainGame(int n, int p)
 		// проверка на конец игры после хода игрока
 		if (!endOfGame && p != 3) {
 			// если whoWin = 1, то победили крестики, 2 - нолики
-			int whoWin{ finishedLineCheck(field, n, rowOrCol, dir) };
+			whoWin = finishedLineCheck(field, n, rowOrCol, dir);
 			if (whoWin) {
 				endOfGame = 1;
 			}
 			// проверка на ничью
 			if (!blanks && !endOfGame) {
-				draw = 1;
 				endOfGame = 1;
 			}
 		}
@@ -129,13 +124,12 @@ void mainGame(int n, int p)
 		// проверка на конец игры после хода AI
 		if (!endOfGame && p != 1) {
 			// если whoWin = 1, то победили крестики, 2 - нолики
-			int whoWin{ finishedLineCheck(field, n, rowOrCol, dir) };
-			if (whoWin && !endOfGame) {
+			whoWin = finishedLineCheck(field, n, rowOrCol, dir);
+			if (whoWin) {
 				endOfGame = 1;
 			}
 			// проверка на ничью
 			if (!blanks && !endOfGame) {
-				draw = 1;
 				endOfGame = 1;
 			}
 		}
@@ -192,7 +186,7 @@ void mainGame(int n, int p)
 		}
 
 		// перечеркиваем выигрышную линию
-		if (endOfGame && !draw) {
+		if (endOfGame && whoWin) {
 			RectangleShape line;
 			// кол-во пикселей от края
 			int pixels = 15;
@@ -219,12 +213,27 @@ void mainGame(int n, int p)
 			line.setFillColor(Color::Yellow);
 			window.draw(line);
 		}
-		if (draw) {
-			//window.clear(sf::Color(25, 0, 45));
-			window.draw(drawText);
-		}
 
 		window.display();
+
+		// возвращаем значени, кто выиграл
+		if (endOfGame) {
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			res = whoWin;
+			// если player vs AI и при это НЕ ничья, нужно немного изменить вывод результата
+			if (p == 2 && whoWin) {
+				// если markAI = 0, то присваиваем ему 2
+				int _markAI = markAI ? 1 : 2;
+				// если фигура AI совпадает с фигурой, которая победила, то AI победил
+				if (_markAI == whoWin) {
+					res = 2;
+				}
+				else {
+					res = 1;
+				}
+			}
+			window.close();
+		}
 
 		// паузы между ходами AI vs AI
 		if (p == 3 && !endOfGame) {

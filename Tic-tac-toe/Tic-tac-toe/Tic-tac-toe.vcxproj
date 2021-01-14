@@ -139,12 +139,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="results.cpp" />
     <ClCompile Include="_AI_makes_move.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="endCheck.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="results.h" />
     <ClInclude Include="_AI_makes_move.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

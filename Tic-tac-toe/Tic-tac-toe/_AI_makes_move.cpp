@@ -7,6 +7,7 @@ int checkLines(int **field, int n, int markAI)
 {
 	// номер €чейки, чтобы не дать завершить линию оппоненту
 	int notMine{ -1 };
+	// приводим markAI из вида 0/1 к 1/2
 	markAI = markAI ? 1 : 2;
 	// провер€ем каждый столбец
 	for (int i = 0; i < n; ++i) {

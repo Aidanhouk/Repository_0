@@ -1,48 +1,7 @@
-﻿  endCheck.cpp
-  main.cpp
-  mainGame.cpp
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(153): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(154): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(158): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(159): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(170): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(175): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(183): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(187): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(201): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(202): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(205): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(206): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(210): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(215): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  menu.cpp
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\menu.cpp(133): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\menu.cpp(137): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\menu.cpp(144): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\menu.cpp(148): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  _AI_makes_move.cpp
+﻿  results.cpp
   Generating code
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(199): warning C4701: potentially uninitialized local variable 'dir' used
-c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\maingame.cpp(202): warning C4701: potentially uninitialized local variable 'rowOrCol' used
-  232 of 264 functions (87.9%) were compiled, the rest were copied from previous compilation.
-    96 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  1 of 265 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Tic-tac-toe.vcxproj -> C:\Users\timur\source\repos\Tic-tac-toe\Release\Tic-tac-toe.exe

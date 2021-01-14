@@ -3,4 +3,4 @@
 // ширина одной клетки
 const int W{ 100 };
 
-void mainGame(int n, int p);
+void mainGame(int n, int p, int &res);
