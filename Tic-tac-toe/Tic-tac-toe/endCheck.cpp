@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include "mainGame.h"
 #include "endCheck.h"
 
 int finishedLineCheck(int **field, const int n, int &rowOrCol, int &dir)

@@ -1,7 +1,6 @@
 // AI работает только для поля 3x3, для других размерностей - полный рандом
 // кто ходит первым - рандом
 
-#include <SFML/Graphics.hpp>
 #include "menu.h"
 #include "mainGame.h"
 #include "results.h"
