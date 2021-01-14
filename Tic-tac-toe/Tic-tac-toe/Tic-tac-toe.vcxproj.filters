@@ -18,16 +18,16 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mainGame.cpp">
+    <ClCompile Include="_AI_makes_move.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="endCheck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_AI_makes_move.cpp">
+    <ClCompile Include="mainGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,13 +35,13 @@
     <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mainGame.h">
+    <ClInclude Include="_AI_makes_move.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="endCheck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_AI_makes_move.h">
+    <ClInclude Include="mainGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

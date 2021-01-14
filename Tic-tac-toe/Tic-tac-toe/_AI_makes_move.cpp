@@ -29,7 +29,7 @@ int checkLines(int **field, int n, int markAI)
 				notMine = i;
 		}
 	}
-	
+
 	// проверяем каждую строку
 	for (int i = 0; i < n; ++i) {
 		if (field[0][i] == field[1][i] && field[2][i] == 0 && field[0][i]) {
@@ -51,7 +51,7 @@ int checkLines(int **field, int n, int markAI)
 				notMine = i * n;
 		}
 	}
-	
+
 	// проверяем 1 диагональ
 	if (field[0][0] == field[1][1] && field[2][2] == 0 && field[0][0]) {
 		if (field[0][0] == markAI)
@@ -71,7 +71,7 @@ int checkLines(int **field, int n, int markAI)
 		else
 			notMine = 0;
 	}
-	
+
 	// проверяем 2 диагональ
 	if (field[2][0] == field[1][1] && field[0][2] == 0 && field[2][0]) {
 		if (field[2][0] == markAI)
@@ -302,12 +302,12 @@ void _AI_makes_move(std::vector<int> &moves, int **field, int n, int &row, int &
 			}
 			// если AI должен ставить нолик
 			else {
-			// нужна для функциия checkLines
-			int q{ -1 };
-			// перменная для рандома
-			int x;
-			// нужно для одного из случаев
-			static bool b{ 0 };
+				// нужна для функциия checkLines
+				int q{ -1 };
+				// перменная для рандома
+				int x;
+				// нужно для одного из случаев
+				static bool b{ 0 };
 				switch (moves.size())
 				{
 					// 1 ход
