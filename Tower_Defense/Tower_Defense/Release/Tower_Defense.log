@@ -1,0 +1,16 @@
+﻿  cycleFuncions.cpp
+  enemiesWave.cpp
+  enemy.cpp
+  field.cpp
+  main.cpp
+  mainGame.cpp
+  missilesControl.cpp
+  results.cpp
+  roadCell.cpp
+  drawShop.cpp
+  tower.cpp
+  towersControl.cpp
+  Generating code
+  All 516 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Tower_Defense.vcxproj -> C:\Users\timur\source\repos\Tower_Defense\Release\Tower_Defense.exe
