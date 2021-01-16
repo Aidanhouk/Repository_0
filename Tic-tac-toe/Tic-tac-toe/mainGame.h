@@ -1,6 +1,4 @@
 #pragma once
 
-// ширина одной клетки
-const int W{ 100 };
-
+// окно основной игры
 void mainGame(int n, int p, int &res);

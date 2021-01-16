@@ -1,5 +1,6 @@
-#include <SFML/Graphics.hpp>
 #include "results.h"
+
+#include <SFML/Graphics.hpp>
 
 void results(int res, int p, bool &gameConinues)
 {
@@ -13,26 +14,79 @@ void results(int res, int p, bool &gameConinues)
 	font.loadFromFile("sansation.ttf");
 
 	sf::RenderWindow result(sf::VideoMode(220, 290), "Tic-tac-toe", sf::Style::Titlebar | sf::Style::Close, settings);
-
-	Text drawText("Draw", font, 35);
-	drawText.setFillColor(Color(210, 100, 110));
-	drawText.setPosition(70, 20);
-
-	Text player1("Player 1 won", font, 35);
-	player1.setFillColor(Color(210, 100, 110));
-	player1.setPosition(15, 20);
-
-	Text player2("Player 2 won", font, 35);
-	player2.setFillColor(Color(210, 100, 110));
-	player2.setPosition(15, 20);
-
-	Text player("Player won", font, 35);
-	player.setFillColor(Color(210, 100, 110));
-	player.setPosition(25, 20);
-
-	Text _AIwon("AI won", font, 35);
-	_AIwon.setFillColor(Color(210, 100, 110));
-	_AIwon.setPosition(60, 20);
+	
+	Text whoWonText;
+	// обработка результата
+	switch (p)
+	{
+	case 1:
+		switch (res)
+		{
+		case -1:
+			break;
+		case 0:
+			// draw
+			whoWonText = Text("Draw", font, 35);
+			whoWonText.setPosition(70, 20);
+			break;
+		case 1:
+			// 1 player won
+			whoWonText = Text("Player 1 won", font, 35);
+			whoWonText.setPosition(15, 20);
+			break;
+		case 2:
+			// 2 player won
+			whoWonText = Text("Player 2 won", font, 35);
+			whoWonText.setPosition(10, 20);
+			break;
+		}
+		break;
+	case 2:
+		switch (res)
+		{
+		case -1:
+			break;
+		case 0:
+			// draw
+			whoWonText = Text("Draw", font, 35);
+			whoWonText.setPosition(70, 20);
+			break;
+		case 1:
+			// player won
+			whoWonText = Text("Player won", font, 35);
+			whoWonText.setPosition(25, 20);
+			break;
+		case 2:
+			// AI won
+			whoWonText = Text("AI won", font, 35);
+			whoWonText.setPosition(60, 20);
+			break;
+		}
+		break;
+	case 3:
+		switch (res)
+		{
+		case -1:
+			break;
+		case 0:
+			// draw
+			whoWonText = Text("Draw", font, 35);
+			whoWonText.setPosition(70, 20);
+			break;
+		case 1:
+			// 1 AI won
+			whoWonText = Text("AI won", font, 35);
+			whoWonText.setPosition(60, 20);
+			break;
+		case 2:
+			// 2 AI won
+			whoWonText = Text("AI won", font, 35);
+			whoWonText.setPosition(60, 20);
+			break;
+		}
+		break;
+	}
+	whoWonText.setFillColor(Color(210, 100, 110));
 
 	Text playAgain("Play again", font, 35);
 	playAgain.setFillColor(Color(4, 217, 167));
@@ -76,64 +130,13 @@ void results(int res, int p, bool &gameConinues)
 		}
 		// цвет фона
 		result.clear(Color(25, 0, 45));
-
-		// обработка результата
-		switch (p)
-		{
-		case 1:
-			switch (res)
-			{
-			case 0:
-				// draw
-				result.draw(drawText);
-				break;
-			case 1:
-				// 1 player won
-				result.draw(player1);
-				break;
-			case 2:
-				// 2 player won
-				result.draw(player2);
-				break;
-			}
-			break;
-		case 2:
-			switch (res)
-			{
-			case 0:
-				// draw
-				result.draw(drawText);
-				break;
-			case 1:
-				// player won
-				result.draw(player);
-				break;
-			case 2:
-				// AI won
-				result.draw(_AIwon);
-				break;
-			}
-			break;
-		case 3:
-			switch (res)
-			{
-			case 0:
-				// draw
-				result.draw(drawText);
-				break;
-			case 1:
-				// 1 AI won
-				result.draw(_AIwon);
-				break;
-			case 2:
-				// 2 AI won
-				result.draw(_AIwon);
-				break;
-			}
-			break;
+		// текст, кто победил
+		if (res != -1) {
+			result.draw(whoWonText);
 		}
-
+		// текст Play again
 		result.draw(playAgain);
+		// текст Exit
 		result.draw(exitText);
 
 		result.display();

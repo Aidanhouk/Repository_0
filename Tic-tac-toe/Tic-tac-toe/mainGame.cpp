@@ -1,18 +1,17 @@
+#include "mainGame.h"
+
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <vector>
 #include <thread>
 
-#include "mainGame.h"
+#include "consts.h"
+#include "drawing.h"
 #include "_AI_makes_move.h"
 #include "endCheck.h"
 
 void mainGame(int n, int p, int &res)
 {
-	using sf::RectangleShape;
-	using sf::Vector2f;
-	using sf::Color;
-
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 
@@ -38,7 +37,7 @@ void mainGame(int n, int p, int &res)
 	// за кого играет AI, 0 - нолики, 1 - крестики
 	bool markAI{ static_cast<bool>(rand() % 2) };
 	// нужны, чтобы перечеркнуть выигрышную линию
-	int rowOrCol, dir;
+	int rowOrCol, finishLineDirection;
 	// сколько осталось пустых ячеек, если 0, то это ничья
 	int blanks{ n*n };
 	// сюда запишем результат, 0 - ничья, 1 - выиграли крестики, 2 - нолики
@@ -93,7 +92,7 @@ void mainGame(int n, int p, int &res)
 		// проверка на конец игры после хода игрока
 		if (!endOfGame && p != 3) {
 			// если whoWin = 1, то победили крестики, 2 - нолики
-			whoWin = finishedLineCheck(field, n, rowOrCol, dir);
+			whoWin = finishedLineCheck(field, n, rowOrCol, finishLineDirection);
 			if (whoWin) {
 				endOfGame = 1;
 			}
@@ -102,8 +101,6 @@ void mainGame(int n, int p, int &res)
 				endOfGame = 1;
 			}
 		}
-
-
 
 		// ход AI
 		if (!endOfGame && (p == 2 && turn == markAI || p == 3)) {
@@ -124,7 +121,7 @@ void mainGame(int n, int p, int &res)
 		// проверка на конец игры после хода AI
 		if (!endOfGame && p != 1) {
 			// если whoWin = 1, то победили крестики, 2 - нолики
-			whoWin = finishedLineCheck(field, n, rowOrCol, dir);
+			whoWin = finishedLineCheck(field, n, rowOrCol, finishLineDirection);
 			if (whoWin) {
 				endOfGame = 1;
 			}
@@ -134,84 +131,17 @@ void mainGame(int n, int p, int &res)
 			}
 		}
 
-
-
-		// Далее происходит отрисовка всех элементов
+		// далее происходит отрисовка всех элементов
 
 		// цвет фона
 		window.clear(sf::Color(25, 0, 45));
-
 		// отрисовка сетки
-		for (int i = 1; i < n; ++i) {
-			// по вертикали
-			RectangleShape bordersV(Vector2f(5, n * W));
-			bordersV.move(W * i, 0);
-			bordersV.setFillColor(Color(80, 44, 112));
-			window.draw(bordersV);
-			// по горизонтали
-			RectangleShape bordersH(Vector2f(n * W, 5));
-			bordersH.move(0, W * i);
-			bordersH.setFillColor(Color(80, 44, 112));
-			window.draw(bordersH);
-		}
-
+		drawField(window, n);
 		// отрисовка крестиков и ноликов
-		for (int i = 0; i < n; ++i) {
-			for (int j = 0; j < n; ++j) {
-				// крестики
-				if (field[i][j] == 1) {
-					RectangleShape cross(Vector2f(5, 60));
-					cross.move(W * i + 30, W * j + 30);
-					cross.rotate(-45.f);
-					cross.setFillColor(Color(4, 217, 167));
-					window.draw(cross);
-					RectangleShape cross2(Vector2f(5, 60));
-					cross2.move(W * i + 72, W * j + 26);
-					cross2.rotate(45.f);
-					cross2.setFillColor(Color(4, 217, 167));
-					window.draw(cross2);
-				}
-				// нолики
-				if (field[i][j] == 2) {
-					sf::CircleShape nought(30);
-					nought.move(W * i + 23, W * j + 23);
-					nought.setFillColor(Color(210, 100, 110));
-					window.draw(nought);
-					sf::CircleShape nought2(22);
-					nought2.move(W * i + 31, W * j + 31);
-					nought2.setFillColor(Color(25, 0, 45));
-					window.draw(nought2);
-				}
-			}
-		}
-
+		drawFigures(window, n, field);
 		// перечеркиваем выигрышную линию
 		if (endOfGame && whoWin) {
-			RectangleShape line;
-			// кол-во пикселей от края
-			int pixels = 15;
-			switch (dir) {
-			case 1:
-				line = RectangleShape(Vector2f(5, n * W - pixels * 2));
-				line.move(W * rowOrCol + 50, pixels);
-				break;
-			case 2:
-				line = RectangleShape(Vector2f(n * W - pixels * 2, 5));
-				line.move(pixels, W * rowOrCol + 50);
-				break;
-			case 3:
-				line = RectangleShape(Vector2f(n * W * 1.41f - pixels * 2, 5));
-				line.move(pixels, pixels);
-				line.rotate(45.f);
-				break;
-			case 4:
-				line = RectangleShape(Vector2f(n * W * 1.41f - pixels * 2, 5));
-				line.move(pixels, W * n - pixels);
-				line.rotate(-45.f);
-				break;
-			}
-			line.setFillColor(Color::Yellow);
-			window.draw(line);
+			crossFinishLine(window, n, finishLineDirection, rowOrCol);
 		}
 
 		window.display();

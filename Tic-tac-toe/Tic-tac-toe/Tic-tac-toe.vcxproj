@@ -135,6 +135,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="checkLines.cpp" />
+    <ClCompile Include="drawing.cpp" />
     <ClCompile Include="endCheck.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainGame.cpp" />
@@ -143,6 +145,9 @@
     <ClCompile Include="_AI_makes_move.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="checkLines.h" />
+    <ClInclude Include="consts.h" />
+    <ClInclude Include="drawing.h" />
     <ClInclude Include="endCheck.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="menu.h" />

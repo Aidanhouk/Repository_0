@@ -1,105 +1,17 @@
 #include "_AI_makes_move.h"
+
 #include <ctime>
-
-// проверяет, если ли строка с 2 одинаковыми символами и 1 пустым
-// ее нужно занять, чтобы либо выиграть, либо не дать выиграть оппоненту
-int checkLines(int **field, int n, int markAI)
-{
-	// номер ячейки, чтобы не дать завершить линию оппоненту
-	int notMine{ -1 };
-	// приводим markAI из вида 0/1 к 1/2
-	markAI = markAI ? 1 : 2;
-	// проверяем каждый столбец
-	for (int i = 0; i < n; ++i) {
-		if (field[i][0] == field[i][1] && field[i][2] == 0 && field[i][0]) {
-			if (field[i][0] == markAI)
-				return i + 2 * n;
-			else
-				notMine = i + 2 * n;
-		}
-		if (field[i][0] == field[i][2] && field[i][1] == 0 && field[i][0]) {
-			if (field[i][0] == markAI)
-				return i + 1 * n;
-			else
-				notMine = i + 1 * n;
-		}
-		if (field[i][1] == field[i][2] && field[i][0] == 0 && field[i][1]) {
-			if (field[i][1] == markAI)
-				return i;
-			else
-				notMine = i;
-		}
-	}
-
-	// проверяем каждую строку
-	for (int i = 0; i < n; ++i) {
-		if (field[0][i] == field[1][i] && field[2][i] == 0 && field[0][i]) {
-			if (field[0][i] == markAI)
-				return i * n + 2;
-			else
-				notMine = i * n + 2;
-		}
-		if (field[0][i] == field[2][i] && field[1][i] == 0 && field[0][i]) {
-			if (field[0][i] == markAI)
-				return i * n + 1;
-			else
-				notMine = i * n + 1;
-		}
-		if (field[1][i] == field[2][i] && field[0][i] == 0 && field[1][i]) {
-			if (field[1][i] == markAI)
-				return i * n;
-			else
-				notMine = i * n;
-		}
-	}
-
-	// проверяем 1 диагональ
-	if (field[0][0] == field[1][1] && field[2][2] == 0 && field[0][0]) {
-		if (field[0][0] == markAI)
-			return 8;
-		else
-			notMine = 8;
-	}
-	if (field[0][0] == field[2][2] && field[1][1] == 0 && field[0][0]) {
-		if (field[0][0] == markAI)
-			return 4;
-		else
-			notMine = 4;
-	}
-	if (field[1][1] == field[2][2] && field[0][0] == 0 && field[1][1]) {
-		if (field[1][1] == markAI)
-			return 0;
-		else
-			notMine = 0;
-	}
-
-	// проверяем 2 диагональ
-	if (field[2][0] == field[1][1] && field[0][2] == 0 && field[2][0]) {
-		if (field[2][0] == markAI)
-			return 6;
-		else
-			notMine = 6;
-	}
-	if (field[2][0] == field[0][2] && field[1][1] == 0 && field[2][0]) {
-		if (field[2][0] == markAI)
-			return 4;
-		else
-			notMine = 4;
-	}
-	if (field[1][1] == field[0][2] && field[2][0] == 0 && field[1][1]) {
-		if (field[1][1] == markAI)
-			return 2;
-		else
-			notMine = 2;
-	}
-
-	return notMine;
-}
+#include "checkLines.h"
 
 void _AI_makes_move(std::vector<int> &moves, int **field, int n, int &row, int &col)
 {
 	srand(static_cast<unsigned int>(time(0)));
 	rand();
+
+	// фигура AI
+	bool markAI{ !static_cast<bool>(moves.size() % 2) };
+	// чтобы завершить линию / не дать завершить оппоненту
+	int q{ -1 };
 
 	// если 1-ый ход, то ставиться всегда в левый верхний угол
 	if (!moves.size()) {
@@ -108,7 +20,15 @@ void _AI_makes_move(std::vector<int> &moves, int **field, int n, int &row, int &
 		col = 0;
 	}
 	else {
-		// если размер поля не 3, то фулл рандом
+		// если размер поля не 3, то сначала вызывается checkLines
+		q = checkLines(field, n, markAI);
+		if (q != -1) {
+			moves.push_back(q);
+			row = q / n;
+			col = q % n;
+			return;
+		}
+		// если фигура не поставлена, то фулл рандом
 		if (n != 3) {
 			int i;
 			while (1) {
@@ -130,11 +50,7 @@ void _AI_makes_move(std::vector<int> &moves, int **field, int n, int &row, int &
 		}
 		else {
 			// если AI должен ставить крестик
-			// фигура AI
-			bool markAI{ !static_cast<bool>(moves.size() % 2) };
 			if (markAI == 1) {
-				// чтобы завершить линию / не дать завершить оппоненту
-				int q{ -1 };
 				switch (moves.size())
 				{
 					// 2 ход
@@ -200,10 +116,6 @@ void _AI_makes_move(std::vector<int> &moves, int **field, int n, int &row, int &
 					case 4:
 						switch (moves[3])
 						{
-						case 5:
-						case 7:
-							// идет на ничью
-							break;
 						case 2:
 							// 6
 							moves.push_back(6);
@@ -303,8 +215,6 @@ void _AI_makes_move(std::vector<int> &moves, int **field, int n, int &row, int &
 			}
 			// если AI должен ставить нолик
 			else {
-				// нужна для функциия checkLines
-				int q{ -1 };
 				// перменная для рандома
 				int x;
 				// нужно для одного из случаев

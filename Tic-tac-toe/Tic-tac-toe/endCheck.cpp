@@ -3,7 +3,6 @@
 
 int finishedLineCheck(int **field, const int n, int &rowOrCol, int &dir)
 {
-	// наверняка можно сделать меньше циклов
 	bool f;
 	for (int i = 0; i < n; ++i) {
 		f = 1;
