@@ -1,9 +1,8 @@
-﻿  cycleFuncions.cpp
+﻿  drawShop.cpp
   enemiesWave.cpp
   enemy.cpp
   field.cpp
 c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(79): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  main.cpp
   mainGame.cpp
   missilesControl.cpp
 c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(20): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
@@ -73,9 +72,6 @@ c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(170)
 c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(171): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(174): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(181): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  results.cpp
-  roadCell.cpp
-  drawShop.cpp
   tower.cpp
   towersControl.cpp
   Generating Code...

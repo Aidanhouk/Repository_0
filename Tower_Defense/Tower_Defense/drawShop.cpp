@@ -40,8 +40,8 @@ void drawShop(int level, int money, int type, sf::RenderWindow &window)
 	tower3.setFillColor(sf::Color(210, 40, 255));
 
 	// указывает на выбранную башню
-	sf::CircleShape smallCirlce(15, 10);
-	smallCirlce.setFillColor(sf::Color::Green);
+	sf::CircleShape smallCirlce(10, 10);
+	smallCirlce.setFillColor(sf::Color::Black);
 
 	// делаем прозрачными те башни, на которые не хватает денег
 	if (money < TOWERS_PRICE[1]) {
@@ -71,15 +71,15 @@ void drawShop(int level, int money, int type, sf::RenderWindow &window)
 	case 0:
 		break;
 	case 1:
-		smallCirlce.setPosition(25, W * ROWS + 25);
+		smallCirlce.setPosition(30, W * ROWS + 30);
 		window.draw(smallCirlce);
 		break;
 	case 2:
-		smallCirlce.setPosition(25 + 1 * W, W * ROWS + 25);
+		smallCirlce.setPosition(30 + 1 * W, W * ROWS + 30);
 		window.draw(smallCirlce);
 		break;
 	case 3:
-		smallCirlce.setPosition(25 + 2 * W, W * ROWS + 25);
+		smallCirlce.setPosition(30 + 2 * W, W * ROWS + 30);
 		window.draw(smallCirlce);
 		break;
 	}
