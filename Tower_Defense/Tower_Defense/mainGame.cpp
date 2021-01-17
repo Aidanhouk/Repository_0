@@ -38,7 +38,7 @@ void mainGame(int &result, int &level)
 	Missiles missiles;
 
 	// изначальные деньги
-	int money{ 25 };
+	int money{ MONEY };
 	// тип башни, на которую нажал игрок в магазине
 	int type{ 0 };
 	// конец игры?
@@ -85,7 +85,7 @@ void mainGame(int &result, int &level)
 				// если выбрана башня
 				if (type) {
 					// если нажата не область меню
-					if (y != 9) {
+					if (y != ROWS) {
 						// если эта ячейка пустая
 						if (!field.getCellValue(y, x)) {
 							towerControl.addTower(y, x, type);
@@ -128,7 +128,7 @@ void mainGame(int &result, int &level)
 		// рисуем всех врагов
 		enemiesWave.drawAllEnemies(window);
 		// рисуем снаряды, если был сделан выстрел
-		if (!endOfWave && drawMissile) {
+		if (drawMissile) {
 			missileDrawCycle(missiles, window, drawMissile);
 		}
 		// рисуем башни

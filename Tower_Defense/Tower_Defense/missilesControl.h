@@ -5,6 +5,7 @@
 
 #include "enemy.h"
 
+// класс отвечает за снаряды
 class Missiles
 {
 private:
@@ -20,7 +21,7 @@ public:
 	// отрисовывает все снаряды
 	void drawMissiles(sf::RenderWindow & window);
 	// добавляет снаряд в вектор снарядов
-	void addMissile(std::pair<std::pair<int, int>, RoadCell*> * missile);
+	void addMissile(std::pair<std::pair<int, int>, RoadCell*> * missile) { missilesVector.push_back(missile); }
 	// очищает вектор снарядов
 	void deleteMissiles();
 };

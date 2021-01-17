@@ -4,7 +4,7 @@
 
 Field::Field()
 {
-	// создаем поле 9х9
+	// создаем поле ROWS * COLS
 	m_field = new int*[ROWS];
 	for (int i = 0; i < ROWS; ++i) {
 		m_field[i] = new int[COLS] {0};
@@ -32,15 +32,12 @@ void Field::addCell(int i, int j)
 
 void Field::makeRoad()
 {
-	// добавим стартовую ячейку в дорогу, остальные добавим через функцию
+	// добавим стартовую ячейку в дорогу (она находится вне поля), остальные добавим через функцию addCell
 	// можно построить любую дорогу, зная координаты
 	RoadCell *_cell = new RoadCell(1, -1);
 	m_roadCells.push_back(_cell);
 
 	addCell(1, 0);
-	//RoadCell *_cell = new RoadCell(1, 0);
-	//m_roadCells.push_back(_cell);
-	//m_field[1][0] = 1;
 	for (int i = 1; i < ROWS - 1; ++i) {
 		addCell(i, 1);
 	}
@@ -72,9 +69,15 @@ void Field::paintRoad(sf::RenderWindow & window)
 			}
 		}
 	}
-	// финишная черта / белый круг
-	sf::CircleShape finish(12, 10);
-	finish.setPosition(m_roadCells.back()->getCoordinates().second * (float)(W) + W / 3, m_roadCells.back()->getCoordinates().first * (float)(W) + W / 3);
-	finish.setFillColor(sf::Color::White);
-	window.draw(finish);
+	// финишная черта / красный крестик
+	sf::RectangleShape finish1(sf::Vector2f(W >> 1, 5));
+	finish1.move(m_roadCells.back()->getCoordinates().second * (float)(W)+W / 3, m_roadCells.back()->getCoordinates().first * (float)(W)+W / 3);
+	finish1.rotate(45.f);
+	finish1.setFillColor(sf::Color::Red);
+	window.draw(finish1);
+	sf::RectangleShape finish2(sf::Vector2f(W >> 1, 5));
+	finish2.move(m_roadCells.back()->getCoordinates().second * (float)(W)+W / 3 - 3, m_roadCells.back()->getCoordinates().first * (float)(W)+W *0.7 - 2);
+	finish2.rotate(-45.f);
+	finish2.setFillColor(sf::Color::Red);
+	window.draw(finish2);
 }

@@ -127,7 +127,7 @@ void missileDrawCycle(Missiles & missiles, sf::RenderWindow & window, bool & dra
 		endShooting = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> timeShooting{ endShooting - startShooting };
 		// рисуем снаряды x секунд
-		if (timeShooting.count() > 0.2) {
+		if (timeShooting.count() > 0.5) {
 			missiles.deleteMissiles();
 			shooting = 0;
 			drawMissiles = 0;

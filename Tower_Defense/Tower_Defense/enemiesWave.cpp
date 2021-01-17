@@ -3,7 +3,10 @@
 #include "consts.h"
 
 EnemiesWave::EnemiesWave(int level)
-	: m_level{ level } {}
+	: m_level{ level }
+{
+	m_enemiesList.reserve(25);
+}
 
 void EnemiesWave::spawnNextEnemy(RoadCell * cellToSpawn)
 {
@@ -23,21 +26,19 @@ void EnemiesWave::nextWave()
 	if (m_level != 5) {
 		++m_level;
 	}
-	m_enemiesList.clear();
+	//m_enemiesList.clear();
 	// в зависимости от уровня волны в ней будут разные противники в разном кол-ве
 	switch (m_level)
 	{
 	case 1:
-		m_enemiesLeft = 5;
-		m_enemiesList.reserve(m_enemiesLeft);
-		for (int i = 0; i < 5; ++i) {
+		m_enemiesLeft = 10;
+		for (int i = 0; i < 10; ++i) {
 			Enemy *enemy = new Enemy(1);
 			m_enemiesList.push_back(enemy);
 		}
 		break;
 	case 2:
 		m_enemiesLeft = 10;
-		m_enemiesList.reserve(m_enemiesLeft);
 		for (int i = 0; i < 5; ++i) {
 			Enemy *enemy = new Enemy(1);
 			m_enemiesList.push_back(enemy);
@@ -49,7 +50,6 @@ void EnemiesWave::nextWave()
 		break;
 	case 3:
 		m_enemiesLeft = 10;
-		m_enemiesList.reserve(m_enemiesLeft);
 		for (int i = 0; i < 5; ++i) {
 			Enemy *enemy = new Enemy(2);
 			m_enemiesList.push_back(enemy);
@@ -60,17 +60,23 @@ void EnemiesWave::nextWave()
 		}
 		break;
 	case 4:
-		m_enemiesLeft = 10;
-		m_enemiesList.reserve(m_enemiesLeft);
+		m_enemiesLeft = 15;
 		for (int i = 0; i < 10; ++i) {
 			Enemy *enemy = new Enemy(3);
 			m_enemiesList.push_back(enemy);
 		}
+		for (int i = 0; i < 5; ++i) {
+			Enemy *enemy = new Enemy(4);
+			m_enemiesList.push_back(enemy);
+		}
 		break;
 	case 5:
-		m_enemiesLeft = 10;
-		m_enemiesList.reserve(m_enemiesLeft);
-		for (int i = 0; i < 10; ++i) {
+		m_enemiesLeft = 20;
+		for (int i = 0; i < 5; ++i) {
+			Enemy *enemy = new Enemy(3);
+			m_enemiesList.push_back(enemy);
+		}
+		for (int i = 0; i < 15; ++i) {
 			Enemy *enemy = new Enemy(4);
 			m_enemiesList.push_back(enemy);
 		}
@@ -100,7 +106,7 @@ bool EnemiesWave::moveAllEnemies()
 		if (var->getPositionEnemy()) {
 			var->enemyMoves();
 			// если враг прошел полную клетку
-			if (var->getDistance() == W) {
+			if (var->getDistance() >= W) {
 				var->changePosition();
 				// если враг еще не закончил путь и есть куда двигаться дальше
 				if (var->getPositionEnemy()->getNextCell()) {

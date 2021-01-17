@@ -28,7 +28,7 @@ void drawShop(int level, int money, int type, sf::RenderWindow &window)
 	window.draw(levelText);
 
 	sf::CircleShape tower1(25, 10);
-	tower1.setPosition(15, W * ROWS + 15);
+	tower1.setPosition((W / 80.f) * 15, W * ROWS + 15);
 	tower1.setFillColor(sf::Color(115, 190, 250));
 
 	sf::CircleShape tower2(25, 10);
