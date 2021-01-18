@@ -13,57 +13,75 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Windows">
+      <UniqueIdentifier>{0a14dde4-8ccf-49fb-9196-c5f661531ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows">
+      <UniqueIdentifier>{a7d213c4-e0e1-477d-9726-5304a162d19a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AI">
+      <UniqueIdentifier>{e8673222-f9a2-468c-bcf5-6005b52b33fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI">
+      <UniqueIdentifier>{4b40b1a5-2313-446e-88a2-e1195ee44918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Other_functions">
+      <UniqueIdentifier>{9b780586-87f5-4a2d-9b5e-8cf94d7d05d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Other_functions">
+      <UniqueIdentifier>{71319896-858b-419d-9cc8-4d6e116fff9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="_AI_makes_move.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="endCheck.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mainGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="results.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="checkLines.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="drawing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mainGame.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="results.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="_AI_makes_move.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="checkLines.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="endCheck.cpp">
+      <Filter>Source Files\Other_functions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="_AI_makes_move.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="endCheck.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mainGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="results.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="checkLines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="drawing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="consts.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mainGame.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="results.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="checkLines.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="_AI_makes_move.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="endCheck.h">
+      <Filter>Header Files\Other_functions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

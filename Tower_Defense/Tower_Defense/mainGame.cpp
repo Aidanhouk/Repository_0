@@ -45,8 +45,6 @@ void mainGame(int &result, int &level)
 	bool endOfGame{ 0 };
 	// конец волны?
 	bool endOfWave{ 1 };
-	// рисовать снаряды?
-	bool drawMissile{ 0 };
 
 	// главный цикл игры
 	while (window.isOpen())
@@ -101,8 +99,6 @@ void mainGame(int &result, int &level)
 		if (!endOfWave) {
 			// спавн противников
 			spawnNextEnemyCycle(enemiesWave, field);
-			// башни стреляют
-			towerShootCycle(towerControl, field, missiles, drawMissile);
 			// проверяем, живы ли враги + обновляем монеты
 			enemiesWave.checkAlive(money);
 		}
@@ -127,10 +123,8 @@ void mainGame(int &result, int &level)
 		drawShop(enemiesWave.getLevel(), money, type, window);
 		// рисуем всех врагов
 		enemiesWave.drawAllEnemies(window);
-		// рисуем снаряды, если был сделан выстрел
-		if (drawMissile) {
-			missileDrawCycle(missiles, window, drawMissile);
-		}
+		// башни стреляют + отрисовка
+		towerShootCycle(window, towerControl, field, missiles);
 		// рисуем башни
 		towerControl.drawAllTowers(window);
 		// отрисовка

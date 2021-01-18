@@ -10,11 +10,13 @@ EnemiesWave::EnemiesWave(int level)
 
 void EnemiesWave::spawnNextEnemy(RoadCell * cellToSpawn)
 {
+	bool alive{ 0 };
 	for (auto & var : m_enemiesList) {
 		// если враг еще не заспавнился
-		if (!var->getPositionEnemy()) {
+		if (!var->getPositionEnemy() && !var->getIsKilled()) {
 			var->setPosition(cellToSpawn);
 			var->setDirection(cellToSpawn);
+			var->setIsAlive(1);
 			break;
 		}
 	}
@@ -26,7 +28,10 @@ void EnemiesWave::nextWave()
 	if (m_level != 5) {
 		++m_level;
 	}
-	//m_enemiesList.clear();
+	for (auto & var : m_enemiesList) {
+		delete var;
+	}
+	m_enemiesList.clear();
 	// в зависимости от уровня волны в ней будут разные противники в разном кол-ве
 	switch (m_level)
 	{
@@ -89,12 +94,9 @@ void EnemiesWave::nextWave()
 void EnemiesWave::drawAllEnemies(sf::RenderWindow & window)
 {
 	for (auto & var : m_enemiesList) {
-		// если враг уже заспавнился
-		if (var->getPositionEnemy()) {
+		// если враг жив
+		if (var->isAlive()) {
 			var->drawEnemy(window);
-		}
-		else {
-			break;
 		}
 	}
 }
@@ -102,8 +104,8 @@ void EnemiesWave::drawAllEnemies(sf::RenderWindow & window)
 bool EnemiesWave::moveAllEnemies()
 {
 	for (auto & var : m_enemiesList) {
-		// если враг уже заспавнился
-		if (var->getPositionEnemy()) {
+		// если враг жив
+		if (var->isAlive()) {
 			var->enemyMoves();
 			// если враг прошел полную клетку
 			if (var->getDistance() >= W) {
@@ -116,9 +118,6 @@ bool EnemiesWave::moveAllEnemies()
 					return 1;
 				}
 			}
-		}
-		else {
-			break;
 		}
 	}
 	return 0;
@@ -134,25 +133,19 @@ void EnemiesWave::checkAlive(int &money)
 	while (!f) {
 		erased = 0;
 		for (var = m_enemiesList.begin(); var != m_enemiesList.end(); ++var) {
-			// если враг уже заспавнился
-			if ((*var)->getPositionEnemy()) {
+			// если враг жив
+			if ((*var)->isAlive()) {
 				if ((*var)->getHealth() <= 0) {
 					money += (*var)->getCoins();
 					erased = 1;
+					// устанавливаем, что враг мертв
+					(*var)->setIsAlive(0);
+					(*var)->setIsKilled(1);
 					// убираем врага с клетки
 					(*var)->getPositionEnemy()->setEnemyOnCell(nullptr);
-					// освобождаем память, выделенную для врага при создании волны
-					delete (*var);
-					// удаляем врага из текущей волны
-					m_enemiesList.erase(var);
 					--m_enemiesLeft;
 					break;
 				}
-			}
-			// если дошли до врага, который еще не появился
-			else {
-				f = 1;
-				break;
 			}
 		}
 		// если не удалили врага

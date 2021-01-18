@@ -33,28 +33,24 @@ void Tower::drawTower(sf::RenderWindow & window)
 void Tower::shoot(Field & field, Missiles &missiles)
 {
 	// проходимся по всей дороге с конца
-	auto currentCell = field.getRoad().end();
-	--currentCell;
-	// до начала, но не учитываем 1 клетку, т.к. она за полем, откуда приходят враги
-	auto startCell = field.getRoad().begin();
-	++startCell;
-	for (; currentCell != startCell; --currentCell) {
+	for (auto currentCell = field.getFinishPos(); currentCell != field.getStartPos(); currentCell = currentCell->getPrevCell()) {
 		// если на этой ячейке есть враг
-		if ((*currentCell)->getEnemyOnCell()) {
+		if (currentCell->getEnemyOnCell()) {
 			// переменные для вычисления дистанции между клеткой и башней
-			std::pair<int, int> enemyCellCoord{ (*currentCell)->getCoordinates() };
+			std::pair<int, int> enemyCellCoord{ currentCell->getCoordinates() };
 			std::pair<int, int> coordDif{ enemyCellCoord.first - m_position.first, enemyCellCoord.second - m_position.second };
 			// если враг находится вокруг башни (8 клеток)
 			if (coordDif.first <= 1 && coordDif.first >= -1 && coordDif.second <= 1 && coordDif.second >= -1) {
-				(*currentCell)->getEnemyOnCell()->getDamage(m_dmg);
+				currentCell->getEnemyOnCell()->getDamage(m_dmg);
 				// создаем объект снаряда и добавляем его в вектор снарядов
-				std::pair<std::pair<int, int>, RoadCell*> *missile{ new std::pair<std::pair<int, int>, RoadCell*> };
+				std::pair<std::pair<int, int>, Enemy*> *missile{ new std::pair<std::pair<int, int>, Enemy*> };
 				missile->first.first = m_position.first;
 				missile->first.second = m_position.second;
-				missile->second = *currentCell;
+				missile->second = currentCell->getEnemyOnCell();
 				missiles.addMissile(missile);
 				break;
 			}
+
 		}
 	}
 }

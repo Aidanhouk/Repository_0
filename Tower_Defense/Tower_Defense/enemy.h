@@ -3,11 +3,16 @@
 #include <SFML/Graphics.hpp>
 
 #include "roadCell.h"
+#include "consts.h"
 
 // класс противника
 class Enemy
 {
 private:
+	// жив ли юнит
+	bool m_isAlive{ 0 };
+	// убит ли юнит
+	bool m_isKilled{ 0 };
 	// тип врага
 	int m_type;
 	// здоровье
@@ -50,4 +55,12 @@ public:
 	int getHealth() const { return m_hp; }
 	// получаем кол-во монет с врага
 	int getCoins() const { return m_coins; }
+	// получаем m_isAlive
+	bool isAlive() const { return m_isAlive; }
+	// устанавливаем m_isAlive
+	void setIsAlive(bool isAlive) { m_isAlive = isAlive; }
+	// получаем m_isKilled
+	bool getIsKilled() const { return m_isKilled; }
+	// устанавливаем m_isKilled
+	void setIsKilled(bool isKilled) { m_isKilled = isKilled; }
 };

@@ -1,7 +1,5 @@
 #include "enemy.h"
 
-#include "consts.h"
-
 Enemy::Enemy(int type)
 	: m_type{ type }
 {

@@ -1,84 +1,104 @@
 ﻿  cycleFuncions.cpp
   enemiesWave.cpp
+c:\users\timur\source\repos\tower_defense\tower_defense\enemieswave.cpp(13): warning C4189: 'alive': local variable is initialized but not referenced
   enemy.cpp
   field.cpp
-c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(79): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  main.cpp
+c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(81): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   mainGame.cpp
   missilesControl.cpp
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(20): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(22): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(74): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(83): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(28): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(49): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(93): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(62): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(103): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(66): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(81): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(104): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(107): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(85): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(98): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(108): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(111): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(114): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(99): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(102): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(105): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(108): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(109): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(118): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(119): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(122): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(123): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(126): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(129): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(134): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(143): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(146): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(149): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(145): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(148): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(150): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(153): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(152): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(161): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(164): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(167): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(154): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(163): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(166): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(168): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(171): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(167): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(170): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(172): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(181): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(184): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(171): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(174): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(181): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  results.cpp
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(185): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(188): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(189): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(192): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\missilescontrol.cpp(199): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   roadCell.cpp
-  drawShop.cpp
   tower.cpp
   towersControl.cpp
   Generating code
-  All 565 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  122 of 504 functions (24.2%) were compiled, the rest were copied from previous compilation.
+    68 functions were new in current compilation
+    37 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Tower_Defense.vcxproj -> C:\Users\timur\source\repos\Tower_Defense\Release\Tower_Defense.exe

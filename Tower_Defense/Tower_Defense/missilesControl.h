@@ -13,7 +13,7 @@ private:
 	// координаты, где находится башня (pair<int, int>)
 	// и указатель на клетку, в которую был осуществлен выстрел
 	// хранит указатели на снаряды
-	std::vector<std::pair<std::pair<int, int>, RoadCell*>*> missilesVector;
+	std::vector<std::pair<std::pair<int, int>, Enemy*>*> missilesVector;
 public:
 	Missiles() {}
 	~Missiles() {}
@@ -21,7 +21,7 @@ public:
 	// отрисовывает все снаряды
 	void drawMissiles(sf::RenderWindow & window);
 	// добавляет снаряд в вектор снарядов
-	void addMissile(std::pair<std::pair<int, int>, RoadCell*> * missile) { missilesVector.push_back(missile); }
+	void addMissile(std::pair<std::pair<int, int>, Enemy*> * missile) { missilesVector.push_back(missile); }
 	// очищает вектор снарядов
 	void deleteMissiles();
 };

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-
 // ширина клетки поля в пикселях, НЕ ИЗМЕНЯТЬ
 const int W{ 80 };
 

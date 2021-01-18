@@ -27,27 +27,31 @@ void spawnNextEnemyCycle(EnemiesWave &enemiesWave, Field &field)
 	}
 }
 
-// пазуа емжду выстрелами башен
+// пазуа между выстрелами башен
 static bool breakShoot{ 0 };
 // переменные для измерения времени между выстрелами башен
 static std::chrono::time_point<std::chrono::steady_clock> startShoot;
 static std::chrono::time_point<std::chrono::steady_clock> endShoot;
 
-void towerShootCycle(TowersControl &towerControl, Field &field, Missiles &missiles, bool &drawMissiles)
+void towerShootCycle(sf::RenderWindow & window, TowersControl &towerControl, Field &field, Missiles &missiles)
 {
 	// башни стреляют
 	if (!breakShoot) {
+		// удаляем старые выстрелы
+		missiles.deleteMissiles();
+		// добавляем новые
 		towerControl.towersShoot(field, missiles);
 		startShoot = std::chrono::high_resolution_clock::now();
 		breakShoot = 1;
 	}
 	// закончился ли перерыв между выстрелами?
 	if (breakShoot) {
+		// рисуем выстрелы
+		missiles.drawMissiles(window);
 		endShoot = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<float> breakShootTime{ endShoot - startShoot };
 		// если прошло x сек, стреляем
 		if (breakShootTime.count() > 0.5) {
-			drawMissiles = 1;
 			breakShoot = 0;
 		}
 	}
@@ -68,7 +72,6 @@ void enemyMoveCycle(EnemiesWave &enemiesWave, bool &endOfGame)
 		startMoveEnemy = std::chrono::high_resolution_clock::now();
 		enemiesMove = 1;
 	}
-	// ждем 1/60 секунды
 	if (enemiesMove) {
 		endMoveEnemy = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<double> breakEnemyTime{ endMoveEnemy - startMoveEnemy };
@@ -106,31 +109,6 @@ void waveBreakCycle(EnemiesWave &enemiesWave, int &result, bool &endOfGame, bool
 			enemiesWave.nextWave();
 			endOfWave = 0;
 			_break = 0;
-		}
-	}
-}
-
-// рисовать снаряды?
-static bool shooting{ 0 };
-// переменные для измерения времени между отрисовками снарядов
-static std::chrono::time_point<std::chrono::steady_clock> startShooting;
-static std::chrono::time_point<std::chrono::steady_clock> endShooting;
-
-void missileDrawCycle(Missiles & missiles, sf::RenderWindow & window, bool & drawMissiles)
-{
-	if (!shooting) {
-		startShooting = std::chrono::high_resolution_clock::now();
-		shooting = 1;
-	}
-	if (shooting) {
-		missiles.drawMissiles(window);
-		endShooting = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> timeShooting{ endShooting - startShooting };
-		// рисуем снаряды x секунд
-		if (timeShooting.count() > 0.5) {
-			missiles.deleteMissiles();
-			shooting = 0;
-			drawMissiles = 0;
 		}
 	}
 }
