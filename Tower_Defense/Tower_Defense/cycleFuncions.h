@@ -5,12 +5,9 @@
 #include "towersControl.h"
 #include <SFML/Graphics.hpp>
 
-// эти функции выполн€ют что-то в определенном промежутке времени
-// спавнит враго
+// функции ниже выполн€ют что-то в определенном промежутке времени
+
+// спавнит след. врага
 void spawnNextEnemyCycle(EnemiesWave &enemiesWave, Field &field);
-// башни стрел€ют
-void towerShootCycle(sf::RenderWindow & window, TowersControl &towerControl, Field &field, Missiles &missiles);
-// враг двигаетс€
-void enemyMoveCycle(EnemiesWave &enemiesWave, bool &endOfGame);
 // перерыв между волнами
 void waveBreakCycle(EnemiesWave &enemiesWave, int &result, bool &endOfGame, bool &endOfWave);

@@ -144,7 +144,7 @@
     <ClCompile Include="missilesControl.cpp" />
     <ClCompile Include="results.cpp" />
     <ClCompile Include="roadCell.cpp" />
-    <ClCompile Include="drawShop.cpp" />
+    <ClCompile Include="shop.cpp" />
     <ClCompile Include="tower.cpp" />
     <ClCompile Include="towersControl.cpp" />
   </ItemGroup>
@@ -158,7 +158,7 @@
     <ClInclude Include="missilesControl.h" />
     <ClInclude Include="results.h" />
     <ClInclude Include="roadCell.h" />
-    <ClInclude Include="drawShop.h" />
+    <ClInclude Include="shop.h" />
     <ClInclude Include="tower.h" />
     <ClInclude Include="towersControl.h" />
   </ItemGroup>

@@ -22,20 +22,26 @@ private:
 	// в какую сторону должен двигаться
 	int m_direction;
 	// насколько далеко от центра клетки, нужно для отрисовки и смены ячейки
-	int m_distance{ 0 };
+	double m_distance{ 0 };
+	// скорость движения
+	double m_speed;
+	// указатель на тестуру врага
+	sf::Texture * m_enemyTexture;
 	// на какой клетке находится
 	RoadCell *m_position{ nullptr };
 public:
 	// в конструктор нужно передать тип монстра
-	Enemy(int type);
+	Enemy(int type, sf::Texture * enemyTextures[ENEMIES_COUNT]);
 	~Enemy() {}
 
 	// сбрасываем m_distance и меняем клетку
 	void changePosition();
 	// отрисовка врага
 	void drawEnemy(sf::RenderWindow &window);
+	// отрисовка шкалы здоровья
+	void drawHPBar(sf::RenderWindow &window);
 	// враг двигается
-	void enemyMoves() { m_distance += 2; }
+	void enemyMoves() { m_distance += m_speed; }
 	// враг получает урон
 	void getDamage(int dmg) { m_hp -= dmg; }
 	// рисовать получение выстрела
@@ -50,7 +56,7 @@ public:
 	// устанавливаем направление движения
 	void setDirection(RoadCell * currentPosition);
 	// получаем m_distance
-	int getDistance() const { return m_distance; }
+	double getDistance() const { return m_distance; }
 	// получаем hp
 	int getHealth() const { return m_hp; }
 	// получаем кол-во монет с врага

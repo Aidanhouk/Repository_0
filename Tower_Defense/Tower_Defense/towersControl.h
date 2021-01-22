@@ -12,8 +12,10 @@ class TowersControl
 private:
 	// все башни
 	std::vector<Tower*> m_towersList;
+	// тектуры башен
+	sf::Texture* m_towersTextures[TOWERS_COUNT]{ nullptr };
 public:
-	TowersControl() {}
+	TowersControl();
 	~TowersControl();
 
 	// поставить башню

@@ -1,15 +1,15 @@
 #include "mainGame.h"
 
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 #include <thread>
 
 #include "field.h"
 #include "enemiesWave.h"
 #include "towersControl.h"
 #include "consts.h"
-#include "drawShop.h"
 #include "cycleFuncions.h"
 #include "missilesControl.h"
+#include "shop.h"
 
 void mainGame(int &result, int &level)
 {
@@ -20,25 +20,31 @@ void mainGame(int &result, int &level)
 	font.loadFromFile("sansation.ttf");
 
 	// окно игры
-	sf::RenderWindow window(sf::VideoMode(W * COLS, W * (ROWS + 1)), "Tower defense", sf::Style::Titlebar | sf::Style::Close, settings);
+	sf::RenderWindow window(sf::VideoMode(W * COLS, W * (ROWS + 1.5)), "Tower defense", sf::Style::Titlebar | sf::Style::Close, settings);
 
 	// нужно ограничить фпс
-	window.setFramerateLimit(100);
+	window.setFramerateLimit(60);
 
 	// объект пол€
 	Field field;
 	// создаем дорогу
 	field.makeRoad();
+	// создаем спрайт блока вне дороги
+	sf::Texture emptyBlockTexture;
+	emptyBlockTexture.loadFromFile("images/field/emptyBlock.png");
+	sf::Sprite spriteBack(emptyBlockTexture);
 
 	// объект волны противников, в параметрах - уровень волны с который начнетс€ игра минус 1
-	EnemiesWave enemiesWave(0);
+	EnemiesWave enemiesWave(0, 5);
 	// объект дл€ управлени€ башн€ми
 	TowersControl towerControl;
 	// объект дл€ работы со снар€дами
 	Missiles missiles;
+	// объект магазина
+	Shop shop;
 
 	// изначальные деньги
-	int money{ MONEY };
+	int money{ START_MONEY };
 	// тип башни, на которую нажал игрок в магазине
 	int type{ 0 };
 	// конец игры?
@@ -65,25 +71,17 @@ void mainGame(int &result, int &level)
 			// если нажата кнопка мыши и игра не закончена
 			if (event.type == sf::Event::MouseButtonPressed && !endOfGame) {
 				// фиксируем нажати€ на башни в магазине
-				if (x == 0 && y == ROWS) {
-					if (money >= TOWERS_PRICE[1]) {
-						type = 1;
-					}
-				}
-				if (x == 1 && y == ROWS) {
-					if (money >= TOWERS_PRICE[2]) {
-						type = 2;
-					}
-				}
-				if (x == 2 && y == ROWS) {
-					if (money >= TOWERS_PRICE[3]) {
-						type = 3;
+				if (y == ROWS) {
+					if (x >= 0 && x < TOWERS_COUNT) {
+						if (money >= TOWERS_PRICE[x + 1]) {
+							type = x + 1;
+						}
 					}
 				}
 				// если выбрана башн€
 				if (type) {
 					// если нажата не область меню
-					if (y != ROWS) {
+					if (y < ROWS) {
 						// если эта €чейка пуста€
 						if (!field.getCellValue(y, x)) {
 							towerControl.addTower(y, x, type);
@@ -106,33 +104,41 @@ void mainGame(int &result, int &level)
 		if (!enemiesWave.getEnemiesLeft()) {
 			endOfWave = 1;
 		}
-		// противники двигаютс€
-		if (!endOfWave) {
-			enemyMoveCycle(enemiesWave, endOfGame);
-		}
 		// ожидание новой волны
 		if (endOfWave) {
 			waveBreakCycle(enemiesWave, result, endOfGame, endOfWave);
 		}
+		// противники двигаютс€
+		if (!endOfWave) {
+			endOfGame = enemiesWave.moveAllEnemies();
+		}
 
-		// цвет фона
-		window.clear(sf::Color(30, 115, 30));
+		window.clear();
+		window.draw(spriteBack);
 		// рисуем дорогу + финиш
 		field.paintRoad(window);
 		// рисуем область магазина
-		drawShop(enemiesWave.getLevel(), money, type, window);
+		shop.drawShop(enemiesWave.getLevel(), money, type, window);
 		// рисуем всех врагов
 		enemiesWave.drawAllEnemies(window);
-		// башни стрел€ют + отрисовка
-		towerShootCycle(window, towerControl, field, missiles);
+
 		// рисуем башни
 		towerControl.drawAllTowers(window);
-		// отрисовка
+
+		// башни стрел€ют + отрисовка
+		if (!endOfWave) {
+		// добавл€ем новые
+		towerControl.towersShoot(field, missiles);
+		// рисуем выстрелы
+		missiles.drawMissiles(window);
+		}
+
+		// отрисовка окна
 		window.display();
 
 		// если игра окончена, то выходим
 		if (endOfGame) {
-			// если результат = 0 и игра окончена, то она проигрына
+			// если результат = 0, то игра проигрына
 			if (!result) {
 				result = 2;
 			}

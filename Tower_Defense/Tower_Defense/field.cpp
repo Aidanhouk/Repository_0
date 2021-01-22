@@ -9,6 +9,14 @@ Field::Field()
 	for (int i = 0; i < ROWS; ++i) {
 		m_field[i] = new int[COLS] {0};
 	}
+	// создаем текстуру дороги
+	sf::Texture *roadTexture{ new sf::Texture };
+	(*roadTexture).loadFromFile("images/field/road.png");
+	m_roadTexture = roadTexture;
+	// создаем текстуру финишной линии
+	sf::Texture *finishLineTexture{ new sf::Texture };
+	(*finishLineTexture).loadFromFile("images/field/finishLine.png");
+	m_finishLineTexture = finishLineTexture;
 }
 
 Field::~Field()
@@ -20,6 +28,8 @@ Field::~Field()
 		delete[] m_field[i];
 	}
 	delete[] m_field;
+	delete m_roadTexture;
+	delete m_finishLineTexture;
 }
 
 void Field::addCell(int i, int j)
@@ -60,26 +70,20 @@ void Field::makeRoad()
 
 void Field::paintRoad(sf::RenderWindow & window)
 {
+	// рисуем дорогу
 	for (int i = 0; i < ROWS; ++i) {
 		for (int j = 0; j < COLS; ++j) {
 			if (m_field[i][j] == 1) {
-				// рисуем дорогу
 				sf::RectangleShape road(sf::Vector2f(W, W));
 				road.move(j * static_cast<float>(W), i * static_cast<float>(W));
-				road.setFillColor(sf::Color(150, 125, 60));
+				road.setTexture(m_roadTexture);
 				window.draw(road);
 			}
 		}
 	}
-	// финишная черта / красный крестик
-	sf::RectangleShape finish1(sf::Vector2f(W >> 1, 5));
-	finish1.move(m_finishCell->getCoordinates().second * (float)(W)+W / 3, m_finishCell->getCoordinates().first * (float)(W)+W / 3);
-	finish1.rotate(45.f);
-	finish1.setFillColor(sf::Color::Red);
-	window.draw(finish1);
-	sf::RectangleShape finish2(sf::Vector2f(W >> 1, 5));
-	finish2.move(m_finishCell->getCoordinates().second * (float)(W)+W / 3 - 3, m_finishCell->getCoordinates().first * (float)(W)+W *0.7 - 2);
-	finish2.rotate(-45.f);
-	finish2.setFillColor(sf::Color::Red);
-	window.draw(finish2);
+	// финишная черта
+	sf::RectangleShape finishLine(sf::Vector2f(W, W));
+	finishLine.move(m_finishCell->getCoordinates().second * (float)(W), m_finishCell->getCoordinates().first * (float)(W));
+	finishLine.setTexture(m_finishLineTexture);
+	window.draw(finishLine);
 }

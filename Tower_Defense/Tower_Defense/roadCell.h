@@ -1,6 +1,7 @@
 #pragma once
 
 #include <utility>
+#include <vector>
 class Enemy;
 
 // класс ячейки дороги
@@ -15,7 +16,8 @@ private:
 	RoadCell *m_prevCell;
 	// тут можно сделать вектор с указателями на врагов находящихся на этой клетке,
 	// но в этой версии игры на 1 клетке может стоять только 1 враг
-	Enemy *m_enemyOnCell{ nullptr };
+	std::vector<Enemy*> m_enemiesOnCell;
+	//Enemy *m_enemyOnCell{ nullptr };
 	// кол-во врагов на этом поле
 	int m_countEnemiesOnCell;
 public:
@@ -37,8 +39,10 @@ public:
 	// установить m_prevCell
 	void setPrevCell(RoadCell * prevCell) { m_prevCell = prevCell; }
 	
-	// возращает врага на этой клетке
-	Enemy * getEnemyOnCell() { return m_enemyOnCell; }
-	// установить врага на эту клетку
-	void setEnemyOnCell(Enemy * enemy) { m_enemyOnCell = enemy; }
+	// возращает врага на этой клетке, который встрал на нее позже всех
+	Enemy * getEnemyOnCell();
+	// добавить врага на эту клетку
+	void setEnemyOnCell(Enemy * enemy) { m_enemiesOnCell.push_back(enemy); }
+	// удалить врага из клетки
+	void removeEnemyFromCell(Enemy * enemy);
 };

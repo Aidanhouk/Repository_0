@@ -14,8 +14,10 @@ private:
 	RoadCell *m_startCell;
 	// указатель на финишную €чейку дороги
 	RoadCell *m_finishCell;
-	// список €чеек дороги
-	//std::list<RoadCell*> m_roadCells;
+	// текстура дороги
+	sf::Texture *m_roadTexture;
+	// текстура финиша
+	sf::Texture *m_finishLineTexture;
 public:
 	Field();
 	~Field();

@@ -3,30 +3,19 @@
 #include "consts.h"
 #include "enemy.h"
 
-Tower::Tower(int i, int j, int type)
+Tower::Tower(int i, int j, int type, sf::Texture * towersTextures[TOWERS_COUNT])
 	: m_type{ type }
 {
 	m_position.first = i;
 	m_position.second = j;
 	m_dmg = TOWERS_DAMAGE[type];
+	m_towerTexture = towersTextures[type];
 }
 
 void Tower::drawTower(sf::RenderWindow & window)
 {
-	sf::CircleShape tower(25, 10);
-	tower.setPosition((float)(W) * m_position.second + 15, (float)(W) * m_position.first + 15);
-	switch (m_type)
-	{
-	case 1:
-		tower.setFillColor(sf::Color(115, 190, 250));
-		break;
-	case 2:
-		tower.setFillColor(sf::Color(240, 85, 85));
-		break;
-	case 3:
-		tower.setFillColor(sf::Color(210, 40, 255));
-		break;
-	}
+	sf::Sprite tower(*m_towerTexture);
+	tower.setPosition((float)(W) * m_position.second, (float)(W) * m_position.first);
 	window.draw(tower);
 }
 

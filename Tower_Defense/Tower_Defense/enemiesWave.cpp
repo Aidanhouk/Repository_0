@@ -2,10 +2,25 @@
 
 #include "consts.h"
 
-EnemiesWave::EnemiesWave(int level)
-	: m_level{ level }
+EnemiesWave::EnemiesWave(int level, int maxLevel)
+	: m_level{ level }, m_maxLevel{ maxLevel }
 {
 	m_enemiesList.reserve(25);
+	// скачиваем и записываем текстуры врагов
+	for (int i = 1; i < ENEMIES_COUNT; ++i) {
+		sf::Texture *enemyTexture{ new sf::Texture() };
+		(*enemyTexture).loadFromFile("images/enemies/enemy" + std::to_string(i) + ".png");
+		m_enemiesTextures[i] = enemyTexture;
+	}
+}
+
+EnemiesWave::~EnemiesWave()
+{
+	for (auto var : m_enemiesTextures) {
+		if (var) {
+			delete var;
+		}
+	}
 }
 
 void EnemiesWave::spawnNextEnemy(RoadCell * cellToSpawn)
@@ -22,72 +37,77 @@ void EnemiesWave::spawnNextEnemy(RoadCell * cellToSpawn)
 	}
 }
 
+void EnemiesWave::cleanWave()
+{
+	// удаляем прошлых врагов
+	for (auto & var : m_enemiesList) {
+		delete var;
+	}
+	m_enemiesList.clear();
+}
+
 void EnemiesWave::nextWave()
 {
 	// если уже макс уровень волны
 	if (m_level != 5) {
 		++m_level;
-	}
-	for (auto & var : m_enemiesList) {
-		delete var;
-	}
-	m_enemiesList.clear();
-	// в зависимости от уровня волны в ней будут разные противники в разном кол-ве
-	switch (m_level)
-	{
-	case 1:
-		m_enemiesLeft = 10;
-		for (int i = 0; i < 10; ++i) {
-			Enemy *enemy = new Enemy(1);
-			m_enemiesList.push_back(enemy);
+		// в зависимости от уровня волны в ней будут разные противники в разном кол-ве
+		switch (m_level)
+		{
+		case 1:
+			m_enemiesLeft = 10;
+			for (int i = 0; i < 10; ++i) {
+				Enemy *enemy = new Enemy(1, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		case 2:
+			m_enemiesLeft = 10;
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(1, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(2, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		case 3:
+			m_enemiesLeft = 10;
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(2, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(3, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		case 4:
+			m_enemiesLeft = 15;
+			for (int i = 0; i < 10; ++i) {
+				Enemy *enemy = new Enemy(3, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(4, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		case 5:
+			m_enemiesLeft = 20;
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(3, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			for (int i = 0; i < 15; ++i) {
+				Enemy *enemy = new Enemy(4, m_enemiesTextures);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		default:
+			break;
 		}
-		break;
-	case 2:
-		m_enemiesLeft = 10;
-		for (int i = 0; i < 5; ++i) {
-			Enemy *enemy = new Enemy(1);
-			m_enemiesList.push_back(enemy);
-		}
-		for (int i = 0; i < 5; ++i) {
-			Enemy *enemy = new Enemy(2);
-			m_enemiesList.push_back(enemy);
-		}
-		break;
-	case 3:
-		m_enemiesLeft = 10;
-		for (int i = 0; i < 5; ++i) {
-			Enemy *enemy = new Enemy(2);
-			m_enemiesList.push_back(enemy);
-		}
-		for (int i = 0; i < 5; ++i) {
-			Enemy *enemy = new Enemy(3);
-			m_enemiesList.push_back(enemy);
-		}
-		break;
-	case 4:
-		m_enemiesLeft = 15;
-		for (int i = 0; i < 10; ++i) {
-			Enemy *enemy = new Enemy(3);
-			m_enemiesList.push_back(enemy);
-		}
-		for (int i = 0; i < 5; ++i) {
-			Enemy *enemy = new Enemy(4);
-			m_enemiesList.push_back(enemy);
-		}
-		break;
-	case 5:
-		m_enemiesLeft = 20;
-		for (int i = 0; i < 5; ++i) {
-			Enemy *enemy = new Enemy(3);
-			m_enemiesList.push_back(enemy);
-		}
-		for (int i = 0; i < 15; ++i) {
-			Enemy *enemy = new Enemy(4);
-			m_enemiesList.push_back(enemy);
-		}
-		break;
-	default:
-		break;
 	}
 }
 
@@ -97,6 +117,7 @@ void EnemiesWave::drawAllEnemies(sf::RenderWindow & window)
 		// если враг жив
 		if (var->isAlive()) {
 			var->drawEnemy(window);
+			var->drawHPBar(window);
 		}
 	}
 }
@@ -142,7 +163,7 @@ void EnemiesWave::checkAlive(int &money)
 					(*var)->setIsAlive(0);
 					(*var)->setIsKilled(1);
 					// убираем врага с клетки
-					(*var)->getPositionEnemy()->setEnemyOnCell(nullptr);
+					(*var)->getPositionEnemy()->removeEnemyFromCell(*var);
 					--m_enemiesLeft;
 					break;
 				}

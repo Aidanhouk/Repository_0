@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "field.h"
-#include"missilesControl.h"
+#include "missilesControl.h"
 
 // класс башни
 class Tower
@@ -13,10 +13,12 @@ private:
 	int m_type;
 	// урон башни
 	int m_dmg;
+	// указатель на тестуру башни
+	sf::Texture * m_towerTexture;
 	// координаты башни на поле
 	std::pair<int, int> m_position{ -1,-1 };
 public:
-	Tower(int i, int j, int type);
+	Tower(int i, int j, int type, sf::Texture * towersTextures[TOWERS_COUNT]);
 	~Tower() {}
 
 	// отрисовка башни

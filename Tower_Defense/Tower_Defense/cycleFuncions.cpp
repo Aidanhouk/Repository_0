@@ -27,61 +27,6 @@ void spawnNextEnemyCycle(EnemiesWave &enemiesWave, Field &field)
 	}
 }
 
-// пазуа между выстрелами башен
-static bool breakShoot{ 0 };
-// переменные для измерения времени между выстрелами башен
-static std::chrono::time_point<std::chrono::steady_clock> startShoot;
-static std::chrono::time_point<std::chrono::steady_clock> endShoot;
-
-void towerShootCycle(sf::RenderWindow & window, TowersControl &towerControl, Field &field, Missiles &missiles)
-{
-	// башни стреляют
-	if (!breakShoot) {
-		// удаляем старые выстрелы
-		missiles.deleteMissiles();
-		// добавляем новые
-		towerControl.towersShoot(field, missiles);
-		startShoot = std::chrono::high_resolution_clock::now();
-		breakShoot = 1;
-	}
-	// закончился ли перерыв между выстрелами?
-	if (breakShoot) {
-		// рисуем выстрелы
-		missiles.drawMissiles(window);
-		endShoot = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<float> breakShootTime{ endShoot - startShoot };
-		// если прошло x сек, стреляем
-		if (breakShootTime.count() > 0.5) {
-			breakShoot = 0;
-		}
-	}
-}
-
-// пауза между движением монстров
-static bool enemiesMove{ 0 };
-// переменные для измерения времени между движением монстра
-static std::chrono::time_point<std::chrono::steady_clock> startMoveEnemy;
-static std::chrono::time_point<std::chrono::steady_clock> endMoveEnemy;
-
-void enemyMoveCycle(EnemiesWave &enemiesWave, bool &endOfGame)
-{
-	// движение врага
-	if (!enemiesMove) {
-		// если вернет 1, то игрок проиграл
-		endOfGame = enemiesWave.moveAllEnemies();
-		startMoveEnemy = std::chrono::high_resolution_clock::now();
-		enemiesMove = 1;
-	}
-	if (enemiesMove) {
-		endMoveEnemy = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> breakEnemyTime{ endMoveEnemy - startMoveEnemy };
-		// враг движется каждую x-ую секунды
-		if (breakEnemyTime.count() > 1.f / 500) {
-			enemiesMove = 0;
-		}
-	}
-}
-
 // перерыв между волнами?
 static bool _break{ 0 };
 // переменные для измерения времени между волнами
@@ -92,8 +37,9 @@ void waveBreakCycle(EnemiesWave &enemiesWave, int &result, bool &endOfGame, bool
 {
 	// если волна закончилась, запускаем таймер для перерыва
 	if (!_break) {
-		// если игрок прошел 5 уровень, игра заканчивается
-		if (enemiesWave.getLevel() == 5) {
+		enemiesWave.cleanWave();
+		// если игрок прошел макс уровень, игра заканчивается
+		if (enemiesWave.getLevel() == enemiesWave.getMaxLevel()) {
 			result = 1;
 			endOfGame = 1;
 		}

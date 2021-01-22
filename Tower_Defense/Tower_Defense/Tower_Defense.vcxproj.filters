@@ -16,33 +16,30 @@
     <Filter Include="Source Files\Enemy">
       <UniqueIdentifier>{16fee2d6-fcf8-4486-adb2-0ed865ed3999}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Enemy">
-      <UniqueIdentifier>{aa19f180-8a38-44da-9878-22506b45a02d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Tower">
       <UniqueIdentifier>{0557b258-6d15-40f0-bfae-2e1fcc541d55}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Tower">
-      <UniqueIdentifier>{b7a2f225-965e-4129-8a09-ea1ecc35c421}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Windows">
       <UniqueIdentifier>{e9ecefcb-c3cf-4470-aaa6-1cb45013b9e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Windows">
-      <UniqueIdentifier>{6b0936d1-2e63-4a3f-a7a4-d5956dd4f440}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Field">
       <UniqueIdentifier>{4ce51011-ca51-475b-9abb-17816e43569e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Field">
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{aa19f180-8a38-44da-9878-22506b45a02d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Field">
       <UniqueIdentifier>{abc5967a-f1d5-4fa4-aa5b-0b01ea7e4ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tower">
+      <UniqueIdentifier>{b7a2f225-965e-4129-8a09-ea1ecc35c421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows">
+      <UniqueIdentifier>{6b0936d1-2e63-4a3f-a7a4-d5956dd4f440}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="drawShop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cycleFuncions.cpp">
@@ -75,43 +72,46 @@
     <ClCompile Include="roadCell.cpp">
       <Filter>Source Files\Field</Filter>
     </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="consts.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="drawShop.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cycleFuncions.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="enemiesWave.h">
-      <Filter>Resource Files\Enemy</Filter>
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
-      <Filter>Resource Files\Enemy</Filter>
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="tower.h">
-      <Filter>Resource Files\Tower</Filter>
+      <Filter>Header Files\Tower</Filter>
     </ClInclude>
     <ClInclude Include="towersControl.h">
-      <Filter>Resource Files\Tower</Filter>
+      <Filter>Header Files\Tower</Filter>
     </ClInclude>
     <ClInclude Include="missilesControl.h">
-      <Filter>Resource Files\Tower</Filter>
+      <Filter>Header Files\Tower</Filter>
     </ClInclude>
     <ClInclude Include="results.h">
-      <Filter>Resource Files\Windows</Filter>
+      <Filter>Header Files\Windows</Filter>
     </ClInclude>
     <ClInclude Include="mainGame.h">
-      <Filter>Resource Files\Windows</Filter>
+      <Filter>Header Files\Windows</Filter>
     </ClInclude>
     <ClInclude Include="field.h">
-      <Filter>Resource Files\Field</Filter>
+      <Filter>Header Files\Field</Filter>
     </ClInclude>
     <ClInclude Include="roadCell.h">
-      <Filter>Resource Files\Field</Filter>
+      <Filter>Header Files\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="consts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cycleFuncions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
