@@ -16,65 +16,84 @@ c:\users\timur\source\repos\tower_defense\tower_defense\blockonfield.cpp(39): wa
           ]
 c:\users\timur\source\repos\tower_defense\tower_defense\blockonfield.cpp(41): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\timur\source\repos\tower_defense\tower_defense\blockonfield.cpp(42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  blocksControl.cpp
   cycleFuncions.cpp
   enemiesWave.cpp
   enemy.cpp
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(88): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(88): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(94): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(97): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(122): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(127): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(128): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(131): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(132): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(135): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(136): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(139): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(140): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(153): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(153): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(156): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(156): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(159): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(159): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(162): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(162): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  field.cpp
-c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(185): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(193): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
-          with
-          [
-              _Ty1=int
-          ]
-c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(193): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(93): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
           with
           [
               _Ty2=int
           ]
-  main.cpp
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(100): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(100): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(103): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(103): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(108): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(108): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(115): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(115): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(120): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(120): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(124): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(124): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(129): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(129): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(140): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(145): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(146): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(149): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(150): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(153): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(154): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(157): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\enemy.cpp(158): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  field.cpp
+c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(288): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(296): warning C4244: 'argument': conversion from '_Ty1' to 'float', possible loss of data
+          with
+          [
+              _Ty1=int
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\field.cpp(296): warning C4244: 'argument': conversion from '_Ty2' to 'float', possible loss of data
+          with
+          [
+              _Ty2=int
+          ]
   mainGame.cpp
 c:\users\timur\source\repos\tower_defense\tower_defense\maingame.cpp(20): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
   menu.cpp
-c:\users\timur\source\repos\tower_defense\tower_defense\menu.cpp(21): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\menu.cpp(28): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
 c:\users\timur\source\repos\tower_defense\tower_defense\menu.cpp(27): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-c:\users\timur\source\repos\tower_defense\tower_defense\menu.cpp(33): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
@@ -166,7 +185,6 @@ c:\users\timur\source\repos\tower_defense\tower_defense\missiles.cpp(195): warni
 c:\users\timur\source\repos\tower_defense\tower_defense\missiles.cpp(196): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\timur\source\repos\tower_defense\tower_defense\missiles.cpp(199): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\timur\source\repos\tower_defense\tower_defense\missiles.cpp(228): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  blocksControl.cpp
   results.cpp
   shop.cpp
 c:\users\timur\source\repos\tower_defense\tower_defense\shop.cpp(74): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
@@ -188,8 +206,8 @@ c:\users\timur\source\repos\tower_defense\tower_defense\tower.cpp(21): warning C
           ]
   towersControl.cpp
   Generating code
-  95 of 638 functions (14.9%) were compiled, the rest were copied from previous compilation.
-    20 functions were new in current compilation
-    15 functions had inline decision re-evaluated but remain unchanged
+  17 of 635 functions ( 2.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    8 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Tower_Defense.vcxproj -> C:\Users\timur\source\repos\Tower_Defense\Release\Tower_Defense.exe
