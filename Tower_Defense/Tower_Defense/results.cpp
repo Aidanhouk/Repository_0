@@ -3,28 +3,36 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-void result(int result, int level, bool &playAgain)
+void result(int result, int waveLevel, bool &playAgain)
 {
-	sf::ContextSettings settings;
-	settings.antialiasingLevel = 4;
-
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");
 
 	// окно игры
-	sf::RenderWindow window(sf::VideoMode(300, 250), "Tower defense", sf::Style::Titlebar | sf::Style::Close, settings);
+	sf::RenderWindow window(sf::VideoMode(300, 250), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
 
-	sf::Text lostText("You got to level  " + std::to_string(level), font, 35);
-	lostText.setFillColor(sf::Color(200, 200, 200));
-	lostText.setPosition(10, 20);
+	// сюда запиш текст с результатом игры
+	sf::Text resultText;
 
-	sf::Text wonText("You won!", font, 35);
-	wonText.setFillColor(sf::Color(200, 200, 200));
-	wonText.setPosition(75, 20);
-
-	sf::Text closedText("Tower Defense", font, 35);
-	closedText.setFillColor(sf::Color(200, 200, 200));
-	closedText.setPosition(30, 20);
+	switch (result)
+	{
+		// если закрыл окно
+	case 0:
+		resultText = sf::Text("Tower Defense", font, 35);
+		resultText.setPosition(30, 20);
+		break;
+		// если прошел игру
+	case 1:
+		resultText = sf::Text("You won!", font, 35);
+		resultText.setPosition(75, 20);
+		break;
+		// если проиграл
+	case 2:
+		resultText = sf::Text("You got to wave  " + std::to_string(waveLevel), font, 35);
+		resultText.setPosition(10, 20);
+		break;
+	}
+	resultText.setFillColor(sf::Color(200, 200, 200));
 
 	sf::Text playAgainText("Play again", font, 35);
 	playAgainText.setFillColor(sf::Color(200, 200, 200));
@@ -51,34 +59,25 @@ void result(int result, int level, bool &playAgain)
 				playAgain = 0;
 				window.close();
 			}
-			// если нажата кнопка мыши и игра не закончена
+			// если нажата кнопка мыши
 			if (event.type == sf::Event::MouseButtonPressed) {
 				// play again
-				if (x > 65 && x < 300 - 65 && y > 100 && y < 100 + 45) {
+				if (x > playAgainText.getPosition().x && x < window.getSize().x - playAgainText.getPosition().x
+					&& y > playAgainText.getPosition().y && y < playAgainText.getPosition().y + 45) {
 					window.close();
 				}
 				// exit
-				if (x > 120 && x < 300 - 120 && y > 180 && y < 180 + 45) {
+				if (x > exitText.getPosition().x && x < window.getSize().x - exitText.getPosition().x
+					&& y > exitText.getPosition().y && y < exitText.getPosition().y + 40) {
 					playAgain = 0;
 					window.close();
 				}
 			}
 		}
 
-		window.clear(sf::Color(30, 115, 30));
+		window.clear(sf::Color(0, 0, 0));
 		
-		switch (result)
-		{
-		case 0:
-			window.draw(closedText);
-			break;
-		case 1:
-			window.draw(wonText);
-			break;
-		case 2:
-			window.draw(lostText);
-			break;
-		}
+		window.draw(resultText);
 		window.draw(playAgainText);
 		window.draw(exitText);
 

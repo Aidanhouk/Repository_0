@@ -20,7 +20,7 @@ BlockOnField::BlockOnField(int type, sf::Texture * blocksTextures[FIELD_BLOCKS_C
 void BlockOnField::drawBlock(sf::RenderWindow & window)
 {
 	sf::Sprite block(*m_blockTexture);
-	block.setPosition(W * m_roadCell->getCoordinates().second, W * m_roadCell->getCoordinates().first);
+	block.setPosition(W * m_roadCells[0]->getCoordinates().second, W * m_roadCells[0]->getCoordinates().first);
 	window.draw(block);
 }
 
@@ -38,8 +38,8 @@ void BlockOnField::drawHPBar(sf::RenderWindow & window)
 	hpBarRed.setFillColor(sf::Color::Red);
 	sf::RectangleShape hpBarGreen(sf::Vector2f(W * 0.5 * ((float)m_hp / STOP_BLOCK_HP), 4));
 	hpBarGreen.setFillColor(sf::Color::Green);
-	hpBarRed.setPosition(W * m_roadCell->getCoordinates().second + W * 0.25, W * m_roadCell->getCoordinates().first + 10 + W * 0.75);
-	hpBarGreen.setPosition(W * m_roadCell->getCoordinates().second + W * 0.25, W * m_roadCell->getCoordinates().first + 10 + W * 0.75);
+	hpBarRed.setPosition(W * m_roadCells[0]->getCoordinates().second + W * 0.25, W * m_roadCells[0]->getCoordinates().first + 10 + W * 0.75);
+	hpBarGreen.setPosition(W * m_roadCells[0]->getCoordinates().second + W * 0.25, W * m_roadCells[0]->getCoordinates().first + 10 + W * 0.75);
 	window.draw(hpBarRed);
 	window.draw(hpBarGreen);
 }

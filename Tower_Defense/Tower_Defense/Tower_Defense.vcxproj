@@ -142,6 +142,7 @@
     <ClCompile Include="field.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="missiles.cpp" />
     <ClCompile Include="blocksControl.cpp" />
     <ClCompile Include="results.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="field.h" />
     <ClInclude Include="mainGame.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="missiles.h" />
     <ClInclude Include="blocksControl.h" />
     <ClInclude Include="results.h" />

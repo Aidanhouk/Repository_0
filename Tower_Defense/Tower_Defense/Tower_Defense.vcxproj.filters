@@ -87,6 +87,9 @@
     <ClCompile Include="blocksControl.cpp">
       <Filter>Source Files\Field</Filter>
     </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemiesWave.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="blocksControl.h">
       <Filter>Header Files\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Header Files\Windows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,22 +11,19 @@
 #include "blocksControl.h"
 #include "shop.h"
 
-void mainGame(int &result, int &level)
+void mainGame(int &result, int level, int &waveLevel)
 {
-	sf::ContextSettings settings;
-	settings.antialiasingLevel = 4;
-
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");
 
 	// окно игры
-	sf::RenderWindow window(sf::VideoMode(W * COLS, W * (ROWS + 1.5)), "Tower defense", sf::Style::Titlebar | sf::Style::Close, settings);
+	sf::RenderWindow window(sf::VideoMode(W * COLS, W * (ROWS + 1.5)), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
 
 	// нужно ограничить фпс
 	window.setFramerateLimit(60);
 
 	// объект поля
-	Field field;
+	Field field(level);
 	// создаем дорогу
 	field.makeRoad();
 	// создаем спрайт блока вне дороги
@@ -139,8 +136,6 @@ void mainGame(int &result, int &level)
 		window.draw(spriteBack);
 		// рисуем дорогу + финиш
 		field.paintRoad(window);
-		// рисуем область магазина
-		shop.drawShop(enemiesWave.getLevel(), money, blockType, window);
 		// рисуем блоки на дороге
 		blocksControl.drawAllBlocks(window);
 		// рисуем всех врагов
@@ -157,7 +152,9 @@ void mainGame(int &result, int &level)
 		missiles.drawMissiles(window);
 		}
 
-		// отрисовка окна
+		// рисуем область магазина
+		shop.drawShop(enemiesWave.getLevel(), money, blockType, window);
+
 		window.display();
 
 		// если игра окончена, то выходим
@@ -166,7 +163,7 @@ void mainGame(int &result, int &level)
 			if (!result) {
 				result = 2;
 			}
-			level = enemiesWave.getLevel();
+			waveLevel = enemiesWave.getLevel();
 			std::this_thread::sleep_for(std::chrono::milliseconds(700));
 			window.close();
 		}

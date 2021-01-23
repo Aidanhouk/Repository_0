@@ -16,10 +16,10 @@ private:
 	int m_hp;
 	// указатель на тестуру блока
 	sf::Texture * m_blockTexture;
-	// ячейка дороги, на которой стоит блок
-	RoadCell * m_roadCell;
 	// укзатель на объект, контролирующий блоки
 	BlocksControl * m_blocksControl;
+	// массив с указателями на ячейки, на которых находится блок, макс - 2
+	RoadCell * m_roadCells[2]{ nullptr };
 public:
 	BlockOnField(int type, sf::Texture * blocksTextures[FIELD_BLOCKS_COUNT], BlocksControl * blocksControl);
 	~BlockOnField() {}
@@ -30,8 +30,14 @@ public:
 	void getDamage(int dmg);
 	// отрисовка шкалы здоровья
 	void drawHPBar(sf::RenderWindow &window);
+	// добавить клетку в m_roadCells
+	void addCell(RoadCell * cell) { m_roadCells[0] = cell; }
+	// добавить 2 клетку в m_roadCells
+	void addCell2(RoadCell * cell) { m_roadCells[1] = cell; }
+	// 1 клетка на которой, находится блок
+	RoadCell * getCell() { return m_roadCells[0]; }
+	// 2 клетка на которой, находится блок
+	RoadCell * getCell2() { return m_roadCells[1]; }
 
-	RoadCell * getCell() { return m_roadCell; }
-	void setCell(RoadCell * cell) { m_roadCell = cell; }
 	int getType() const { return m_type; }
 };

@@ -16,6 +16,8 @@ private:
 	bool m_isKilled{ 0 };
 	// тип врага
 	int m_type;
+	// уровень волны
+	int m_waveLevel;
 	// здоровье
 	int m_hp;
 	// сколько с него падает денег
@@ -34,7 +36,7 @@ private:
 	RoadCell *m_position{ nullptr };
 public:
 	// в конструктор нужно передать тип монстра
-	Enemy(int type, sf::Texture * enemyTextures[ENEMIES_COUNT]);
+	Enemy(int type, int level, sf::Texture * enemyTextures[ENEMIES_COUNT]);
 	~Enemy() {}
 
 	// сбрасываем m_distance и меняем клетку

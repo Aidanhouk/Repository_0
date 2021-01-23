@@ -28,9 +28,9 @@ const int ENEMIES_HP[ENEMIES_COUNT]{ 0,120,360,600,1200 };
 // кол-во монет, падающих с врагов
 const int ENEMIES_COINS[ENEMIES_COUNT]{ 0,1,3,5,10 };
 // скорость врагов
-const double ENEMIES_SPEED[ENEMIES_COUNT]{ 0,2,2.4,1.8,1.8 };
+const double ENEMIES_SPEED[ENEMIES_COUNT]{ 0,2,2,1.8,1.8 };
 // урон врагов
-const int ENEMIES_DAMAGE[ENEMIES_COUNT]{ 0,1,3,5,10 };
+const int ENEMIES_DAMAGE[ENEMIES_COUNT]{ 0,1,2,3,4 };
 
 // стоимости башен
 const int TOWERS_PRICE[TOWERS_COUNT]{ 0,10,30,50,80,120,150 };

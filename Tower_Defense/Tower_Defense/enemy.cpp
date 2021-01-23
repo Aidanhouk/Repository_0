@@ -3,9 +3,10 @@
 #include "roadCell.h"
 #include "blockOnField.h"
 
-Enemy::Enemy(int type, sf::Texture * enemyTextures[ENEMIES_COUNT])
-	: m_type{ type }, m_enemyTexture{ enemyTextures[type] }, m_hp{ ENEMIES_HP[type] },
-	m_coins{ ENEMIES_COINS[type] }, m_speed{ ENEMIES_SPEED[type] }, m_dmg{ ENEMIES_DAMAGE[type] }
+Enemy::Enemy(int type, int level, sf::Texture * enemyTextures[ENEMIES_COUNT])
+	: m_type{ type }, m_waveLevel{ level }, m_enemyTexture{ enemyTextures[type] },
+	m_hp{ (int)(ENEMIES_HP[type] * (1 + 0.2 * level)) }, m_coins{ ENEMIES_COINS[type] },
+	m_speed{ ENEMIES_SPEED[type] }, m_dmg{ (int)(ENEMIES_DAMAGE[type] * (1 + 0.2 * level)) }
 {}
 
 void Enemy::setDirection(RoadCell * currentPosition)
@@ -80,8 +81,6 @@ void Enemy::enemyMoves()
 
 void Enemy::drawEnemy(sf::RenderWindow &window)
 {
-	//sf::Sprite enemy;
-	//enemy.setTexture(*m_enemyTexture);
 	sf::CircleShape enemy(30, m_type + 2);
 	switch (m_direction)
 	{
@@ -120,7 +119,7 @@ void Enemy::drawHPBar(sf::RenderWindow & window)
 {
 	sf::RectangleShape hpBarRed(sf::Vector2f(W * 0.5, 4));
 	hpBarRed.setFillColor(sf::Color::Red);
-	sf::RectangleShape hpBarGreen(sf::Vector2f(W * 0.5 * ((float)m_hp / ENEMIES_HP[m_type]), 4));
+	sf::RectangleShape hpBarGreen(sf::Vector2f(W * 0.5 * ((float)m_hp / ENEMIES_HP[m_type] / (1 + 0.2 * m_waveLevel)), 4));
 	hpBarGreen.setFillColor(sf::Color::Green);
 	switch (m_direction)
 	{

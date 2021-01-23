@@ -8,18 +8,20 @@ class RoadCell;
 class Field
 {
 private:
+	// уровень/карта
+	int m_level;
 	// поле
 	int **m_field;
 	// указатель на стартовую €чейку дороги (за полем)
-	RoadCell *m_startCell;
+	RoadCell *m_startCell{ nullptr };
 	// указатель на финишную €чейку дороги
-	RoadCell *m_finishCell;
+	RoadCell *m_finishCell{ nullptr };
 	// текстура дороги
 	sf::Texture *m_roadTexture;
 	// текстура финиша
 	sf::Texture *m_finishLineTexture;
 public:
-	Field();
+	Field(int level);
 	~Field();
 
 	// добавить €чейку в дорогу по координатам
