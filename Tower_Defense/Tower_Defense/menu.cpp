@@ -1,6 +1,7 @@
 #include "menu.h"
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 void menu(int &level)
 {
@@ -8,31 +9,26 @@ void menu(int &level)
 	font.loadFromFile("sansation.ttf");
 
 	// окно игры
-	sf::RenderWindow window(sf::VideoMode(410, 200), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(410, 310), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
 
 	sf::Text chooseText("Choose level" , font, 40);
 	chooseText.setFillColor(sf::Color(200, 200, 200));
 	chooseText.setPosition(90, 15);
 
-	sf::Texture level1Texture;
-	level1Texture.loadFromFile("images/levels/level1.png");
-	sf::Sprite level1;
-	level1.setTexture(level1Texture);
-	level1.setPosition(20, window.getSize().y - 20 - level1Texture.getSize().y);
+	sf::Texture levelTextures[6];
+	for (int i = 0; i < 6; ++i) {
+		levelTextures[i].loadFromFile("images/levels/level" + std::to_string(i + 1) + ".png");
+	}
 
-	sf::Texture level2Texture;
-	level2Texture.loadFromFile("images/levels/level2.png");
-	sf::Sprite level2;
-	level2.setTexture(level2Texture);
-	level2.setPosition(20 + level2Texture.getSize().x + 20, window.getSize().y - 20 - level2Texture.getSize().y);
+	sf::Sprite levelSprites[6];
+	for (int i = 0; i < 2; ++i) {
+		for (int j = 0; j < 3; ++j) {
+			levelSprites[i * 3 + j].setTexture(levelTextures[i * 3 + j]);
+			levelSprites[i * 3 + j].setPosition(20 + j * (levelTextures[i * 3 + j].getSize().x + 20),
+				window.getSize().y - (2 - i) * (levelTextures[i * 3 + j].getSize().y + 20));
+		}
+	}
 
-	sf::Texture level3Texture;
-	level3Texture.loadFromFile("images/levels/level3.png");
-	sf::Sprite level3;
-	level3.setTexture(level3Texture);
-	level3.setPosition(20 + 2 * (level3Texture.getSize().x + 20), window.getSize().y - 20 - level3Texture.getSize().y);
-
-	// главный цикл игры
 	while (window.isOpen())
 	{
 		// получаем координаты курсора мышы
@@ -50,20 +46,33 @@ void menu(int &level)
 			}
 			// если нажата кнопка мыши
 			if (event.type == sf::Event::MouseButtonPressed) {
-				if (y > level1.getPosition().y && y < level1.getPosition().y + level1Texture.getSize().y) {
-					// level 1
-					if (x > level1.getPosition().x && x < level1.getPosition().x + level1Texture.getSize().x) {
+				// первые 3 уровня
+				if (y > levelSprites[0].getPosition().y && y < levelSprites[0].getPosition().y + levelTextures[0].getSize().y) {
+					if (x > levelSprites[0].getPosition().x && x < levelSprites[0].getPosition().x + levelTextures[0].getSize().x) {
 						level = 1;
 						window.close();
 					}
-					// level 2
-					if (x > level2.getPosition().x && x < level2.getPosition().x + level2Texture.getSize().x) {
+					if (x > levelSprites[1].getPosition().x && x < levelSprites[1].getPosition().x + levelTextures[1].getSize().x) {
 						level = 2;
 						window.close();
 					}
-					// level 3
-					if (x > level3.getPosition().x && x < level3.getPosition().x + level3Texture.getSize().x) {
+					if (x > levelSprites[2].getPosition().x && x < levelSprites[2].getPosition().x + levelTextures[2].getSize().x) {
 						level = 3;
+						window.close();
+					}
+				}
+				// вторые 3 уровня
+				if (y > levelSprites[3].getPosition().y && y < levelSprites[3].getPosition().y + levelTextures[3].getSize().y) {
+					if (x > levelSprites[3].getPosition().x && x < levelSprites[3].getPosition().x + levelTextures[3].getSize().x) {
+						level = 4;
+						window.close();
+					}
+					if (x > levelSprites[4].getPosition().x && x < levelSprites[4].getPosition().x + levelTextures[4].getSize().x) {
+						level = 5;
+						window.close();
+					}
+					if (x > levelSprites[5].getPosition().x && x < levelSprites[5].getPosition().x + levelTextures[5].getSize().x) {
+						level = 6;
 						window.close();
 					}
 				}
@@ -73,9 +82,9 @@ void menu(int &level)
 		window.clear(sf::Color(0, 0, 0));
 
 		window.draw(chooseText);
-		window.draw(level1);
-		window.draw(level2);
-		window.draw(level3);
+		for (auto & var : levelSprites) {
+			window.draw(var);
+		}
 
 		window.display();
 	}

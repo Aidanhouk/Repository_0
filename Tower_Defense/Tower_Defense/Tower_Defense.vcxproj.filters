@@ -51,9 +51,6 @@
     <ClCompile Include="enemy.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="enemiesWave.cpp">
-      <Filter>Source Files\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="tower.cpp">
       <Filter>Source Files\Tower</Filter>
     </ClCompile>
@@ -89,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="menu.cpp">
       <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="enemiesWave.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

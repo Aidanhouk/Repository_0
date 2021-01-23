@@ -56,56 +56,31 @@ void Field::makeRoad()
 		m_startCell = cell;
 		m_finishCell = cell;
 
-		addCell(8, 0);
-		addCell(8, 1);
-		addCell(8, 2);
-		addCell(8, 3);
-		addCell(8, 4);
+		for (int i = 0; i < 5; ++i) {
+			addCell(ROWS - 2, i);
+		}
+		for (int i = ROWS - 3; i > 2; --i) {
+			addCell(i, 4);
+		}
+		for (int i = 5; i < 8; ++i) {
+			addCell(3, i);
+		}
+		for (int i = 4; i < ROWS - 3; ++i) {
+			addCell(i, COLS - 4);
+		}
+		for (int i = COLS - 5; i > 0; --i) {
+			addCell(ROWS - 4, i);
+		}
 
-		addCell(7, 4);
-		addCell(6, 4);
-		addCell(5, 4);
-		addCell(4, 4);
-		addCell(3, 4);
-
-		addCell(3, 5);
-		addCell(3, 6);
-		addCell(3, 7);
-
-		addCell(4, 7);
-		addCell(5, 7);
-		addCell(6, 7);
-
-		addCell(6, 6);
-		addCell(6, 5);
-		addCell(6, 4);
-		addCell(6, 3);
-		addCell(6, 2);
-		addCell(6, 1);
-
-		addCell(5, 1);
-		addCell(4, 1);
-		addCell(3, 1);
-		addCell(2, 1);
-		addCell(1, 1);
-
-		addCell(1, 2);
-		addCell(1, 3);
-		addCell(1, 4);
-		addCell(1, 5);
-		addCell(1, 6);
-		addCell(1, 7);
-		addCell(1, 8);
-		addCell(1, 9);
-
-		addCell(2, 9);
-		addCell(3, 9);
-		addCell(4, 9);
-		addCell(5, 9);
-		addCell(6, 9);
-		addCell(7, 9);
-		addCell(8, 9);
-		addCell(9, 9);
+		for (int i = ROWS - 5; i > 0; --i) {
+			addCell(i, 1);
+		}
+		for (int i = 2; i < COLS - 1; ++i) {
+			addCell(1, i);
+		}
+		for (int i = 2; i < ROWS; ++i) {
+			addCell(i, COLS - 2);
+		}
 	}
 		break;
 	case 2:
@@ -172,6 +147,134 @@ void Field::makeRoad()
 		addCell(ROWS - 5, 5);
 	}
 		break;
+	case 4:
+	{
+		cell = new RoadCell(ROWS, 5);
+		m_startCell = cell;
+		m_finishCell = cell;
+
+		for (int i = ROWS - 1; i > 0; --i) {
+			addCell(i, 5);
+		}
+		for (int i = 6; i < COLS - 1; ++i) {
+			addCell(1, i);
+		}
+		for (int i = 2; i < ROWS - 1; ++i) {
+			addCell(i, COLS - 2);
+		}
+		for (int i = COLS - 3; i > 0; --i) {
+			addCell(ROWS - 2, i);
+		}
+
+		for (int i = ROWS - 3; i > 0; --i) {
+			addCell(i, 1);
+		}
+		for (int i = 2; i < 4; ++i) {
+			addCell(1, i);
+		}
+		for (int i = 2; i < ROWS - 3; ++i) {
+			addCell(i, 3);
+		}
+		for (int i = 4; i < COLS - 3; ++i) {
+			addCell(ROWS - 4, i);
+		}
+		for (int i = ROWS - 5; i > 2; --i) {
+			addCell(i, COLS - 4);
+		}
+	}
+		break;
+	case 5:
+	{
+		cell = new RoadCell(ROWS, 0);
+		m_startCell = cell;
+		m_finishCell = cell;
+
+		for (int i = ROWS - 1; i > -1; --i) {
+			addCell(i, 0);
+		}
+		for (int i = 1; i < COLS; ++i) {
+			addCell(0, i);
+		}
+		for (int i = 1; i < 3; ++i) {
+			addCell(i, COLS - 1);
+		}
+		for (int i = COLS - 2; i > 1; --i) {
+			addCell(2, i);
+		}
+		for (int i = 3; i < ROWS; ++i) {
+			addCell(i, 2);
+		}
+
+		for (int i = 3; i < 5; ++i) {
+			addCell(ROWS - 1, i);
+		}
+		for (int i = ROWS - 2; i > 3; --i) {
+			addCell(i, 4);
+		}
+		for (int i = 5; i < COLS; ++i) {
+			addCell(4, i);
+		}
+		for (int i = 5; i < 7; ++i) {
+			addCell(i, COLS - 1);
+		}
+		for (int i = COLS - 2; i > 5; --i) {
+			addCell(6, i);
+		}
+		for (int i = 7; i < ROWS; ++i) {
+			addCell(i, 6);
+		}
+
+		for (int i = 7; i < COLS; ++i) {
+			addCell(ROWS - 1, i);
+		}
+	}
+		break;
+	case 6:
+	{
+		cell = new RoadCell(ROWS, 0);
+		m_startCell = cell;
+		m_finishCell = cell;
+
+		for (int i = ROWS - 1; i > -1; --i) {
+			addCell(i, 0);
+		}
+		for (int i = 1; i < COLS; ++i) {
+			addCell(0, i);
+		}
+		for (int i = 1; i < 3; ++i) {
+			addCell(i, COLS - 1);
+		}
+		for (int i = COLS - 2; i > 1; --i) {
+			addCell(2, i);
+		}
+		for (int i = 3; i < ROWS; ++i) {
+			addCell(i, 2);
+		}
+
+		for (int i = 3; i < 5; ++i) {
+			addCell(ROWS - 1, i);
+		}
+		for (int i = ROWS - 2; i > 3; --i) {
+			addCell(i, 4);
+		}
+		for (int i = 5; i < COLS; ++i) {
+			addCell(4, i);
+		}
+		for (int i = 5; i < 7; ++i) {
+			addCell(i, COLS - 1);
+		}
+		for (int i = COLS - 2; i > 5; --i) {
+			addCell(6, i);
+		}
+		for (int i = 7; i < ROWS; ++i) {
+			addCell(i, 6);
+		}
+
+		for (int i = 7; i < COLS; ++i) {
+			addCell(ROWS - 1, i);
+		}
+	}
+	break;
 	}
 }
 

@@ -1,2 +1,12 @@
-﻿  results.cpp
+﻿  menu.cpp
+c:\users\timur\source\repos\tower_defense\tower_defense\menu.cpp(28): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+c:\users\timur\source\repos\tower_defense\tower_defense\menu.cpp(27): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
   Tower_Defense.vcxproj -> C:\Users\timur\source\repos\Tower_Defense\Debug\Tower_Defense.exe

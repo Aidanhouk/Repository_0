@@ -49,8 +49,6 @@ public:
 	void enemyMoves();
 	// враг получает урон
 	void getDamage(int dmg) { m_hp -= dmg; }
-	// рисовать получение выстрела
-	void drawShot(sf::RenderWindow &window);
 
 	// возвращает позицию врага
 	RoadCell *getPositionEnemy() { return m_position; }

@@ -5,7 +5,7 @@
 // ширина клетки поля в пикселях
 const int W{ 80 };
 // кол-во типов противников плюс 1
-const int ENEMIES_COUNT{ 5 };
+const int ENEMIES_COUNT{ 6 };
 // кол-во типов башен плюс 1
 const int TOWERS_COUNT{ 7 };
 // кол-во типов блоков, которые можно поставить на дорогу плюс 1
@@ -19,18 +19,18 @@ const int ROWS{ 10 };
 const int COLS{ 11 };
 
 // стартовые деньги
-const int START_MONEY{ 30 };
+const int START_MONEY{ 330 };
 
 // далее индекс массива равен типу врага/башни
 
 // кол-во hp у врагов
-const int ENEMIES_HP[ENEMIES_COUNT]{ 0,120,360,600,1200 };
+const int ENEMIES_HP[ENEMIES_COUNT]{ 0,120,360,600,1200,2400 };
 // кол-во монет, падающих с врагов
-const int ENEMIES_COINS[ENEMIES_COUNT]{ 0,1,3,5,10 };
+const int ENEMIES_COINS[ENEMIES_COUNT]{ 0,2,5,10,15,30 };
 // скорость врагов
-const double ENEMIES_SPEED[ENEMIES_COUNT]{ 0,2,2,1.8,1.8 };
+const double ENEMIES_SPEED[ENEMIES_COUNT]{ 0,2,2,1.8,1.8,2.2 };
 // урон врагов
-const int ENEMIES_DAMAGE[ENEMIES_COUNT]{ 0,1,2,3,4 };
+const int ENEMIES_DAMAGE[ENEMIES_COUNT]{ 0,1,2,3,4,8 };
 
 // стоимости башен
 const int TOWERS_PRICE[TOWERS_COUNT]{ 0,10,30,50,80,120,150 };

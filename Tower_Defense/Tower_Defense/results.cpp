@@ -42,7 +42,6 @@ void result(int result, int waveLevel, bool &playAgain)
 	exitText.setFillColor(sf::Color(200, 200, 200));
 	exitText.setPosition(120, 180);
 
-	// главный цикл игры
 	while (window.isOpen())
 	{
 		// получаем координаты курсора мышы

@@ -55,11 +55,16 @@ void EnemiesWave::nextWave()
 		switch (m_level)
 		{
 		case 1:
-			m_enemiesLeft = 10;
-			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(1, m_level, m_enemiesTextures);
+			m_enemiesLeft = 5;
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(i + 1, m_level, m_enemiesTextures);
 				m_enemiesList.push_back(enemy);
 			}
+			//m_enemiesLeft = 10;
+			//for (int i = 0; i < 10; ++i) {
+			//	Enemy *enemy = new Enemy(1, m_level, m_enemiesTextures);
+			//	m_enemiesList.push_back(enemy);
+			//}
 			break;
 		case 2:
 			m_enemiesLeft = 15;

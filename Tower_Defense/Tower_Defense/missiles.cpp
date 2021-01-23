@@ -229,7 +229,7 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 			window.draw(missile);
 
 			// враг отрисовывает получение урона
-			var->second->drawShot(window);
+			//var->second->drawShot(window);
 		}
 	}
 }

@@ -138,8 +138,6 @@ void mainGame(int &result, int level, int &waveLevel)
 		field.paintRoad(window);
 		// рисуем блоки на дороге
 		blocksControl.drawAllBlocks(window);
-		// рисуем всех врагов
-		enemiesWave.drawAllEnemies(window);
 
 		// рисуем башни
 		towerControl.drawAllTowers(window);
@@ -151,6 +149,8 @@ void mainGame(int &result, int level, int &waveLevel)
 		// рисуем выстрелы
 		missiles.drawMissiles(window);
 		}
+		// рисуем всех врагов
+		enemiesWave.drawAllEnemies(window);
 
 		// рисуем область магазина
 		shop.drawShop(enemiesWave.getLevel(), money, blockType, window);

@@ -81,35 +81,53 @@ void Enemy::enemyMoves()
 
 void Enemy::drawEnemy(sf::RenderWindow &window)
 {
-	sf::CircleShape enemy(30, m_type + 2);
+	sf::Sprite enemy;
+	enemy.setTexture(*m_enemyTexture);
 	switch (m_direction)
 	{
 	case 1:
-		enemy.setPosition(W * m_position->getCoordinates().second + 10, W * m_position->getCoordinates().first + 10 - m_distance);
+		switch (m_type)
+		{
+		case 1:
+		case 5:
+			enemy.setPosition(W * m_position->getCoordinates().second, W * (m_position->getCoordinates().first + 1) - m_distance);
+			if (m_type == 1 || m_type == 5) {
+				enemy.rotate(-90);
+			}
+			break;
+		case 3:
+		case 4:
+			enemy.setPosition(W * m_position->getCoordinates().second, W * m_position->getCoordinates().first - m_distance);
+			break;
+		case 2:
+			enemy.setPosition(W * m_position->getCoordinates().second, W * m_position->getCoordinates().first - m_distance);
+			break;
+		}
 		break;
 	case 2:
-		enemy.setPosition(W * m_position->getCoordinates().second + 10 + m_distance, W * m_position->getCoordinates().first + 10);
+		enemy.setPosition(W * m_position->getCoordinates().second + m_distance, W * m_position->getCoordinates().first);
 		break;
 	case 3:
-		enemy.setPosition(W * m_position->getCoordinates().second + 10, W * m_position->getCoordinates().first + 10 + m_distance);
+		switch (m_type)
+		{
+		case 1:
+		case 5:
+			enemy.setPosition(W * (m_position->getCoordinates().second + 1), W * m_position->getCoordinates().first + m_distance);
+			enemy.rotate(90);
+			break;
+		case 3:
+		case 4:
+			enemy.setPosition(W * (m_position->getCoordinates().second + 1), W * (m_position->getCoordinates().first + 1) + m_distance);
+			enemy.rotate(180);
+			break;
+		case 2:
+			enemy.setPosition(W * m_position->getCoordinates().second, W * m_position->getCoordinates().first + m_distance);
+			break;
+		}
 		break;
 	case 4:
-		enemy.setPosition(W * m_position->getCoordinates().second + 10 - m_distance, W * m_position->getCoordinates().first + 10);
-		break;
-	}
-	switch (m_type)
-	{
-	case 1:
-		enemy.setFillColor(sf::Color::Blue);
-		break;
-	case 2:
-		enemy.setFillColor(sf::Color::Green);
-		break;
-	case 3:
-		enemy.setFillColor(sf::Color::Cyan);
-		break;
-	case 4:
-		enemy.setFillColor(sf::Color::Black);
+		enemy.setPosition(W * (m_position->getCoordinates().second + 1) - m_distance, W * (m_position->getCoordinates().first));
+		enemy.scale(-1, 1);
 		break;
 	}
 	window.draw(enemy);
@@ -142,26 +160,4 @@ void Enemy::drawHPBar(sf::RenderWindow & window)
 	}
 	window.draw(hpBarRed);
 	window.draw(hpBarGreen);
-}
-
-void Enemy::drawShot(sf::RenderWindow & window)
-{
-	sf::CircleShape wound(30, m_type + 2);
-	switch (m_direction)
-	{
-	case 1:
-		wound.setPosition(W * m_position->getCoordinates().second + 10, W * m_position->getCoordinates().first + 10 - m_distance);
-		break;
-	case 2:
-		wound.setPosition(W * m_position->getCoordinates().second + 10 + m_distance, W * m_position->getCoordinates().first + 10);
-		break;
-	case 3:
-		wound.setPosition(W * m_position->getCoordinates().second + 10, W * m_position->getCoordinates().first + 10 + m_distance);
-		break;
-	case 4:
-		wound.setPosition(W * m_position->getCoordinates().second + 10 - m_distance, W * m_position->getCoordinates().first + 10);
-		break;
-	}
-	wound.setFillColor(sf::Color::Red);
-	window.draw(wound);
 }
