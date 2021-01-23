@@ -135,13 +135,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="blockOnField.cpp" />
     <ClCompile Include="cycleFuncions.cpp" />
     <ClCompile Include="enemiesWave.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="field.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainGame.cpp" />
-    <ClCompile Include="missilesControl.cpp" />
+    <ClCompile Include="missiles.cpp" />
+    <ClCompile Include="blocksControl.cpp" />
     <ClCompile Include="results.cpp" />
     <ClCompile Include="roadCell.cpp" />
     <ClCompile Include="shop.cpp" />
@@ -149,13 +151,15 @@
     <ClCompile Include="towersControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="blockOnField.h" />
     <ClInclude Include="consts.h" />
     <ClInclude Include="cycleFuncions.h" />
     <ClInclude Include="enemiesWave.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="field.h" />
     <ClInclude Include="mainGame.h" />
-    <ClInclude Include="missilesControl.h" />
+    <ClInclude Include="missiles.h" />
+    <ClInclude Include="blocksControl.h" />
     <ClInclude Include="results.h" />
     <ClInclude Include="roadCell.h" />
     <ClInclude Include="shop.h" />

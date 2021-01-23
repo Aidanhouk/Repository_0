@@ -20,7 +20,14 @@ Shop::Shop()
 		m_towersTextures[i] = tower;
 	}
 
-	// добавляем прямоугольники для обводки выбранно башни
+	// скачиваем и записываем текстуры блоков
+	for (int i = 1; i < 3; ++i) {
+		sf::Texture *block{ new sf::Texture() };
+		(*block).loadFromFile("images/fieldBlocks/block" + std::to_string(i) + ".png");
+		m_towersTextures[TOWERS_COUNT + i - 1] = block;
+	}
+
+	// добавляем прямоугольники для обводки выбранного объекта для покупки
 	sf::RectangleShape *chosenTower1{ new sf::RectangleShape(sf::Vector2f(W, W / 10)) };
 	(*chosenTower1).setFillColor(sf::Color(0, 255, 0));
 	m_chosenTowerFrame[0] = chosenTower1;
@@ -52,27 +59,41 @@ void Shop::drawShop(int level, int money, int type, sf::RenderWindow & window)
 	// рисуем деньги
 	sf::Text moneyText("Coins:  " + std::to_string(money), *m_font, 40);
 	moneyText.setFillColor(sf::Color::Yellow);
-	moneyText.setPosition(W * (COLS - 2.5), W * ROWS + 10);
+	moneyText.setPosition(W * (COLS - 2.7), W * ROWS + 10);
 	window.draw(moneyText);
 
 	// рисуем уровень
 	sf::Text levelText("Wave:  " + std::to_string(level), *m_font, 40);
 	levelText.setFillColor(sf::Color::Red);
-	levelText.setPosition(W * (COLS - 2.4), W * ROWS + W * 0.7);
+	levelText.setPosition(W * (COLS - 2.6), W * ROWS + W * 0.7);
 	window.draw(levelText);
 
-	// рисуем башни и их стоимость
-	for (int i = 1; i < TOWERS_COUNT; ++i) {
-		sf::Sprite tower(*m_towersTextures[i]);
-		tower.setPosition(W * (i - 1), W * ROWS);
-		window.draw(tower);
-		sf::Text cost(std::to_string(TOWERS_PRICE[i]), *m_font, 30);
-		cost.setFillColor(sf::Color::Yellow);
+	// рисуем башни, блоки и их стоимость
+	for (int i = 1; i < TOWERS_COUNT + FIELD_BLOCKS_COUNT - 1; ++i) {
+		sf::Sprite block(*m_towersTextures[i]);
+		block.setPosition(W * (i - 1), W * ROWS);
+		window.draw(block);
+		// если это башня
+		int price;
+		if (i < TOWERS_COUNT) {
+			price = TOWERS_PRICE[i];
+		}
+		// если это блок на поле
+		else {
+			price = BLOCKS_PRICE[i - TOWERS_COUNT + 1];
+		}
+		sf::Text cost(std::to_string(price), *m_font, 30);
+		if (money >= price) {
+			cost.setFillColor(sf::Color::Yellow);
+		}
+		else {
+			cost.setFillColor(sf::Color::Red);
+		}
 		cost.setPosition(W * (i - 1) + W * 0.3, W * (ROWS + 1));
 		window.draw(cost);
 	}
 
-	// обводим выбранную башню
+	// обводим выбранную башню/блок
 	(*m_chosenTowerFrame[0]).setPosition(W * (type - 1), W * ROWS);
 	window.draw(*m_chosenTowerFrame[0]);
 	(*m_chosenTowerFrame[1]).setPosition(W * (type - 1), W * ROWS + W - W / 10);

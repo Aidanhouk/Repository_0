@@ -1,6 +1,7 @@
 #include "field.h"
 
 #include "consts.h"
+#include "roadCell.h"
 
 Field::Field()
 {
@@ -66,6 +67,10 @@ void Field::makeRoad()
 		addCell(i, 7);
 	}
 	addCell(1, 8);
+	for (int i = 1; i < ROWS - 1; ++i) {
+		addCell(i, 9);
+	}
+	addCell(ROWS - 1, 9);
 }
 
 void Field::paintRoad(sf::RenderWindow & window)
@@ -75,7 +80,7 @@ void Field::paintRoad(sf::RenderWindow & window)
 		for (int j = 0; j < COLS; ++j) {
 			if (m_field[i][j] == 1) {
 				sf::RectangleShape road(sf::Vector2f(W, W));
-				road.move(j * static_cast<float>(W), i * static_cast<float>(W));
+				road.move(W * j, W * i);
 				road.setTexture(m_roadTexture);
 				window.draw(road);
 			}
@@ -83,7 +88,7 @@ void Field::paintRoad(sf::RenderWindow & window)
 	}
 	// финишная черта
 	sf::RectangleShape finishLine(sf::Vector2f(W, W));
-	finishLine.move(m_finishCell->getCoordinates().second * (float)(W), m_finishCell->getCoordinates().first * (float)(W));
+	finishLine.move(W * m_finishCell->getCoordinates().second, W * m_finishCell->getCoordinates().first);
 	finishLine.setTexture(m_finishLineTexture);
 	window.draw(finishLine);
 }

@@ -1,14 +1,14 @@
 #include "mainGame.h"
 
-//#include <SFML/Graphics.hpp>
 #include <thread>
 
+#include "consts.h"
+#include "cycleFuncions.h"
 #include "field.h"
 #include "enemiesWave.h"
 #include "towersControl.h"
-#include "consts.h"
-#include "cycleFuncions.h"
-#include "missilesControl.h"
+#include "missiles.h"
+#include "blocksControl.h"
 #include "shop.h"
 
 void mainGame(int &result, int &level)
@@ -40,13 +40,15 @@ void mainGame(int &result, int &level)
 	TowersControl towerControl;
 	// объект для работы со снарядами
 	Missiles missiles;
+	// обект для управления блоками на дороге
+	BlocksControl blocksControl(field);
 	// объект магазина
 	Shop shop;
 
 	// изначальные деньги
 	int money{ START_MONEY };
-	// тип башни, на которую нажал игрок в магазине
-	int type{ 0 };
+	// тип башни/блока, на которую нажал игрок в магазине
+	int blockType{ 0 };
 	// конец игры?
 	bool endOfGame{ 0 };
 	// конец волны?
@@ -70,24 +72,44 @@ void mainGame(int &result, int &level)
 			}
 			// если нажата кнопка мыши и игра не закончена
 			if (event.type == sf::Event::MouseButtonPressed && !endOfGame) {
-				// фиксируем нажатия на башни в магазине
+				// фиксируем нажатия на башни и блоки в магазине
 				if (y == ROWS) {
-					if (x >= 0 && x < TOWERS_COUNT) {
+					if (x >= 0 && x < TOWERS_COUNT - 1) {
 						if (money >= TOWERS_PRICE[x + 1]) {
-							type = x + 1;
+							blockType = x + 1;
+						}
+					}
+					if (x >= TOWERS_COUNT - 1 && x < TOWERS_COUNT + FIELD_BLOCKS_COUNT - 2) {
+						if (money >= BLOCKS_PRICE[x - TOWERS_COUNT + 2]) {
+							blockType = x + 1;
 						}
 					}
 				}
-				// если выбрана башня
-				if (type) {
+				// если выбрана башня/блок
+				if (blockType) {
 					// если нажата не область меню
 					if (y < ROWS) {
-						// если эта ячейка пустая
-						if (!field.getCellValue(y, x)) {
-							towerControl.addTower(y, x, type);
-							money -= TOWERS_PRICE[type];
-							field.getCell(y, x) = 2;
-							type = 0;
+						// если выбрана башня
+						if (blockType < TOWERS_COUNT) {
+							// если эта ячейка пустая
+							if (!field.getCellValue(y, x)) {
+								towerControl.addTower(y, x, blockType);
+								money -= TOWERS_PRICE[blockType];
+								field.getCell(y, x) = 2;
+								blockType = 0;
+							}
+						}
+						// если выбран блок
+						else {
+							// если эта ячейка дороги
+							if (field.getCellValue(y, x) == 1) {
+								// если получилось поставить блок
+								if (blocksControl.placeBlockOnField(y, x, blockType - TOWERS_COUNT + 1)) {
+									money -= BLOCKS_PRICE[blockType - TOWERS_COUNT + 1];
+									field.getCell(y, x) = 3;
+									blockType = 0;
+								}
+							}
 						}
 					}
 				}
@@ -118,7 +140,9 @@ void mainGame(int &result, int &level)
 		// рисуем дорогу + финиш
 		field.paintRoad(window);
 		// рисуем область магазина
-		shop.drawShop(enemiesWave.getLevel(), money, type, window);
+		shop.drawShop(enemiesWave.getLevel(), money, blockType, window);
+		// рисуем блоки на дороге
+		blocksControl.drawAllBlocks(window);
 		// рисуем всех врагов
 		enemiesWave.drawAllEnemies(window);
 

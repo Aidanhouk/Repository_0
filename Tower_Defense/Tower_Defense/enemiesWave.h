@@ -1,9 +1,12 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "enemy.h"
-#include "roadCell.h"
+#include "consts.h"
+
+class Enemy;
+class RoadCell;
 
 // класс, управляющий волной противников
 class EnemiesWave

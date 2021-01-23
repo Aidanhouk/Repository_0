@@ -1,6 +1,10 @@
 #include "cycleFuncions.h"
 
+#include <SFML/Graphics.hpp>
 #include <thread>
+
+#include "enemiesWave.h"
+#include "field.h"
 
 // перерыв между спавном противника?
 static bool breakEnemy{ 0 };

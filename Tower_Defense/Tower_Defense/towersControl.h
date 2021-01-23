@@ -1,10 +1,13 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "tower.h"
+#include "consts.h"
+
 class Field;
 class Missiles;
+class Tower;
 
 // класс, контролирующий все башни
 class TowersControl

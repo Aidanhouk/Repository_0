@@ -37,12 +37,15 @@
     <Filter Include="Header Files\Windows">
       <UniqueIdentifier>{6b0936d1-2e63-4a3f-a7a4-d5956dd4f440}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Functions">
+      <UniqueIdentifier>{03825f4b-5845-4ae9-9be4-edc3335bde08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Functions">
+      <UniqueIdentifier>{842601dc-77e7-4ab1-bc06-8d06d42f6068}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cycleFuncions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="enemy.cpp">
@@ -55,9 +58,6 @@
       <Filter>Source Files\Tower</Filter>
     </ClCompile>
     <ClCompile Include="towersControl.cpp">
-      <Filter>Source Files\Tower</Filter>
-    </ClCompile>
-    <ClCompile Include="missilesControl.cpp">
       <Filter>Source Files\Tower</Filter>
     </ClCompile>
     <ClCompile Include="mainGame.cpp">
@@ -75,6 +75,18 @@
     <ClCompile Include="shop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="missiles.cpp">
+      <Filter>Source Files\Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="cycleFuncions.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="blockOnField.cpp">
+      <Filter>Source Files\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="blocksControl.cpp">
+      <Filter>Source Files\Field</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemiesWave.h">
@@ -87,9 +99,6 @@
       <Filter>Header Files\Tower</Filter>
     </ClInclude>
     <ClInclude Include="towersControl.h">
-      <Filter>Header Files\Tower</Filter>
-    </ClInclude>
-    <ClInclude Include="missilesControl.h">
       <Filter>Header Files\Tower</Filter>
     </ClInclude>
     <ClInclude Include="results.h">
@@ -107,11 +116,20 @@
     <ClInclude Include="consts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cycleFuncions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="shop.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="missiles.h">
+      <Filter>Header Files\Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="blockOnField.h">
+      <Filter>Header Files\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="cycleFuncions.h">
+      <Filter>Header Files\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="blocksControl.h">
+      <Filter>Header Files\Field</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

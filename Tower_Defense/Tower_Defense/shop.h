@@ -4,6 +4,7 @@
 
 #include "consts.h"
 
+// класс, отвечающий за область покупки
 class Shop
 {
 private:
@@ -11,9 +12,9 @@ private:
 	sf::Font *m_font;
 	// фон магазина
 	sf::RectangleShape *m_border;
-	// тектуры башен
-	sf::Texture* m_towersTextures[TOWERS_COUNT]{ nullptr };
-	// рамка выбранной башни
+	// тектуры башен и блоков
+	sf::Texture* m_towersTextures[TOWERS_COUNT + FIELD_BLOCKS_COUNT - 1]{ nullptr };
+	// рамка выбранной башни/блока
 	sf::RectangleShape* m_chosenTowerFrame[4];
 public:
 	Shop();

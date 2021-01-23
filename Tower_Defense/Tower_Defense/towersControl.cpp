@@ -1,6 +1,8 @@
 #include "towersControl.h"
 
 #include "consts.h"
+#include "missiles.h"
+#include "tower.h"
 
 TowersControl::TowersControl()
 {

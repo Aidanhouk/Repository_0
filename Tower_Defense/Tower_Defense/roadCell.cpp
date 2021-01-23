@@ -10,7 +10,7 @@ RoadCell::RoadCell(int i, int j, RoadCell * nextCell)
 Enemy * RoadCell::getEnemyOnCell()
 {
 	if (!m_enemiesOnCell.empty()) {
-		return m_enemiesOnCell.back();
+		return m_enemiesOnCell.front();
 	}
 	return nullptr;
 }

@@ -22,9 +22,9 @@ void result(int result, int level, bool &playAgain)
 	wonText.setFillColor(sf::Color(200, 200, 200));
 	wonText.setPosition(75, 20);
 
-	sf::Text closedText("You can do it", font, 35);
+	sf::Text closedText("Tower Defense", font, 35);
 	closedText.setFillColor(sf::Color(200, 200, 200));
-	closedText.setPosition(50, 20);
+	closedText.setPosition(30, 20);
 
 	sf::Text playAgainText("Play again", font, 35);
 	playAgainText.setFillColor(sf::Color(200, 200, 200));

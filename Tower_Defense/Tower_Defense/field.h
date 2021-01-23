@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "roadCell.h"
+class RoadCell;
 
 // класс поля
 class Field

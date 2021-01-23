@@ -1,9 +1,9 @@
 #pragma once
 
-#include "enemiesWave.h"
-#include "field.h"
-#include "towersControl.h"
 #include <SFML/Graphics.hpp>
+
+class EnemiesWave;
+class Field;
 
 // функции ниже выполн€ют что-то в определенном промежутке времени
 

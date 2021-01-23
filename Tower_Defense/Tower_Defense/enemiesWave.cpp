@@ -1,6 +1,7 @@
 #include "enemiesWave.h"
 
-#include "consts.h"
+#include "enemy.h"
+#include "roadCell.h"
 
 EnemiesWave::EnemiesWave(int level, int maxLevel)
 	: m_level{ level }, m_maxLevel{ maxLevel }
@@ -16,7 +17,7 @@ EnemiesWave::EnemiesWave(int level, int maxLevel)
 
 EnemiesWave::~EnemiesWave()
 {
-	for (auto var : m_enemiesTextures) {
+	for (auto & var : m_enemiesTextures) {
 		if (var) {
 			delete var;
 		}
@@ -25,7 +26,6 @@ EnemiesWave::~EnemiesWave()
 
 void EnemiesWave::spawnNextEnemy(RoadCell * cellToSpawn)
 {
-	bool alive{ 0 };
 	for (auto & var : m_enemiesList) {
 		// если враг еще не заспавнился
 		if (!var->getPositionEnemy() && !var->getIsKilled()) {
@@ -115,7 +115,7 @@ void EnemiesWave::drawAllEnemies(sf::RenderWindow & window)
 {
 	for (auto & var : m_enemiesList) {
 		// если враг жив
-		if (var->isAlive()) {
+		if (var->getIsAlive()) {
 			var->drawEnemy(window);
 			var->drawHPBar(window);
 		}
@@ -126,7 +126,7 @@ bool EnemiesWave::moveAllEnemies()
 {
 	for (auto & var : m_enemiesList) {
 		// если враг жив
-		if (var->isAlive()) {
+		if (var->getIsAlive()) {
 			var->enemyMoves();
 			// если враг прошел полную клетку
 			if (var->getDistance() >= W) {
@@ -155,7 +155,7 @@ void EnemiesWave::checkAlive(int &money)
 		erased = 0;
 		for (var = m_enemiesList.begin(); var != m_enemiesList.end(); ++var) {
 			// если враг жив
-			if ((*var)->isAlive()) {
+			if ((*var)->getIsAlive()) {
 				if ((*var)->getHealth() <= 0) {
 					money += (*var)->getCoins();
 					erased = 1;

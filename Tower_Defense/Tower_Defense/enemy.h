@@ -2,8 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "roadCell.h"
 #include "consts.h"
+
+class RoadCell;
 
 // класс противника
 class Enemy
@@ -19,6 +20,8 @@ private:
 	int m_hp;
 	// сколько с него падает денег
 	int m_coins;
+	// урон
+	int m_dmg;
 	// в какую сторону должен двигаться
 	int m_direction;
 	// насколько далеко от центра клетки, нужно для отрисовки и смены ячейки
@@ -41,7 +44,7 @@ public:
 	// отрисовка шкалы здоровья
 	void drawHPBar(sf::RenderWindow &window);
 	// враг двигается
-	void enemyMoves() { m_distance += m_speed; }
+	void enemyMoves();
 	// враг получает урон
 	void getDamage(int dmg) { m_hp -= dmg; }
 	// рисовать получение выстрела
@@ -62,7 +65,7 @@ public:
 	// получаем кол-во монет с врага
 	int getCoins() const { return m_coins; }
 	// получаем m_isAlive
-	bool isAlive() const { return m_isAlive; }
+	bool getIsAlive() const { return m_isAlive; }
 	// устанавливаем m_isAlive
 	void setIsAlive(bool isAlive) { m_isAlive = isAlive; }
 	// получаем m_isKilled

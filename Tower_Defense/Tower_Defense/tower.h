@@ -2,8 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "field.h"
-#include "missilesControl.h"
+#include "consts.h"
+
+class Field;
+class Missiles;
 
 // класс башни
 class Tower
@@ -25,4 +27,7 @@ public:
 	void drawTower(sf::RenderWindow & window);
 	// выстрел
 	void shoot(Field &field, Missiles &missiles);
+
+	std::pair<int, int>& getPosition() { return m_position; }
+	int getTowerType() const { return m_type; }
 };

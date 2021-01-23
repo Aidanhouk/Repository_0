@@ -1,12 +1,12 @@
 #include "enemy.h"
 
+#include "roadCell.h"
+#include "blockOnField.h"
+
 Enemy::Enemy(int type, sf::Texture * enemyTextures[ENEMIES_COUNT])
-	: m_type{ type }, m_enemyTexture{ enemyTextures[type] }
-{
-	m_hp = ENEMIES_HP[type];
-	m_coins = ENEMIES_COINS[type];
-	m_speed = ENEMIES_SPEED[type];
-}
+	: m_type{ type }, m_enemyTexture{ enemyTextures[type] }, m_hp{ ENEMIES_HP[type] },
+	m_coins{ ENEMIES_COINS[type] }, m_speed{ ENEMIES_SPEED[type] }, m_dmg{ ENEMIES_DAMAGE[type] }
+{}
 
 void Enemy::setDirection(RoadCell * currentPosition)
 {
@@ -14,7 +14,7 @@ void Enemy::setDirection(RoadCell * currentPosition)
 	std::pair<int, int> coordCurrentPos{ currentPosition->getCoordinates() };
 	std::pair<int, int> coordNextPos{ currentPosition->getNextCell()->getCoordinates() };
 	std::pair<int, int> coordDifference{ coordNextPos.first - coordCurrentPos.first, coordNextPos.second - coordCurrentPos.second };
-	// можно и не создавать доп переменные, но будет уж слишком много кода в одном выражении
+	// можно и не создавать доп переменные, но будет слишком много кода в одном выражении
 	switch (coordDifference.first)
 	{
 	case -1:
@@ -48,6 +48,36 @@ void Enemy::changePosition()
 	m_position->setEnemyOnCell(this);
 }
 
+void Enemy::enemyMoves()
+{
+	if (m_position->getNextCell()->getBlockOnCell()) {
+		// замедление скорости, если враг идет по замедляющему блоку
+		if (m_position->getNextCell()->getBlockOnCell()->getType() == 1) {
+			if (m_distance >= (W >> 1)) {
+				m_speed = ENEMIES_SPEED[m_type] / 3;
+				m_distance += m_speed;
+				return;
+			}
+		}
+		// если след блок - останавливающий, то остановка движения + нанесение урона
+		else {
+			m_speed = 0;
+			m_position->getNextCell()->getBlockOnCell()->getDamage(m_dmg);
+			return;
+		}
+	}
+	if (m_position->getBlockOnCell()) {
+		// замедление скорости, если враг идет по замедляющему блоку
+		if (m_distance < (W >> 1)) {
+			m_speed = ENEMIES_SPEED[m_type] / 3;
+			m_distance += m_speed;
+			return;
+		}
+	}
+	m_speed = ENEMIES_SPEED[m_type];
+	m_distance += m_speed;
+}
+
 void Enemy::drawEnemy(sf::RenderWindow &window)
 {
 	//sf::Sprite enemy;
@@ -56,16 +86,16 @@ void Enemy::drawEnemy(sf::RenderWindow &window)
 	switch (m_direction)
 	{
 	case 1:
-		enemy.setPosition((float)(W) * m_position->getCoordinates().second + 10, (float)(W) * m_position->getCoordinates().first + 10 - m_distance);
+		enemy.setPosition(W * m_position->getCoordinates().second + 10, W * m_position->getCoordinates().first + 10 - m_distance);
 		break;
 	case 2:
-		enemy.setPosition((float)(W) * m_position->getCoordinates().second + 10 + m_distance, (float)(W) * m_position->getCoordinates().first + 10);
+		enemy.setPosition(W * m_position->getCoordinates().second + 10 + m_distance, W * m_position->getCoordinates().first + 10);
 		break;
 	case 3:
-		enemy.setPosition((float)(W) * m_position->getCoordinates().second + 10, (float)(W) * m_position->getCoordinates().first + 10 + m_distance);
+		enemy.setPosition(W * m_position->getCoordinates().second + 10, W * m_position->getCoordinates().first + 10 + m_distance);
 		break;
 	case 4:
-		enemy.setPosition((float)(W) * m_position->getCoordinates().second + 10 - m_distance, (float)(W) * m_position->getCoordinates().first + 10);
+		enemy.setPosition(W * m_position->getCoordinates().second + 10 - m_distance, W * m_position->getCoordinates().first + 10);
 		break;
 	}
 	switch (m_type)
@@ -95,20 +125,20 @@ void Enemy::drawHPBar(sf::RenderWindow & window)
 	switch (m_direction)
 	{
 	case 1:
-		hpBarRed.setPosition((float)(W)* m_position->getCoordinates().second + W * 0.25, (float)(W)* m_position->getCoordinates().first + 10 - m_distance + W * 0.75);
-		hpBarGreen.setPosition((float)(W)* m_position->getCoordinates().second + W * 0.25, (float)(W)* m_position->getCoordinates().first + 10 - m_distance + W * 0.75);
+		hpBarRed.setPosition(W * m_position->getCoordinates().second + W * 0.25, W * m_position->getCoordinates().first + 10 - m_distance + W * 0.75);
+		hpBarGreen.setPosition(W * m_position->getCoordinates().second + W * 0.25, W * m_position->getCoordinates().first + 10 - m_distance + W * 0.75);
 		break;
 	case 2:
-		hpBarRed.setPosition((float)(W)* m_position->getCoordinates().second + m_distance + W * 0.25, (float)(W)* m_position->getCoordinates().first + 10 + W * 0.75);
-		hpBarGreen.setPosition((float)(W)* m_position->getCoordinates().second + m_distance + W * 0.25, (float)(W)* m_position->getCoordinates().first + 10 + W * 0.75);
+		hpBarRed.setPosition(W * m_position->getCoordinates().second + m_distance + W * 0.25, W * m_position->getCoordinates().first + 10 + W * 0.75);
+		hpBarGreen.setPosition(W * m_position->getCoordinates().second + m_distance + W * 0.25, W * m_position->getCoordinates().first + 10 + W * 0.75);
 		break;
 	case 3:
-		hpBarRed.setPosition((float)(W)* m_position->getCoordinates().second + W * 0.25, (float)(W)* m_position->getCoordinates().first + 10 + m_distance + W * 0.75);
-		hpBarGreen.setPosition((float)(W)* m_position->getCoordinates().second + W * 0.25, (float)(W)* m_position->getCoordinates().first + 10 + m_distance + W * 0.75);
+		hpBarRed.setPosition(W * m_position->getCoordinates().second + W * 0.25, W * m_position->getCoordinates().first + 10 + m_distance + W * 0.75);
+		hpBarGreen.setPosition(W * m_position->getCoordinates().second + W * 0.25, W * m_position->getCoordinates().first + 10 + m_distance + W * 0.75);
 		break;
 	case 4:
-		hpBarRed.setPosition((float)(W)* m_position->getCoordinates().second - m_distance + W * 0.25, (float)(W)* m_position->getCoordinates().first + 10 + W * 0.75);
-		hpBarGreen.setPosition((float)(W)* m_position->getCoordinates().second - m_distance + W * 0.25, (float)(W)* m_position->getCoordinates().first + 10 + W * 0.75);
+		hpBarRed.setPosition(W * m_position->getCoordinates().second - m_distance + W * 0.25, W * m_position->getCoordinates().first + 10 + W * 0.75);
+		hpBarGreen.setPosition(W * m_position->getCoordinates().second - m_distance + W * 0.25, W * m_position->getCoordinates().first + 10 + W * 0.75);
 		break;
 	}
 	window.draw(hpBarRed);
@@ -121,16 +151,16 @@ void Enemy::drawShot(sf::RenderWindow & window)
 	switch (m_direction)
 	{
 	case 1:
-		wound.setPosition((float)(W)* m_position->getCoordinates().second + 10, (float)(W)* m_position->getCoordinates().first + 10 - m_distance);
+		wound.setPosition(W * m_position->getCoordinates().second + 10, W * m_position->getCoordinates().first + 10 - m_distance);
 		break;
 	case 2:
-		wound.setPosition((float)(W)* m_position->getCoordinates().second + 10 + m_distance, (float)(W)* m_position->getCoordinates().first + 10);
+		wound.setPosition(W * m_position->getCoordinates().second + 10 + m_distance, W * m_position->getCoordinates().first + 10);
 		break;
 	case 3:
-		wound.setPosition((float)(W)* m_position->getCoordinates().second + 10, (float)(W)* m_position->getCoordinates().first + 10 + m_distance);
+		wound.setPosition(W * m_position->getCoordinates().second + 10, W * m_position->getCoordinates().first + 10 + m_distance);
 		break;
 	case 4:
-		wound.setPosition((float)(W)* m_position->getCoordinates().second + 10 - m_distance, (float)(W)* m_position->getCoordinates().first + 10);
+		wound.setPosition(W * m_position->getCoordinates().second + 10 - m_distance, W * m_position->getCoordinates().first + 10);
 		break;
 	}
 	wound.setFillColor(sf::Color::Red);
