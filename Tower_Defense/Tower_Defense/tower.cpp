@@ -2,7 +2,6 @@
 
 #include "field.h"
 #include "missiles.h"
-#include "consts.h"
 #include "enemy.h"
 #include "roadCell.h"
 
@@ -11,8 +10,6 @@ Tower::Tower(int i, int j, int type, sf::Texture * towersTextures[TOWERS_COUNT])
 {
 	m_position.first = i;
 	m_position.second = j;
-	//m_dmg = TOWERS_DAMAGE[type];
-	//m_towerTexture = towersTextures[type];
 }
 
 void Tower::drawTower(sf::RenderWindow & window)
@@ -22,7 +19,7 @@ void Tower::drawTower(sf::RenderWindow & window)
 	window.draw(tower);
 }
 
-void Tower::shoot(Field & field, Missiles &missiles)
+void Tower::shoot(Field & field, Missiles &missiles, int &money)
 {
 	// проходимся по всей дороге с конца
 	for (auto currentCell = field.getFinishPos(); currentCell != field.getStartPos(); currentCell = currentCell->getPrevCell()) {
@@ -33,13 +30,15 @@ void Tower::shoot(Field & field, Missiles &missiles)
 			std::pair<int, int> coordDif{ enemyCellCoord.first - m_position.first, enemyCellCoord.second - m_position.second };
 			// если враг находится вокруг башни (8 клеток)
 			if (coordDif.first <= 1 && coordDif.first >= -1 && coordDif.second <= 1 && coordDif.second >= -1) {
-				currentCell->getEnemyOnCell()->getDamage(m_dmg);
-				// создаем объект снаряда и добавляем его в вектор снарядов
-				std::pair<Tower*, Enemy*> *missile{ new std::pair<Tower*, Enemy*> };
-				missile->first = this;
-				missile->second = currentCell->getEnemyOnCell();
-				missiles.addMissile(missile);
-				break;
+				// наносится урон и если враг убит..
+				if (!currentCell->getEnemyOnCell()->getDamage(m_dmg, money)) {
+					// создаем объект снаряда и добавляем его в вектор снарядов
+					std::pair<Tower*, Enemy*> *missile{ new std::pair<Tower*, Enemy*> };
+					missile->first = this;
+					missile->second = currentCell->getEnemyOnCell();
+					missiles.addMissile(missile);
+					break;
+				}
 			}
 
 		}

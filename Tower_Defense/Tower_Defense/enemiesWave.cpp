@@ -4,7 +4,7 @@
 #include "roadCell.h"
 
 EnemiesWave::EnemiesWave(int level, int maxLevel)
-	: m_level{ level }, m_maxLevel{ maxLevel }
+	: m_level{ level - 1 }, m_maxLevel{ maxLevel }
 {
 	m_enemiesList.reserve(50);
 	// скачиваем и записываем текстуры врагов
@@ -55,58 +55,86 @@ void EnemiesWave::nextWave()
 		switch (m_level)
 		{
 		case 1:
-			m_enemiesLeft = 5;
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(i + 1, m_level, m_enemiesTextures);
-				m_enemiesList.push_back(enemy);
-			}
-			//m_enemiesLeft = 10;
-			//for (int i = 0; i < 10; ++i) {
-			//	Enemy *enemy = new Enemy(1, m_level, m_enemiesTextures);
-			//	m_enemiesList.push_back(enemy);
-			//}
-			break;
-		case 2:
 			m_enemiesLeft = 15;
 			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(1, m_level, m_enemiesTextures);
+				Enemy *enemy = new Enemy(1, m_level, m_enemiesTextures, this);
 				m_enemiesList.push_back(enemy);
 			}
 			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures);
+				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures, this);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		case 2:
+			m_enemiesLeft = 25;
+			for (int i = 0; i < 10; ++i) {
+				Enemy *enemy = new Enemy(1, m_level, m_enemiesTextures, this);
+				m_enemiesList.push_back(enemy);
+			}
+			for (int i = 0; i < 15; ++i) {
+				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures, this);
 				m_enemiesList.push_back(enemy);
 			}
 			break;
 		case 3:
 			m_enemiesLeft = 10;
 			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures);
+				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures, this);
 				m_enemiesList.push_back(enemy);
 			}
 			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures);
+				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures, this);
 				m_enemiesList.push_back(enemy);
 			}
 			break;
 		case 4:
-			m_enemiesLeft = 15;
+			m_enemiesLeft = 20;
 			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures);
+				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures, this);
 				m_enemiesList.push_back(enemy);
 			}
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(4, m_level, m_enemiesTextures);
+			for (int i = 0; i < 10; ++i) {
+				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures, this);
 				m_enemiesList.push_back(enemy);
 			}
 			break;
 		case 5:
-			m_enemiesLeft = 20;
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures);
+			m_enemiesLeft = 15;
+			for (int i = 0; i < 10; ++i) {
+				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures, this);
 				m_enemiesList.push_back(enemy);
 			}
-			for (int i = 0; i < 15; ++i) {
-				Enemy *enemy = new Enemy(4, m_level, m_enemiesTextures);
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(4, m_level, m_enemiesTextures, this);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		case 6:
+			m_enemiesLeft = 15;
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures, this);
+				m_enemiesList.push_back(enemy);
+			}
+			for (int i = 0; i < 10; ++i) {
+				Enemy *enemy = new Enemy(4, m_level, m_enemiesTextures, this);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		case 7:
+			m_enemiesLeft = 5;
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(5, m_level, m_enemiesTextures, this);
+				m_enemiesList.push_back(enemy);
+			}
+			break;
+		case 8:
+			m_enemiesLeft = 15;
+			for (int i = 0; i < 10; ++i) {
+				Enemy *enemy = new Enemy(4, m_level, m_enemiesTextures, this);
+				m_enemiesList.push_back(enemy);
+			}
+			for (int i = 0; i < 5; ++i) {
+				Enemy *enemy = new Enemy(5, m_level, m_enemiesTextures, this);
 				m_enemiesList.push_back(enemy);
 			}
 			break;
@@ -147,39 +175,4 @@ bool EnemiesWave::moveAllEnemies()
 		}
 	}
 	return 0;
-}
-
-void EnemiesWave::checkAlive(int &money)
-{
-	// закончились  мертвые враги?
-	bool f{ 0 };
-	// удалили врага?
-	bool erased{ 0 };
-	auto var = m_enemiesList.begin();
-	while (!f) {
-		erased = 0;
-		for (var = m_enemiesList.begin(); var != m_enemiesList.end(); ++var) {
-			// если враг жив
-			if ((*var)->getIsAlive()) {
-				if ((*var)->getHealth() <= 0) {
-					money += (*var)->getCoins();
-					erased = 1;
-					// устанавливаем, что враг мертв
-					(*var)->setIsAlive(0);
-					(*var)->setIsKilled(1);
-					// убираем врага с клетки
-					(*var)->getPositionEnemy()->removeEnemyFromCell(*var);
-					--m_enemiesLeft;
-					break;
-				}
-			}
-		}
-		// если не удалили врага
-		if (!erased) {
-			// если прошли весь список и все оказались живы
-			if (var == m_enemiesList.end()) {
-				f = 1;
-			}
-		}
-	}
 }

@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-void result(int result, int waveLevel, bool &playAgain)
+void result(int result, int waveLevel, bool &exitGame)
 {
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");
@@ -28,7 +28,7 @@ void result(int result, int waveLevel, bool &playAgain)
 		break;
 		// если проиграл
 	case 2:
-		resultText = sf::Text("You got to wave  " + std::to_string(waveLevel), font, 35);
+		resultText = sf::Text("You got to wave " + std::to_string(waveLevel), font, 35);
 		resultText.setPosition(10, 20);
 		break;
 	}
@@ -55,8 +55,8 @@ void result(int result, int waveLevel, bool &playAgain)
 		{
 			// закрытие окна
 			if (event.type == sf::Event::Closed) {
-				playAgain = 0;
 				window.close();
+				exitGame = 1;
 			}
 			// если нажата кнопка мыши
 			if (event.type == sf::Event::MouseButtonPressed) {
@@ -68,7 +68,7 @@ void result(int result, int waveLevel, bool &playAgain)
 				// exit
 				if (x > exitText.getPosition().x && x < window.getSize().x - exitText.getPosition().x
 					&& y > exitText.getPosition().y && y < exitText.getPosition().y + 40) {
-					playAgain = 0;
+					exitGame = 1;
 					window.close();
 				}
 			}

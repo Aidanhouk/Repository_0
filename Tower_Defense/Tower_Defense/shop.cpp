@@ -56,13 +56,13 @@ void Shop::drawShop(int level, int money, int type, sf::RenderWindow & window)
 	// область покупки башен
 	window.draw(*m_border);
 
-	// рисуем деньги
+	// текст с деньгами
 	sf::Text moneyText("Coins:  " + std::to_string(money), *m_font, 40);
 	moneyText.setFillColor(sf::Color::Yellow);
 	moneyText.setPosition(W * (COLS - 2.7), W * ROWS + 10);
 	window.draw(moneyText);
 
-	// рисуем уровень
+	// текст с номером волны
 	sf::Text levelText("Wave:  " + std::to_string(level), *m_font, 40);
 	levelText.setFillColor(sf::Color::Red);
 	levelText.setPosition(W * (COLS - 2.6), W * ROWS + W * 0.7);
@@ -73,15 +73,8 @@ void Shop::drawShop(int level, int money, int type, sf::RenderWindow & window)
 		sf::Sprite block(*m_towersTextures[i]);
 		block.setPosition(W * (i - 1), W * ROWS);
 		window.draw(block);
-		// если это башня
-		int price;
-		if (i < TOWERS_COUNT) {
-			price = TOWERS_PRICE[i];
-		}
-		// если это блок на поле
-		else {
-			price = BLOCKS_PRICE[i - TOWERS_COUNT + 1];
-		}
+		// узнаем цену башни/блока
+		int price{ (i < TOWERS_COUNT) ? TOWERS_PRICE[i] : BLOCKS_PRICE[i - TOWERS_COUNT + 1] };
 		sf::Text cost(std::to_string(price), *m_font, 30);
 		if (money >= price) {
 			cost.setFillColor(sf::Color::Yellow);

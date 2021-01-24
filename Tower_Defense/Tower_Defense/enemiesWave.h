@@ -37,13 +37,10 @@ public:
 	void drawAllEnemies(sf::RenderWindow &window);
 	// движение врагов, если возвращает 1, то игрок проиграл
 	bool moveAllEnemies();
-	// проверить, живы ли враги
-	void checkAlive(int &money);
+	// уменьшить колв-во проивников на 1
+	void reduceEnemiesLeft() { --m_enemiesLeft; }
 
-	// возвращает уровень волны
 	int getLevel() const { return m_level; }
-	// возвращает макс уровень волны
 	int getMaxLevel() const { return m_maxLevel; }
-	// возвращает кол-во врагов в волне
 	int getEnemiesLeft() const { return m_enemiesLeft; }
 };

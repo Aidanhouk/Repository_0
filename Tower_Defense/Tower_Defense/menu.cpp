@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-void menu(int &level)
+void menu(int &level, bool &exitGame)
 {
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");
@@ -42,6 +42,7 @@ void menu(int &level)
 		{
 			// закрытие окна
 			if (event.type == sf::Event::Closed) {
+				exitGame = 1;
 				window.close();
 			}
 			// если нажата кнопка мыши

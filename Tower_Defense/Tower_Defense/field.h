@@ -35,9 +35,7 @@ public:
 	// если в €чейку поставили башню, нужно это зафиксировать
 	int &getCell(int i, int j) { return m_field[i][j]; }
 
-	// возвращает стартовую позицию
 	RoadCell * getStartPos() { return m_startCell; }
-	// возвращает финишную €чейку
 	RoadCell * getFinishPos() { return m_finishCell; }
 	// возвращает указатель на поле
 	int** getField() const { return m_field; }

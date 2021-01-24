@@ -18,7 +18,7 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 				return;
 			}
 			// выстрел
-			sf::RectangleShape missile(sf::Vector2f(W * 1.2, 2));
+			sf::RectangleShape missile(sf::Vector2f(W, 2));
 
 			int direction{ var->second->getDirection() };
 			double distance{ var->second->getDistance() };
@@ -28,7 +28,7 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 			// тут высчитывается длина выстрела, если враг находится диагонально к башне и отдаляется от нее
 			// например, в правой верхней клетке относительно башни и идет вверх или направо
 			// также, если враг находится по бокам от башни и отдаляется
-			int diagDist = W * 1.6 + 0.9 * W * (static_cast<double>(distance) / W);
+			int diagDist = W * 1.3 + 1.6 * W * (static_cast<double>(distance) / W);
 			// в зависимости от направления, меняем длину и угол выстрела
 			switch (coordDif.second)
 			{
@@ -41,15 +41,15 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 					switch (direction)
 					{
 					case 1:
-						//missile = sf::RectangleShape(sf::Vector2f(W * 1.1, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.7, 2));
 						missile.rotate(180 + distance);
 						break;
 					case 3:
-						//missile = sf::RectangleShape(sf::Vector2f(W * 1.1, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.7, 2));
 						missile.rotate(180 - distance);
 						break;
 					case 4:
-						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.8, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 1, 2));
 						missile.rotate(180);
 						break;
 					}
@@ -59,15 +59,15 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 					switch (direction)
 					{
 					case 1:
-						//missile = sf::RectangleShape(sf::Vector2f(W * 1.1, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.7, 2));
 						missile.rotate(0 - distance);
 						break;
 					case 2:
-						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.8, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 1, 2));
 						missile.rotate(0);
 						break;
 					case 3:
-						//missile = sf::RectangleShape(sf::Vector2f(W * 1.1, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.7, 2));
 						missile.rotate(0 + distance);
 						break;
 					}
@@ -83,15 +83,15 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 					switch (direction)
 					{
 					case 1:
-						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.8, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 1, 2));
 						missile.rotate(-90);
 						break;
 					case 2:
-						//missile = sf::RectangleShape(sf::Vector2f(W * 1.1, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.7, 2));
 						missile.rotate(-90 + distance);
 						break;
 					case 4:
-						//missile = sf::RectangleShape(sf::Vector2f(W * 1.1, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.7, 2));
 						missile.rotate(-90 - distance);
 						break;
 					}
@@ -147,15 +147,15 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 					switch (direction)
 					{
 					case 2:
-						//missile = sf::RectangleShape(sf::Vector2f(W * 1.1, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.7, 2));
 						missile.rotate(90 - distance);
 						break;
 					case 3:
-						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.8, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 1, 2));
 						missile.rotate(90);
 						break;
 					case 4:
-						//missile = sf::RectangleShape(sf::Vector2f(W * 1.1, 2));
+						missile = sf::RectangleShape(sf::Vector2f(diagDist * 0.7, 2));
 						missile.rotate(90 + distance);
 						break;
 					}
@@ -227,9 +227,6 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 			}
 			missile.move(W * var->first->getPosition().second + W * 0.5, W* var->first->getPosition().first + W * 0.5);
 			window.draw(missile);
-
-			// враг отрисовывает получение урона
-			//var->second->drawShot(window);
 		}
 	}
 }

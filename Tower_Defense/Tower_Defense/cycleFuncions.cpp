@@ -1,33 +1,22 @@
 #include "cycleFuncions.h"
 
-#include <SFML/Graphics.hpp>
 #include <thread>
 
 #include "enemiesWave.h"
 #include "field.h"
 
-// перерыв между спавном противника?
-static bool breakEnemy{ 0 };
 // переменные для измерения времени между спавном следующего монстра
-static std::chrono::time_point<std::chrono::steady_clock> startNextEnemy;
+static std::chrono::time_point<std::chrono::steady_clock> startNextEnemy = std::chrono::high_resolution_clock::now();
 static std::chrono::time_point<std::chrono::steady_clock> endNextEnemy;
 
 void spawnNextEnemyCycle(EnemiesWave &enemiesWave, Field &field)
 {
-	// спавн след противника
-	if (!breakEnemy) {
+	endNextEnemy = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float> breakEnemyTime{ endNextEnemy - startNextEnemy };
+	// если прошло x сек, выпускаем след врага
+	if (breakEnemyTime.count() > 1) {
 		enemiesWave.spawnNextEnemy(field.getStartPos());
 		startNextEnemy = std::chrono::high_resolution_clock::now();
-		breakEnemy = 1;
-	}
-	// закончился ли перерыв между спавном врага?
-	if (breakEnemy) {
-		endNextEnemy = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<float> breakEnemyTime{ endNextEnemy - startNextEnemy };
-		// если прошло x сек, выпускаем след врага
-		if (breakEnemyTime.count() > 1) {
-			breakEnemy = 0;
-		}
 	}
 }
 
@@ -55,7 +44,7 @@ void waveBreakCycle(EnemiesWave &enemiesWave, int &result, bool &endOfGame, bool
 		endWave = std::chrono::high_resolution_clock::now();
 		std::chrono::duration<float> breakTime{ endWave - startWave };
 		// если прошло x сек, начинаем следующую волну
-		if (breakTime.count() > 1) {
+		if (breakTime.count() > 2) {
 			enemiesWave.nextWave();
 			endOfWave = 0;
 			_break = 0;

@@ -26,5 +26,5 @@ public:
 	// отрисовать все башни
 	void drawAllTowers(sf::RenderWindow &window);
 	// башни стреляют
-	void towersShoot(Field & field, Missiles &missiles);
+	void towersShoot(Field & field, Missiles &missiles, int &money);
 };

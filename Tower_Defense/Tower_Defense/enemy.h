@@ -5,6 +5,7 @@
 #include "consts.h"
 
 class RoadCell;
+class EnemiesWave;
 
 // класс противника
 class Enemy
@@ -34,9 +35,11 @@ private:
 	sf::Texture * m_enemyTexture;
 	// на какой клетке находится
 	RoadCell *m_position{ nullptr };
+	// волна
+	EnemiesWave *m_wave;
 public:
 	// в конструктор нужно передать тип монстра
-	Enemy(int type, int level, sf::Texture * enemyTextures[ENEMIES_COUNT]);
+	Enemy(int type, int level, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave);
 	~Enemy() {}
 
 	// сбрасываем m_distance и меняем клетку
@@ -47,29 +50,19 @@ public:
 	void drawHPBar(sf::RenderWindow &window);
 	// враг двигается
 	void enemyMoves();
-	// враг получает урон
-	void getDamage(int dmg) { m_hp -= dmg; }
+	// враг получает урон, возвращает, умер ли враг
+	bool getDamage(int dmg, int &money);
 
-	// возвращает позицию врага
 	RoadCell *getPositionEnemy() { return m_position; }
-	// устанавливаем позицию врага
 	void setPosition(RoadCell * position) { m_position = position; }
-	// возвращает направление движения
+
 	int getDirection() const { return m_direction; }
-	// устанавливаем направление движения
 	void setDirection(RoadCell * currentPosition);
-	// получаем m_distance
 	double getDistance() const { return m_distance; }
-	// получаем hp
-	int getHealth() const { return m_hp; }
-	// получаем кол-во монет с врага
+
 	int getCoins() const { return m_coins; }
-	// получаем m_isAlive
+
 	bool getIsAlive() const { return m_isAlive; }
-	// устанавливаем m_isAlive
 	void setIsAlive(bool isAlive) { m_isAlive = isAlive; }
-	// получаем m_isKilled
 	bool getIsKilled() const { return m_isKilled; }
-	// устанавливаем m_isKilled
-	void setIsKilled(bool isKilled) { m_isKilled = isKilled; }
 };

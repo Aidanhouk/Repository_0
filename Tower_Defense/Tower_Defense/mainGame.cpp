@@ -31,8 +31,8 @@ void mainGame(int &result, int level, int &waveLevel)
 	emptyBlockTexture.loadFromFile("images/field/emptyBlock.png");
 	sf::Sprite spriteBack(emptyBlockTexture);
 
-	// объект волны противников, в параметрах - уровень волны с который начнется игра минус 1
-	EnemiesWave enemiesWave(0, 5);
+	// объект волны противников, в параметрах - уровень волны с который начнется игра; уровень последней волны
+	EnemiesWave enemiesWave(1, 8);
 	// объект для управления башнями
 	TowersControl towerControl;
 	// объект для работы со снарядами
@@ -43,7 +43,7 @@ void mainGame(int &result, int level, int &waveLevel)
 	Shop shop;
 
 	// изначальные деньги
-	int money{ START_MONEY };
+	int money{ START_MONEY[level] };
 	// тип башни/блока, на которую нажал игрок в магазине
 	int blockType{ 0 };
 	// конец игры?
@@ -72,14 +72,10 @@ void mainGame(int &result, int level, int &waveLevel)
 				// фиксируем нажатия на башни и блоки в магазине
 				if (y == ROWS) {
 					if (x >= 0 && x < TOWERS_COUNT - 1) {
-						if (money >= TOWERS_PRICE[x + 1]) {
-							blockType = x + 1;
-						}
+						blockType = x + 1;
 					}
 					if (x >= TOWERS_COUNT - 1 && x < TOWERS_COUNT + FIELD_BLOCKS_COUNT - 2) {
-						if (money >= BLOCKS_PRICE[x - TOWERS_COUNT + 2]) {
-							blockType = x + 1;
-						}
+						blockType = x + 1;
 					}
 				}
 				// если выбрана башня/блок
@@ -90,21 +86,25 @@ void mainGame(int &result, int level, int &waveLevel)
 						if (blockType < TOWERS_COUNT) {
 							// если эта ячейка пустая
 							if (!field.getCellValue(y, x)) {
-								towerControl.addTower(y, x, blockType);
-								money -= TOWERS_PRICE[blockType];
-								field.getCell(y, x) = 2;
-								blockType = 0;
+								if (money >= TOWERS_PRICE[blockType]) {
+									towerControl.addTower(y, x, blockType);
+									money -= TOWERS_PRICE[blockType];
+									field.getCell(y, x) = 2;
+									blockType = 0;
+								}
 							}
 						}
 						// если выбран блок
 						else {
 							// если эта ячейка дороги
 							if (field.getCellValue(y, x) == 1) {
-								// если получилось поставить блок
-								if (blocksControl.placeBlockOnField(y, x, blockType - TOWERS_COUNT + 1)) {
-									money -= BLOCKS_PRICE[blockType - TOWERS_COUNT + 1];
-									field.getCell(y, x) = 3;
-									blockType = 0;
+								if (money >= BLOCKS_PRICE[blockType - TOWERS_COUNT + 1]) {
+									// если получилось поставить блок
+									if (blocksControl.placeBlockOnField(y, x, blockType - TOWERS_COUNT + 1)) {
+										money -= BLOCKS_PRICE[blockType - TOWERS_COUNT + 1];
+										field.getCell(y, x) = 3;
+										blockType = 0;
+									}
 								}
 							}
 						}
@@ -116,8 +116,6 @@ void mainGame(int &result, int level, int &waveLevel)
 		if (!endOfWave) {
 			// спавн противников
 			spawnNextEnemyCycle(enemiesWave, field);
-			// проверяем, живы ли враги + обновляем монеты
-			enemiesWave.checkAlive(money);
 		}
 		// если врагов не осталось, заканчиваем волну
 		if (!enemiesWave.getEnemiesLeft()) {
@@ -133,6 +131,7 @@ void mainGame(int &result, int level, int &waveLevel)
 		}
 
 		window.clear();
+		// фон
 		window.draw(spriteBack);
 		// рисуем дорогу + финиш
 		field.paintRoad(window);
@@ -144,10 +143,10 @@ void mainGame(int &result, int level, int &waveLevel)
 
 		// башни стреляют + отрисовка
 		if (!endOfWave) {
-		// добавляем новые
-		towerControl.towersShoot(field, missiles);
-		// рисуем выстрелы
-		missiles.drawMissiles(window);
+			// обрабатываем снаряды
+			towerControl.towersShoot(field, missiles, money);
+			// рисуем выстрелы
+			missiles.drawMissiles(window);
 		}
 		// рисуем всех врагов
 		enemiesWave.drawAllEnemies(window);

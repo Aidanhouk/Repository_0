@@ -8,6 +8,7 @@
 class Field;
 class BlockOnField;
 
+// класс, отвечающий за контроль блоков на поле
 class BlocksControl
 {
 private:

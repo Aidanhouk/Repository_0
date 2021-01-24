@@ -26,7 +26,7 @@ public:
 	// отрисовка башни
 	void drawTower(sf::RenderWindow & window);
 	// выстрел
-	void shoot(Field &field, Missiles &missiles);
+	void shoot(Field &field, Missiles &missiles, int &money);
 
 	std::pair<int, int>& getPosition() { return m_position; }
 	int getTowerType() const { return m_type; }

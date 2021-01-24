@@ -2,11 +2,13 @@
 
 #include "roadCell.h"
 #include "blockOnField.h"
+#include "enemiesWave.h"
 
-Enemy::Enemy(int type, int level, sf::Texture * enemyTextures[ENEMIES_COUNT])
+Enemy::Enemy(int type, int level, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave)
 	: m_type{ type }, m_waveLevel{ level }, m_enemyTexture{ enemyTextures[type] },
-	m_hp{ (int)(ENEMIES_HP[type] * (1 + 0.2 * level)) }, m_coins{ ENEMIES_COINS[type] },
-	m_speed{ ENEMIES_SPEED[type] }, m_dmg{ (int)(ENEMIES_DAMAGE[type] * (1 + 0.2 * level)) }
+	m_hp{ (int)(ENEMIES_HP[type] * (1 + 0.3 * level)) }, m_coins{ ENEMIES_COINS[type] },
+	m_speed{ ENEMIES_SPEED[type] }, m_dmg{ (int)(ENEMIES_DAMAGE[type]) },
+	m_wave{ wave }
 {}
 
 void Enemy::setDirection(RoadCell * currentPosition)
@@ -79,6 +81,22 @@ void Enemy::enemyMoves()
 	m_distance += m_speed;
 }
 
+bool Enemy::getDamage(int dmg, int &money)
+{
+	m_hp -= dmg;
+	if (m_hp <= 0) {
+		money += m_coins;
+		// устанавливаем, что враг мертв
+		m_isAlive = 0;
+		m_isKilled = 1;
+		// убираем врага с клетки
+		m_position->removeEnemyFromCell(this);
+		m_wave->reduceEnemiesLeft();
+		return 1;
+	}
+	return 0;
+}
+
 void Enemy::drawEnemy(sf::RenderWindow &window)
 {
 	sf::Sprite enemy;
@@ -91,9 +109,7 @@ void Enemy::drawEnemy(sf::RenderWindow &window)
 		case 1:
 		case 5:
 			enemy.setPosition(W * m_position->getCoordinates().second, W * (m_position->getCoordinates().first + 1) - m_distance);
-			if (m_type == 1 || m_type == 5) {
-				enemy.rotate(-90);
-			}
+			enemy.rotate(-90);
 			break;
 		case 3:
 		case 4:
@@ -137,7 +153,7 @@ void Enemy::drawHPBar(sf::RenderWindow & window)
 {
 	sf::RectangleShape hpBarRed(sf::Vector2f(W * 0.5, 4));
 	hpBarRed.setFillColor(sf::Color::Red);
-	sf::RectangleShape hpBarGreen(sf::Vector2f(W * 0.5 * ((float)m_hp / ENEMIES_HP[m_type] / (1 + 0.2 * m_waveLevel)), 4));
+	sf::RectangleShape hpBarGreen(sf::Vector2f(W * 0.5 * ((float)m_hp / ENEMIES_HP[m_type] / (1 + 0.3 * m_waveLevel)), 4));
 	hpBarGreen.setFillColor(sf::Color::Green);
 	switch (m_direction)
 	{

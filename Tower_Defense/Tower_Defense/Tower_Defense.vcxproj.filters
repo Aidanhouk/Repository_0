@@ -43,11 +43,20 @@
     <Filter Include="Source Files\Functions">
       <UniqueIdentifier>{842601dc-77e7-4ab1-bc06-8d06d42f6068}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Shop">
+      <UniqueIdentifier>{d8053cd9-efc7-4889-a602-592d808b7ad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{a0e4d157-7b94-4f99-966c-3ee4efd50654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Other">
+      <UniqueIdentifier>{aceda27a-fb54-42a7-b93d-dced9f8feb81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shop">
+      <UniqueIdentifier>{f518f45a-28c6-4e64-8bf1-2574e712c859}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="enemy.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
@@ -69,9 +78,6 @@
     <ClCompile Include="roadCell.cpp">
       <Filter>Source Files\Field</Filter>
     </ClCompile>
-    <ClCompile Include="shop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="missiles.cpp">
       <Filter>Source Files\Tower</Filter>
     </ClCompile>
@@ -89,6 +95,12 @@
     </ClCompile>
     <ClCompile Include="enemiesWave.cpp">
       <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>Source Files\Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,12 +128,6 @@
     <ClInclude Include="roadCell.h">
       <Filter>Header Files\Field</Filter>
     </ClInclude>
-    <ClInclude Include="consts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="missiles.h">
       <Filter>Header Files\Tower</Filter>
     </ClInclude>
@@ -136,6 +142,12 @@
     </ClInclude>
     <ClInclude Include="menu.h">
       <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>Header Files\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="consts.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

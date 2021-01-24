@@ -7,6 +7,7 @@
 class RoadCell;
 class BlocksControl;
 
+// класс блока на поле
 class BlockOnField
 {
 private:

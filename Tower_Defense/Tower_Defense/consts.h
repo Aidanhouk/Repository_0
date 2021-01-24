@@ -13,24 +13,24 @@ const int FIELD_BLOCKS_COUNT{ 3 };
 
 // остальные параметры можно изменять для настройки размера поля и баланса
 
-// кол-во строк, максимум 10 для 1920x1080
+// кол-во строк, максимум 10 для 1920x1080 при W = 80
 const int ROWS{ 10 };
-// кол-во столбцов, минимум 11
+// кол-во столбцов, минимум 11 для корректного интерфейса
 const int COLS{ 11 };
 
-// стартовые деньги
-const int START_MONEY{ 330 };
+// стартовые деньги для каждого уровня
+const int START_MONEY[7]{ 0, 30, 30, 30, 30, 50, 30 };
 
-// далее индекс массива равен типу врага/башни
+// далее индекс массива равен типу врага/башни/блока
 
 // кол-во hp у врагов
-const int ENEMIES_HP[ENEMIES_COUNT]{ 0,120,360,600,1200,2400 };
+const int ENEMIES_HP[ENEMIES_COUNT]{ 0,180,360,720,900,1800 };
 // кол-во монет, падающих с врагов
-const int ENEMIES_COINS[ENEMIES_COUNT]{ 0,2,5,10,15,30 };
+const int ENEMIES_COINS[ENEMIES_COUNT]{ 0,2,4,5,6,8 };
 // скорость врагов
-const double ENEMIES_SPEED[ENEMIES_COUNT]{ 0,2,2,1.8,1.8,2.2 };
+const double ENEMIES_SPEED[ENEMIES_COUNT]{ 0,2,1.8,1.8,2.2,2.2 };
 // урон врагов
-const int ENEMIES_DAMAGE[ENEMIES_COUNT]{ 0,1,2,3,4,8 };
+const int ENEMIES_DAMAGE[ENEMIES_COUNT]{ 0,1,1,2,2,3 };
 
 // стоимости башен
 const int TOWERS_PRICE[TOWERS_COUNT]{ 0,10,30,50,80,120,150 };

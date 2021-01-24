@@ -1,6 +1,5 @@
 #include "towersControl.h"
 
-#include "consts.h"
 #include "missiles.h"
 #include "tower.h"
 
@@ -39,11 +38,11 @@ void TowersControl::drawAllTowers(sf::RenderWindow & window)
 	}
 }
 
-void TowersControl::towersShoot(Field & field, Missiles &missiles)
+void TowersControl::towersShoot(Field & field, Missiles &missiles, int &money)
 {
 	// удаляем старые выстрелы
 	missiles.deleteMissiles();
 	for (auto & var : m_towersList) {
-		var->shoot(field, missiles);
+		var->shoot(field, missiles, money);
 	}
 }

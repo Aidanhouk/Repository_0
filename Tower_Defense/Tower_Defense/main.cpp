@@ -1,9 +1,9 @@
 // в заголовке consts.h можно настроить параметры пол€ и баланса
 // в файле field.cpp в функции makeRoad() можно создать любую дорогу по координатам
 
-void menu(int &level);
+void menu(int &level, bool &exitGame);
 void mainGame(int &result, int level, int &waveLevel);
-void result(int result, int waveLevel, bool &playAgain);
+void result(int result, int waveLevel, bool &exitGame);
 
 int main()
 {
@@ -13,21 +13,27 @@ int main()
 	int level{ 1 };
 	// на какой волне закончилась игра?
 	int waveLevel{ 0 };
-	// играть снова?
-	bool playAgain{ 1 };
+	// закрыть игру?
+	bool exitGame{ 0 };
 
-	while (playAgain) {
+	while (1) {
 		// сбрасываем эти параметры
 		res = 0; level = 1; waveLevel = 0;
 
 		// выбор уровн€
-		menu(level);
+		menu(level, exitGame);
+		if (exitGame) {
+			break;
+		}
 
 		// основна€ игра
 		mainGame(res, level, waveLevel);
 
 		// результат
-		result(res, waveLevel, playAgain);
+		result(res, waveLevel, exitGame);
+		if (exitGame) {
+			break;
+		}
 	}
 
 	return 0;

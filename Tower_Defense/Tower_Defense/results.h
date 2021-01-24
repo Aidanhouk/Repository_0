@@ -1,4 +1,4 @@
 #pragma once
 
 // результаты игры
-void result(int result, int waveLevel, bool &playAgain);
+void result(int result, int waveLevel, bool &exitGame);
