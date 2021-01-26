@@ -37,8 +37,12 @@ public:
 	void drawAllEnemies(sf::RenderWindow &window);
 	// движение врагов, если возвращает 1, то игрок проиграл
 	bool moveAllEnemies();
-	// уменьшить колв-во проивников на 1
+	// уменьшить колв-во противников на 1
 	void reduceEnemiesLeft() { --m_enemiesLeft; }
+	// изменить скорость передвижения врагов
+	void changeEnemiesSpeed();
+	// изменить урон врагов
+	void changeEnemiesDamage();
 
 	int getLevel() const { return m_level; }
 	int getMaxLevel() const { return m_maxLevel; }

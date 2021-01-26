@@ -149,5 +149,8 @@
     <ClInclude Include="consts.h">
       <Filter>Header Files\Other</Filter>
     </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

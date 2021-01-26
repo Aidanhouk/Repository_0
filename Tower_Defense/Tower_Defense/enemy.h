@@ -39,7 +39,7 @@ private:
 	EnemiesWave *m_wave;
 public:
 	// в конструктор нужно передать тип монстра
-	Enemy(int type, int level, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave);
+	Enemy(int type, int currentWaveLevel, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave);
 	~Enemy() {}
 
 	// сбрасываем m_distance и меняем клетку
@@ -51,11 +51,15 @@ public:
 	// враг двигается
 	void enemyMoves();
 	// враг получает урон, возвращает, умер ли враг
-	bool getDamage(int dmg, int &money);
+	bool getDamage(int dmg);
+	// изменить скорость врага
+	void changeSpeed();
+	// изменить урон врага
+	void changeDamage();
 
 	RoadCell *getPositionEnemy() { return m_position; }
 	void setPosition(RoadCell * position) { m_position = position; }
-
+	
 	int getDirection() const { return m_direction; }
 	void setDirection(RoadCell * currentPosition);
 	double getDistance() const { return m_distance; }

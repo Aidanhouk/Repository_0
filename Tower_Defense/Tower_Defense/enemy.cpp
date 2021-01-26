@@ -1,13 +1,14 @@
 #include "enemy.h"
 
+#include "globals.h"
 #include "roadCell.h"
 #include "blockOnField.h"
 #include "enemiesWave.h"
 
-Enemy::Enemy(int type, int level, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave)
-	: m_type{ type }, m_waveLevel{ level }, m_enemyTexture{ enemyTextures[type] },
-	m_hp{ (int)(ENEMIES_HP[type] * (1 + 0.3 * level)) }, m_coins{ ENEMIES_COINS[type] },
-	m_speed{ ENEMIES_SPEED[type] }, m_dmg{ (int)(ENEMIES_DAMAGE[type]) },
+Enemy::Enemy(int type, int currentWaveLevel, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave)
+	: m_type{ type }, m_waveLevel{ currentWaveLevel }, m_enemyTexture{ enemyTextures[type] },
+	m_hp{ (int)(ENEMIES_HP[type] * (1 + 0.3 * currentWaveLevel)) }, m_coins{ ENEMIES_COINS[type] },
+	m_speed{ ENEMIES_SPEED[type] * (1 + 2 * gameSpeed) }, m_dmg{ (int)(ENEMIES_DAMAGE[type] * (1 + 2 * gameSpeed)) },
 	m_wave{ wave }
 {}
 
@@ -57,7 +58,7 @@ void Enemy::enemyMoves()
 		// замедление скорости, если враг идет по замедляющему блоку
 		if (m_position->getNextCell()->getBlockOnCell()->getType() == 1) {
 			if (m_distance >= (W >> 1)) {
-				m_speed = ENEMIES_SPEED[m_type] / 3;
+				m_speed = ENEMIES_SPEED[m_type] * (1 + 2 * gameSpeed) / 3;
 				m_distance += m_speed;
 				return;
 			}
@@ -72,16 +73,16 @@ void Enemy::enemyMoves()
 	if (m_position->getBlockOnCell()) {
 		// замедление скорости, если враг идет по замедляющему блоку
 		if (m_distance < (W >> 1)) {
-			m_speed = ENEMIES_SPEED[m_type] / 3;
+			m_speed = ENEMIES_SPEED[m_type] * (1 + 2 * gameSpeed) / 3;
 			m_distance += m_speed;
 			return;
 		}
 	}
-	m_speed = ENEMIES_SPEED[m_type];
+	m_speed = ENEMIES_SPEED[m_type] * (1 + 2 * gameSpeed);
 	m_distance += m_speed;
 }
 
-bool Enemy::getDamage(int dmg, int &money)
+bool Enemy::getDamage(int dmg)
 {
 	m_hp -= dmg;
 	if (m_hp <= 0) {
@@ -95,6 +96,26 @@ bool Enemy::getDamage(int dmg, int &money)
 		return 1;
 	}
 	return 0;
+}
+
+void Enemy::changeSpeed()
+{
+	if (gameSpeed) {
+		m_speed *= 3;
+	}
+	else {
+		m_speed /= 3;
+	}
+}
+
+void Enemy::changeDamage()
+{
+	if (gameSpeed) {
+		m_dmg *= 3;
+	}
+	else {
+		m_dmg /= 3;
+	}
 }
 
 void Enemy::drawEnemy(sf::RenderWindow &window)

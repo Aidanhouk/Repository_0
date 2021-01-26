@@ -26,5 +26,11 @@ public:
 	// отрисовать все башни
 	void drawAllTowers(sf::RenderWindow &window);
 	// башни стреляют
-	void towersShoot(Field & field, Missiles &missiles, int &money);
+	void towersShoot(Field & field, Missiles &missiles);
+	// отметить выбранную башню для удаления
+	void markTowerToDelete(sf::RenderWindow &window, int i, int j);
+	// удалить башню с поля + вернуть половину ее стоимости
+	int deleteTower(int i, int j);
+	// изменить урон башен
+	void changeTowersDamage();
 };

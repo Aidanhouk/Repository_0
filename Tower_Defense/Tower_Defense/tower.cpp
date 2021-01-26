@@ -1,12 +1,13 @@
 #include "tower.h"
 
+#include "globals.h"
 #include "field.h"
 #include "missiles.h"
 #include "enemy.h"
 #include "roadCell.h"
 
 Tower::Tower(int i, int j, int type, sf::Texture * towersTextures[TOWERS_COUNT])
-	: m_type{ type }, m_dmg{ TOWERS_DAMAGE[type] }, m_towerTexture{ towersTextures[type] }
+	: m_type{ type }, m_dmg{ TOWERS_DAMAGE[type] * (1 + 2 * gameSpeed) }, m_towerTexture{ towersTextures[type] }
 {
 	m_position.first = i;
 	m_position.second = j;
@@ -19,7 +20,7 @@ void Tower::drawTower(sf::RenderWindow & window)
 	window.draw(tower);
 }
 
-void Tower::shoot(Field & field, Missiles &missiles, int &money)
+void Tower::shoot(Field & field, Missiles &missiles)
 {
 	// проходимся по всей дороге с конца
 	for (auto currentCell = field.getFinishPos(); currentCell != field.getStartPos(); currentCell = currentCell->getPrevCell()) {
@@ -31,7 +32,7 @@ void Tower::shoot(Field & field, Missiles &missiles, int &money)
 			// если враг находится вокруг башни (8 клеток)
 			if (coordDif.first <= 1 && coordDif.first >= -1 && coordDif.second <= 1 && coordDif.second >= -1) {
 				// наносится урон и если враг убит..
-				if (!currentCell->getEnemyOnCell()->getDamage(m_dmg, money)) {
+				if (!currentCell->getEnemyOnCell()->getDamage(m_dmg)) {
 					// создаем объект снаряда и добавляем его в вектор снарядов
 					std::pair<Tower*, Enemy*> *missile{ new std::pair<Tower*, Enemy*> };
 					missile->first = this;
@@ -42,5 +43,15 @@ void Tower::shoot(Field & field, Missiles &missiles, int &money)
 			}
 
 		}
+	}
+}
+
+void Tower::changeDamage()
+{
+	if (gameSpeed) {
+		m_dmg *= 3;
+	}
+	else {
+		m_dmg /= 3;
 	}
 }

@@ -3,6 +3,7 @@
 #include <thread>
 
 #include "consts.h"
+#include "globals.h"
 #include "cycleFuncions.h"
 #include "field.h"
 #include "enemiesWave.h"
@@ -11,13 +12,26 @@
 #include "blocksControl.h"
 #include "shop.h"
 
-void mainGame(int &result, int level, int &waveLevel)
+// скорость игры
+bool gameSpeed;
+// пауза?
+bool pause;
+// результат игры
+int result;
+// какой уровень выбран
+int level;
+// на какой волне закончилась игра
+int waveLevel;
+// кол-во денег
+int money;
+
+void mainGame()
 {
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");
 
 	// окно игры
-	sf::RenderWindow window(sf::VideoMode(W * COLS, W * (ROWS + 1.5)), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(W * (COLS + 2), W * ROWS), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
 
 	// нужно ограничить фпс
 	window.setFramerateLimit(60);
@@ -43,13 +57,20 @@ void mainGame(int &result, int level, int &waveLevel)
 	Shop shop;
 
 	// изначальные деньги
-	int money{ START_MONEY[level] };
-	// тип башни/блока, на которую нажал игрок в магазине
-	int blockType{ 0 };
+	money = START_MONEY[level];
 	// конец игры?
 	bool endOfGame{ 0 };
 	// конец волны?
 	bool endOfWave{ 1 };
+	// тип башни/блока, на которую нажал игрок в магазине
+	int blockType{ 0 };
+	// координаты башни, которую выбрал игрок (для удаления)
+	std::pair<int, int> clickedTowerCoord;
+	clickedTowerCoord.first = -1;
+	clickedTowerCoord.second = -1;
+
+	// сбрасываем некоторые параметры (пауза, скорость игры)
+	setToDefault();
 
 	// главный цикл игры
 	while (window.isOpen())
@@ -69,19 +90,34 @@ void mainGame(int &result, int level, int &waveLevel)
 			}
 			// если нажата кнопка мыши и игра не закончена
 			if (event.type == sf::Event::MouseButtonPressed && !endOfGame) {
-				// фиксируем нажатия на башни и блоки в магазине
-				if (y == ROWS) {
-					if (x >= 0 && x < TOWERS_COUNT - 1) {
-						blockType = x + 1;
+				// переменная для фиксации нажатия на башню для продажи
+				bool towerSelected{ 0 };
+				if (x < COLS) {
+					// выбрана башня на поле
+					if (field.getCell(y, x) == 2) {
+						towerSelected = 1;
+						// если башня уже была выбрана, то удаляем ее
+						if (clickedTowerCoord.first == y && clickedTowerCoord.second == x) {
+							money += towerControl.deleteTower(y, x);
+							clickedTowerCoord.first = -1;
+							clickedTowerCoord.second = -1;
+							field.getCell(y, x) = 0;
+						}
+						// отмечаем башню
+						else {
+							clickedTowerCoord.first = y;
+							clickedTowerCoord.second = x;
+						}
 					}
-					if (x >= TOWERS_COUNT - 1 && x < TOWERS_COUNT + FIELD_BLOCKS_COUNT - 2) {
-						blockType = x + 1;
+					else {
+						clickedTowerCoord.first = -1;
+						clickedTowerCoord.second = -1;
 					}
 				}
-				// если выбрана башня/блок
-				if (blockType) {
+				// если выбрана башня/блок в магазине
+				if (blockType && !towerSelected) {
 					// если нажата не область меню
-					if (y < ROWS) {
+					if (x < COLS) {
 						// если выбрана башня
 						if (blockType < TOWERS_COUNT) {
 							// если эта ячейка пустая
@@ -110,10 +146,97 @@ void mainGame(int &result, int level, int &waveLevel)
 						}
 					}
 				}
+				// фиксируем нажатия на кнопки и башни в магазине
+				if (x >= COLS) {
+					clickedTowerCoord.first = -1;
+					clickedTowerCoord.second = -1;
+					switch (y)
+					{
+					case 1:
+						if (x == COLS) {
+							blockType = 1;
+						}
+						else {
+							blockType = 2;
+						}
+						break;
+					case 2:
+						if (pos.y % W >= (W >> 1)) {
+							if (x == COLS) {
+								blockType = 3;
+							}
+							else {
+								blockType = 4;
+							}
+						}
+						break;
+					case 3:
+						if (pos.y % W < (W >> 1)) {
+							if (x == COLS) {
+								blockType = 3;
+							}
+							else {
+								blockType = 4;
+							}
+						}
+						break;
+					case 4:
+						if (x == COLS) {
+							blockType = 5;
+						}
+						else {
+							blockType = 6;
+						}
+						break;
+					case 5:
+						if (pos.y % W >= (W >> 1)) {
+							if (x == COLS) {
+								blockType = 7;
+							}
+							else {
+								blockType = 8;
+							}
+						}
+						break;
+					case 6:
+						if (pos.y % W < (W >> 1)) {
+							if (x == COLS) {
+								blockType = 7;
+							}
+							else {
+								blockType = 8;
+							}
+						}
+						break;
+					case 7:
+					case 8:
+						pause = !pause;
+						if (!pause) {
+							resetTimeToSpawn();
+						}
+						break;
+					case 9:
+						// ставим игру на паузу или убираем с паузы
+						if (x == COLS + 1) {
+							// ускоряем игру
+							if (!gameSpeed) {
+								gameSpeed = 1;
+							}
+							// замедляем игру
+							else {
+								gameSpeed = 0;
+							}
+							enemiesWave.changeEnemiesSpeed();
+							enemiesWave.changeEnemiesDamage();
+							towerControl.changeTowersDamage();
+						}
+						break;
+					}
+				}
 			}
 		}
 
-		if (!endOfWave) {
+		if (!endOfWave && !pause) {
 			// спавн противников
 			spawnNextEnemyCycle(enemiesWave, field);
 		}
@@ -122,11 +245,11 @@ void mainGame(int &result, int level, int &waveLevel)
 			endOfWave = 1;
 		}
 		// ожидание новой волны
-		if (endOfWave) {
-			waveBreakCycle(enemiesWave, result, endOfGame, endOfWave);
+		if (endOfWave && !pause) {
+			waveBreakCycle(enemiesWave, endOfGame, endOfWave);
 		}
 		// противники двигаются
-		if (!endOfWave) {
+		if (!endOfWave && !pause) {
 			endOfGame = enemiesWave.moveAllEnemies();
 		}
 
@@ -143,16 +266,23 @@ void mainGame(int &result, int level, int &waveLevel)
 
 		// башни стреляют + отрисовка
 		if (!endOfWave) {
-			// обрабатываем снаряды
-			towerControl.towersShoot(field, missiles, money);
+			// обрабатываем снаряды 
+			if (!pause) {
+				towerControl.towersShoot(field, missiles);
+			}
 			// рисуем выстрелы
 			missiles.drawMissiles(window);
+			// рисуем всех врагов
+			enemiesWave.drawAllEnemies(window);
 		}
-		// рисуем всех врагов
-		enemiesWave.drawAllEnemies(window);
+
+		// отмечаем выбранную башню
+		if (clickedTowerCoord.first != -1) {
+			towerControl.markTowerToDelete(window, clickedTowerCoord.first, clickedTowerCoord.second);
+		}
 
 		// рисуем область магазина
-		shop.drawShop(enemiesWave.getLevel(), money, blockType, window);
+		shop.drawShop(enemiesWave.getLevel(), enemiesWave.getMaxLevel(), blockType, window);
 
 		window.display();
 

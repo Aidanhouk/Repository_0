@@ -3,7 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-void result(int result, int waveLevel, bool &exitGame)
+#include "globals.h"
+
+void results(bool &exitGame)
 {
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");

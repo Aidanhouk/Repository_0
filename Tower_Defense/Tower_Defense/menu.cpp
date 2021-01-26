@@ -3,7 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-void menu(int &level, bool &exitGame)
+#include "globals.h"
+
+void menu(bool &exitGame)
 {
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");

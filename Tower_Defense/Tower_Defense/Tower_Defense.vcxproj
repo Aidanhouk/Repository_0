@@ -158,6 +158,7 @@
     <ClInclude Include="enemiesWave.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="field.h" />
+    <ClInclude Include="globals.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="missiles.h" />

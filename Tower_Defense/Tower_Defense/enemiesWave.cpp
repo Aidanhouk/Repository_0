@@ -176,3 +176,17 @@ bool EnemiesWave::moveAllEnemies()
 	}
 	return 0;
 }
+
+void EnemiesWave::changeEnemiesSpeed()
+{
+	for (auto & var : m_enemiesList) {
+		var->changeSpeed();
+	}
+}
+
+void EnemiesWave::changeEnemiesDamage()
+{
+	for (auto & var : m_enemiesList) {
+		var->changeDamage();
+	}
+}

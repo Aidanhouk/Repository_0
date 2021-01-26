@@ -24,11 +24,11 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 			double distance{ var->second->getDistance() };
 			// тут высчитывается точное положение противника относительно клетки, на которой он находится
 			// переводим это в градусы для дальнейшего поворота выстрела
-			distance = 45.f * (static_cast<double>(distance) / W);
+			distance = 45.f * (distance / W);
 			// тут высчитывается длина выстрела, если враг находится диагонально к башне и отдаляется от нее
 			// например, в правой верхней клетке относительно башни и идет вверх или направо
 			// также, если враг находится по бокам от башни и отдаляется
-			int diagDist = W * 1.3 + 1.6 * W * (static_cast<double>(distance) / W);
+			double diagDist{ W * 1.3 + 1.6 * distance };
 			// в зависимости от направления, меняем длину и угол выстрела
 			switch (coordDif.second)
 			{
@@ -225,7 +225,7 @@ void Missiles::drawMissiles(sf::RenderWindow & window)
 				missile.setFillColor(sf::Color::Green);
 				break;
 			}
-			missile.move(W * var->first->getPosition().second + W * 0.5, W* var->first->getPosition().first + W * 0.5);
+			missile.move(W * var->first->getPosition().second + W * 0.5, W * var->first->getPosition().first + W * 0.5);
 			window.draw(missile);
 		}
 	}

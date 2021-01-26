@@ -1,53 +1,69 @@
 #include "cycleFuncions.h"
 
-#include <thread>
-
+#include "globals.h"
 #include "enemiesWave.h"
 #include "field.h"
 
 // переменные для измерения времени между спавном следующего монстра
-static std::chrono::time_point<std::chrono::steady_clock> startNextEnemy = std::chrono::high_resolution_clock::now();
-static std::chrono::time_point<std::chrono::steady_clock> endNextEnemy;
+static sf::Clock startNextEnemy;
+static sf::Clock endNextEnemy;
+static float spawnBreakTimeSummary;
+
+void resetTimeToSpawn() 
+{
+	startNextEnemy.restart();
+}
 
 void spawnNextEnemyCycle(EnemiesWave &enemiesWave, Field &field)
 {
-	endNextEnemy = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<float> breakEnemyTime{ endNextEnemy - startNextEnemy };
-	// если прошло x сек, выпускаем след врага
-	if (breakEnemyTime.count() > 1) {
+	endNextEnemy.restart();
+	float time{ startNextEnemy.getElapsedTime().asSeconds() - endNextEnemy.getElapsedTime().asSeconds() };
+	spawnBreakTimeSummary += time * (1 + 2 * gameSpeed);
+	// если прошла 1 сек, выпускаем след врага
+	if (spawnBreakTimeSummary > 1) {
 		enemiesWave.spawnNextEnemy(field.getStartPos());
-		startNextEnemy = std::chrono::high_resolution_clock::now();
+		spawnBreakTimeSummary = 0;
 	}
-}
+	startNextEnemy.restart();
+ }
 
 // перерыв между волнами?
 static bool _break{ 0 };
 // переменные для измерения времени между волнами
-static std::chrono::time_point<std::chrono::steady_clock> startWave;
-static std::chrono::time_point<std::chrono::steady_clock> endWave;
+static sf::Clock startWave;
+static sf::Clock endWave;
 
-void waveBreakCycle(EnemiesWave &enemiesWave, int &result, bool &endOfGame, bool &endOfWave)
+void waveBreakCycle(EnemiesWave &enemiesWave, bool &endOfGame, bool &endOfWave)
 {
 	// если волна закончилась, запускаем таймер для перерыва
 	if (!_break) {
 		enemiesWave.cleanWave();
+		_break = 1;
 		// если игрок прошел макс уровень, игра заканчивается
 		if (enemiesWave.getLevel() == enemiesWave.getMaxLevel()) {
 			result = 1;
 			endOfGame = 1;
+			return;
 		}
-		startWave = std::chrono::high_resolution_clock::now();
-		_break = 1;
+		startWave.restart();
 	}
 	// если перерыв
 	if (_break) {
-		endWave = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<float> breakTime{ endWave - startWave };
-		// если прошло x сек, начинаем следующую волну
-		if (breakTime.count() > 2) {
+		endWave.restart();
+		float time{ startWave.getElapsedTime().asSeconds() - endWave.getElapsedTime().asSeconds() };
+		// если прошли 3 сек, начинаем следующую волну
+		if (time > 3 * (1 - (float)gameSpeed / 1.5)) {
 			enemiesWave.nextWave();
 			endOfWave = 0;
 			_break = 0;
 		}
 	}
+}
+
+void setToDefault()
+{
+	pause = 1;
+	gameSpeed = 0;
+	spawnBreakTimeSummary = 0;
+	startNextEnemy.restart();
 }
