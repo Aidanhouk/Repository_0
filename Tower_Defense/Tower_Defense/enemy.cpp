@@ -1,16 +1,27 @@
 #include "enemy.h"
 
+#include <ctime>
+#include <cmath>
+
 #include "globals.h"
 #include "roadCell.h"
 #include "blockOnField.h"
 #include "enemiesWave.h"
+#include "field.h"
 
 Enemy::Enemy(int type, int currentWaveLevel, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave)
-	: m_type{ type }, m_waveLevel{ currentWaveLevel }, m_enemyTexture{ enemyTextures[type] },
-	m_hp{ (int)(ENEMIES_HP[type] * (1 + 0.3 * currentWaveLevel)) }, m_coins{ ENEMIES_COINS[type] },
-	m_speed{ ENEMIES_SPEED[type] * (1 + 2 * gameSpeed) }, m_dmg{ (int)(ENEMIES_DAMAGE[type] * (1 + 2 * gameSpeed)) },
-	m_wave{ wave }
-{}
+	: m_type{ type }, m_wave{ wave },
+	m_waveLevel{ currentWaveLevel },
+	m_hp{ (int)(ENEMIES_HP[type] * (1 + 0.3 * currentWaveLevel)) },
+	m_coins{ ENEMIES_COINS[type] },
+	m_enemyTexture{ enemyTextures[type] },
+	m_speed{ ENEMIES_SPEED[type] * (1 + 2 * gameSpeed) },
+	m_dmg{ (int)(ENEMIES_DAMAGE[type] * (1 + 2 * gameSpeed)) }
+{
+	if (level == 0) {
+		m_enemyTexture = enemyTextures[0];
+	}
+}
 
 void Enemy::setDirection(RoadCell * currentPosition)
 {
@@ -18,7 +29,6 @@ void Enemy::setDirection(RoadCell * currentPosition)
 	std::pair<int, int> coordCurrentPos{ currentPosition->getCoordinates() };
 	std::pair<int, int> coordNextPos{ currentPosition->getNextCell()->getCoordinates() };
 	std::pair<int, int> coordDifference{ coordNextPos.first - coordCurrentPos.first, coordNextPos.second - coordCurrentPos.second };
-	// можно и не создавать доп переменные, но будет слишком много кода в одном выражении
 	switch (coordDifference.first)
 	{
 	case -1:
@@ -118,7 +128,7 @@ void Enemy::changeDamage()
 	}
 }
 
-void Enemy::drawEnemy(sf::RenderWindow &window)
+void Enemy::drawEnemy()
 {
 	sf::Sprite enemy;
 	enemy.setTexture(*m_enemyTexture);
@@ -167,10 +177,10 @@ void Enemy::drawEnemy(sf::RenderWindow &window)
 		enemy.scale(-1, 1);
 		break;
 	}
-	window.draw(enemy);
+	(*window).draw(enemy);
 }
 
-void Enemy::drawHPBar(sf::RenderWindow & window)
+void Enemy::drawHPBar()
 {
 	sf::RectangleShape hpBarRed(sf::Vector2f(W * 0.5, 4));
 	hpBarRed.setFillColor(sf::Color::Red);
@@ -195,6 +205,6 @@ void Enemy::drawHPBar(sf::RenderWindow & window)
 		hpBarGreen.setPosition(W * m_position->getCoordinates().second - m_distance + W * 0.25, W * m_position->getCoordinates().first + 10 + W * 0.75);
 		break;
 	}
-	window.draw(hpBarRed);
-	window.draw(hpBarGreen);
+	(*window).draw(hpBarRed);
+	(*window).draw(hpBarGreen);
 }

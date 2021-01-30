@@ -5,7 +5,6 @@
 
 #include "consts.h"
 
-class Field;
 class Missiles;
 class Tower;
 
@@ -24,13 +23,15 @@ public:
 	// поставить башню
 	void addTower(int i, int j, int type);
 	// отрисовать все башни
-	void drawAllTowers(sf::RenderWindow &window);
+	void drawAllTowers();
 	// башни стреляют
-	void towersShoot(Field & field, Missiles &missiles);
+	void towersShoot(Missiles &missiles);
 	// отметить выбранную башню для удаления
-	void markTowerToDelete(sf::RenderWindow &window, int i, int j);
+	void markTowerToDelete(int i, int j);
 	// удалить башню с поля + вернуть половину ее стоимости
 	int deleteTower(int i, int j);
 	// изменить урон башен
 	void changeTowersDamage();
+	// проверить, есть ли рядом башни-бафы
+	void checkTowersForBuffs();
 };

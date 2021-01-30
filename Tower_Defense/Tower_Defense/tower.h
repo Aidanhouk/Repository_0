@@ -1,11 +1,12 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 #include "consts.h"
 
-class Field;
 class Missiles;
+class RoadCell;
 
 // класс башни
 class Tower
@@ -13,23 +14,32 @@ class Tower
 private:
 	// тип башни
 	int m_type;
+	// дальность поражения
+	int m_range{ 1 };
 	// урон башни
-	int m_dmg;
+	double m_dmg;
 	// указатель на тестуру башни
 	sf::Texture * m_towerTexture;
 	// координаты башни на поле
 	std::pair<int, int> m_position{ -1,-1 };
+	// список клеток, по которым может стрелять башня
+	std::vector<RoadCell*> m_cellsInRange;
+	// изменить радиус поражения
+	void changeRange();
 public:
 	Tower(int i, int j, int type, sf::Texture * towersTextures[TOWERS_COUNT]);
 	~Tower() {}
 
 	// отрисовка башни
-	void drawTower(sf::RenderWindow & window);
+	void drawTower();
 	// выстрел
-	void shoot(Field &field, Missiles &missiles);
+	void shoot(Missiles &missiles);
 	// изменить урон врага
 	void changeDamage();
+	// проверить, есть рядом бафающие башни
+	void checkForBuffs();
 
 	std::pair<int, int>& getPosition() { return m_position; }
 	int getTowerType() const { return m_type; }
+	int getRange() const { return m_range; }
 };

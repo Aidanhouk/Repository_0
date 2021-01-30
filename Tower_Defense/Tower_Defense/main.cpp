@@ -13,7 +13,7 @@ int main()
 
 	while (1) {
 		// сбрасываем параметры игры
-		result = 0; level = 1; waveLevel = 0;
+		result = 0; waveLevel = 0;
 
 		// выбор уровня
 		menu(exitGame);

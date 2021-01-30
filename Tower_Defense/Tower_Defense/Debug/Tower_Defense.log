@@ -1,2 +1,5 @@
-﻿  mainGame.cpp
+﻿  beam.cpp
+c:\users\timur\source\repos\tower_defense\tower_defense\beam.h(10): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\timur\source\repos\tower_defense\tower_defense\beam.cpp(13): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\timur\source\repos\tower_defense\tower_defense\beam.cpp(16): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Tower_Defense.vcxproj -> C:\Users\timur\source\repos\Tower_Defense\Debug\Tower_Defense.exe

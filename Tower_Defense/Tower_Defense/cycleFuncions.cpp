@@ -14,14 +14,14 @@ void resetTimeToSpawn()
 	startNextEnemy.restart();
 }
 
-void spawnNextEnemyCycle(EnemiesWave &enemiesWave, Field &field)
+void spawnNextEnemyCycle(EnemiesWave &enemiesWave)
 {
 	endNextEnemy.restart();
 	float time{ startNextEnemy.getElapsedTime().asSeconds() - endNextEnemy.getElapsedTime().asSeconds() };
 	spawnBreakTimeSummary += time * (1 + 2 * gameSpeed);
 	// если прошла 1 сек, выпускаем след врага
 	if (spawnBreakTimeSummary > 1) {
-		enemiesWave.spawnNextEnemy(field.getStartPos());
+		enemiesWave.spawnNextEnemy((*field).getStartPos());
 		spawnBreakTimeSummary = 0;
 	}
 	startNextEnemy.restart();

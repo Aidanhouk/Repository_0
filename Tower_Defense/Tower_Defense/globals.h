@@ -1,5 +1,9 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
+class Field;
+
 // сюда запишем результат игры 0 - закрыл игру, 1 - прошел игру, 2 - проиграл
 extern int result;
 // какой уровень выбран?
@@ -12,3 +16,7 @@ extern bool gameSpeed;
 extern bool pause;
 // кол-во денег
 extern int money;
+// поле
+extern Field * field;
+// окно
+extern sf::RenderWindow * window;

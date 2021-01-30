@@ -1,7 +1,9 @@
 #include "enemiesWave.h"
 
+#include "globals.h"
 #include "enemy.h"
 #include "roadCell.h"
+#include "lastEnemy.h"
 
 EnemiesWave::EnemiesWave(int level, int maxLevel)
 	: m_level{ level - 1 }, m_maxLevel{ maxLevel }
@@ -9,10 +11,12 @@ EnemiesWave::EnemiesWave(int level, int maxLevel)
 	m_enemiesList.reserve(50);
 	// скачиваем и записываем текстуры врагов
 	for (int i = 1; i < ENEMIES_COUNT; ++i) {
-		sf::Texture *enemyTexture{ new sf::Texture() };
-		(*enemyTexture).loadFromFile("images/enemies/enemy" + std::to_string(i) + ".png");
-		m_enemiesTextures[i] = enemyTexture;
+		m_enemiesTextures[i] = new sf::Texture();
+		(*m_enemiesTextures[i]).loadFromFile("images/enemies/enemy" + std::to_string(i) + ".png");
 	}
+
+	m_enemiesTextures[0] = new sf::Texture();
+	(*m_enemiesTextures[0]).loadFromFile("images/enemies/enemy0.png");
 }
 
 EnemiesWave::~EnemiesWave()
@@ -22,6 +26,7 @@ EnemiesWave::~EnemiesWave()
 			delete var;
 		}
 	}
+	cleanWave();
 }
 
 void EnemiesWave::spawnNextEnemy(RoadCell * cellToSpawn)
@@ -39,118 +44,23 @@ void EnemiesWave::spawnNextEnemy(RoadCell * cellToSpawn)
 
 void EnemiesWave::cleanWave()
 {
-	// удаляем прошлых врагов
+	if (lastEnemy) {
+		lastEnemy->deleteEffects();
+		delete lastEnemy;
+		lastEnemy = nullptr;
+	}
 	for (auto & var : m_enemiesList) {
 		delete var;
 	}
 	m_enemiesList.clear();
 }
 
-void EnemiesWave::nextWave()
-{
-	// если уже макс уровень волны
-	if (m_level != m_maxLevel) {
-		++m_level;
-		// в зависимости от уровня волны в ней будут разные противники в разном кол-ве
-		switch (m_level)
-		{
-		case 1:
-			m_enemiesLeft = 15;
-			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(1, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			break;
-		case 2:
-			m_enemiesLeft = 25;
-			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(1, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			for (int i = 0; i < 15; ++i) {
-				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			break;
-		case 3:
-			m_enemiesLeft = 10;
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			break;
-		case 4:
-			m_enemiesLeft = 20;
-			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(2, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			break;
-		case 5:
-			m_enemiesLeft = 15;
-			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(4, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			break;
-		case 6:
-			m_enemiesLeft = 15;
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(3, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(4, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			break;
-		case 7:
-			m_enemiesLeft = 5;
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(5, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			break;
-		case 8:
-			m_enemiesLeft = 15;
-			for (int i = 0; i < 10; ++i) {
-				Enemy *enemy = new Enemy(4, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			for (int i = 0; i < 5; ++i) {
-				Enemy *enemy = new Enemy(5, m_level, m_enemiesTextures, this);
-				m_enemiesList.push_back(enemy);
-			}
-			break;
-		default:
-			break;
-		}
-	}
-}
-
-void EnemiesWave::drawAllEnemies(sf::RenderWindow & window)
+void EnemiesWave::drawAllEnemies()
 {
 	for (auto & var : m_enemiesList) {
-		// если враг жив
 		if (var->getIsAlive()) {
-			var->drawEnemy(window);
-			var->drawHPBar(window);
+			var->drawEnemy();
+			var->drawHPBar();
 		}
 	}
 }
@@ -158,7 +68,6 @@ void EnemiesWave::drawAllEnemies(sf::RenderWindow & window)
 bool EnemiesWave::moveAllEnemies()
 {
 	for (auto & var : m_enemiesList) {
-		// если враг жив
 		if (var->getIsAlive()) {
 			var->enemyMoves();
 			// если враг прошел полную клетку
@@ -180,13 +89,35 @@ bool EnemiesWave::moveAllEnemies()
 void EnemiesWave::changeEnemiesSpeed()
 {
 	for (auto & var : m_enemiesList) {
-		var->changeSpeed();
+		if (!var->getIsKilled()) {
+			var->changeSpeed();
+		}
 	}
 }
 
 void EnemiesWave::changeEnemiesDamage()
 {
 	for (auto & var : m_enemiesList) {
-		var->changeDamage();
+		if (!var->getIsKilled()) {
+			var->changeDamage();
+		}
+	}
+}
+
+void EnemiesWave::drawLastEnemyEffects()
+{
+	if (lastEnemy) {
+		if (!pause) {
+			lastEnemy->moveEffects();
+		}
+		lastEnemy->drawEffects();
+	}
+	else {
+		for (auto & var : m_enemiesList) {
+			if (var->getIsAlive()) {
+				lastEnemy = new LastEnemy(var);
+				lastEnemy->createEffects();
+			}
+		}
 	}
 }

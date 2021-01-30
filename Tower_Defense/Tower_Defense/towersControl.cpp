@@ -1,7 +1,9 @@
 #include "towersControl.h"
 
+#include "globals.h"
 #include "missiles.h"
 #include "tower.h"
+#include "field.h"
 
 TowersControl::TowersControl()
 {
@@ -29,36 +31,38 @@ void TowersControl::addTower(int i, int j, int type)
 {
 	Tower *tower = new Tower(i, j, type, m_towersTextures);
 	m_towersList.push_back(tower);
+	(*field).addTowerOnCell(i, j, tower);
 }
 
-void TowersControl::drawAllTowers(sf::RenderWindow & window)
+void TowersControl::drawAllTowers()
 {
 	for (auto & var : m_towersList) {
-		var->drawTower(window);
+		var->drawTower();
 	}
 }
 
-void TowersControl::towersShoot(Field & field, Missiles &missiles)
+void TowersControl::towersShoot(Missiles &missiles)
 {
 	// удаляем старые выстрелы
 	missiles.deleteMissiles();
 	for (auto & var : m_towersList) {
-		var->shoot(field, missiles);
+		if (var->getTowerType() > 6) { continue; }
+		var->shoot(missiles);
 	}
 }
 
-void TowersControl::markTowerToDelete(sf::RenderWindow & window, int i, int j)
+void TowersControl::markTowerToDelete(int i, int j)
 {
 	sf::RectangleShape cross1(sf::Vector2f(W * 1.29, W / 10));
 	cross1.setPosition(W * j + 8, W * i);
 	cross1.rotate(45);
 	cross1.setFillColor(sf::Color(150, 25, 25));
-	window.draw(cross1);
+	(*window).draw(cross1);
 	sf::RectangleShape cross2(sf::Vector2f(W * 1.29, W / 10));
 	cross2.setPosition(W * j + 2, W * (i + 1) - 6);
 	cross2.rotate(-45);
 	cross2.setFillColor(sf::Color(150, 25, 25));
-	window.draw(cross2);
+	(*window).draw(cross2);
 }
 
 int TowersControl::deleteTower(int i, int j)
@@ -75,6 +79,15 @@ int TowersControl::deleteTower(int i, int j)
 void TowersControl::changeTowersDamage()
 {
 	for (auto & var : m_towersList) {
+		if (var->getTowerType() > 6) { continue; }
 		var->changeDamage();
+	}
+}
+
+void TowersControl::checkTowersForBuffs()
+{
+	for (auto & var : m_towersList) {
+		if (var->getTowerType() > 6) { continue; }
+		var->checkForBuffs();
 	}
 }

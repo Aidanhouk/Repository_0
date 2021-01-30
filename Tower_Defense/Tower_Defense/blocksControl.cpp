@@ -1,11 +1,11 @@
 #include "blocksControl.h"
 
+#include "globals.h"
 #include "field.h"
 #include "roadCell.h"
 #include "blockOnField.h"
 
-BlocksControl::BlocksControl(Field & field)
-	: m_field{&field}
+BlocksControl::BlocksControl()
 {
 	// скачиваем и записываем текстуры блоков
 	for (int i = 1; i < FIELD_BLOCKS_COUNT; ++i) {
@@ -31,12 +31,12 @@ BlocksControl::~BlocksControl()
 
 bool BlocksControl::placeBlockOnField(int y, int x, int blockType)
 {
-	RoadCell * clickedCell{ (*m_field).getStartPos() };
+	RoadCell * clickedCell{ (*field).getStartPos() };
 	// находим нужную нам клетку на дороге
 	while (clickedCell->getCoordinates().first != y || clickedCell->getCoordinates().second != x) {
 		clickedCell = clickedCell->getNextCell();
 	}
-	if (clickedCell == (*m_field).getFinishPos()) {
+	if (clickedCell == (*field).getFinishPos()) {
 		return 0;
 	}
 	// возможно это "перекресток", тогда ищем еще одну клетку с такими же координатами
@@ -81,12 +81,12 @@ bool BlocksControl::placeBlockOnField(int y, int x, int blockType)
 	}
 }
 
-void BlocksControl::drawAllBlocks(sf::RenderWindow & window)
+void BlocksControl::drawAllBlocks()
 {
 	for (auto & var : m_blocks) {
-		var->drawBlock(window);
+		var->drawBlock();
 		if (var->getType() == 2) {
-			var->drawHPBar(window);
+			var->drawHPBar();
 		}
 	}
 }
@@ -94,11 +94,37 @@ void BlocksControl::drawAllBlocks(sf::RenderWindow & window)
 void BlocksControl::removeBlock(BlockOnField * block)
 {
 	// удаляем блок с клетки, на которой он находится
-	m_field->getCell(block->getCell()->getCoordinates().first, block->getCell()->getCoordinates().second) = 1;
+	field->setCellValue(block->getCell()->getCoordinates().first, block->getCell()->getCoordinates().second, 1);
 	block->getCell()->setBlockOnCell(nullptr);
 	// если есть 2 клетка, на которой находится блок
 	if (block->getCell2()) {
 		block->getCell2()->setBlockOnCell(nullptr);
 	}
 	m_blocks.erase(std::find(m_blocks.begin(), m_blocks.end(), block));
+}
+
+int BlocksControl::deleteBlock(int i, int j)
+{
+	for (auto it = m_blocks.begin(); it != m_blocks.end(); ++it) {
+		if ((*it)->getCell()->getCoordinates().first == i && (*it)->getCell()->getCoordinates().second == j) {
+			if ((*it)->getCell2()) {
+				(*it)->getCell2()->setBlockOnCell(nullptr);
+			}
+			(*it)->getCell()->setBlockOnCell(nullptr);
+			int blockPrice;
+			switch ((*it)->getType())
+			{
+			case 1:
+				blockPrice = BLOCKS_PRICE[1];
+				break;
+			case 2:
+				blockPrice = (double)(*it)->getHP() / STOP_BLOCK_HP * BLOCKS_PRICE[2];
+				break;
+			default:
+				break;
+			}
+			m_blocks.erase(it);
+			return blockPrice >> 1;
+		}
+	}
 }

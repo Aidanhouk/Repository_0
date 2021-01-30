@@ -135,16 +135,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="beam.cpp" />
     <ClCompile Include="blockOnField.cpp" />
     <ClCompile Include="cycleFuncions.cpp" />
     <ClCompile Include="enemiesWave.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="field.cpp" />
+    <ClCompile Include="lastEnemy.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="makeRoad.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="missiles.cpp" />
     <ClCompile Include="blocksControl.cpp" />
+    <ClCompile Include="nextWave.cpp" />
     <ClCompile Include="results.cpp" />
     <ClCompile Include="roadCell.cpp" />
     <ClCompile Include="shop.cpp" />
@@ -152,13 +156,16 @@
     <ClCompile Include="towersControl.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="beam.h" />
     <ClInclude Include="blockOnField.h" />
     <ClInclude Include="consts.h" />
     <ClInclude Include="cycleFuncions.h" />
     <ClInclude Include="enemiesWave.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="field.h" />
+    <ClInclude Include="fieldCell.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="lastEnemy.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="missiles.h" />

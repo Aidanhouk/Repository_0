@@ -7,7 +7,7 @@ const int W{ 80 };
 // кол-во типов противников плюс 1
 const int ENEMIES_COUNT{ 6 };
 // кол-во типов башен плюс 1
-const int TOWERS_COUNT{ 7 };
+const int TOWERS_COUNT{ 9 };
 // кол-во типов блоков, которые можно поставить на дорогу плюс 1
 const int FIELD_BLOCKS_COUNT{ 3 };
 
@@ -19,8 +19,8 @@ const int ROWS{ 10 };
 const int COLS{ 11 };
 
 // стартовые деньги для каждого уровня
-const int START_MONEY[7]{ 0, 30, 30, 30, 30, 50, 30 };
-//const int START_MONEY[7]{ 0, 530, 530, 530, 530, 550, 530 };
+const int START_MONEY[7]{ 1488, 30, 30, 30, 30, 30, 30 };
+//const int START_MONEY[7]{ 1488, 530, 530, 530, 530, 550, 530 };
 
 // здоворье останавливающего блока
 const int STOP_BLOCK_HP{ 1000 };
@@ -36,10 +36,10 @@ const double ENEMIES_SPEED[ENEMIES_COUNT]{ 0,2,1.8,1.8,2.2,2.2 };
 // урон врагов
 const int ENEMIES_DAMAGE[ENEMIES_COUNT]{ 0,1,1,2,2,3 };
 
-// стоимости башен
-const int TOWERS_PRICE[TOWERS_COUNT]{ 0,10,30,50,80,120,150 };
+// стоимость башен
+const int TOWERS_PRICE[TOWERS_COUNT]{ 0,10,30,50,80,120,150,100,70 };
 // урон башен
-const int TOWERS_DAMAGE[TOWERS_COUNT]{ 0,1,3,5,8,12,15 };
+const double TOWERS_DAMAGE[TOWERS_COUNT]{ 0,1,3,5,3,12,15,0,0 };
 
-// стоимост блоков на поле
+// стоимость блоков на поле
 const int BLOCKS_PRICE[FIELD_BLOCKS_COUNT]{ 0,10,20 };

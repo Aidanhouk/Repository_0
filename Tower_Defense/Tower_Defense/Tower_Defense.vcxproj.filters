@@ -28,9 +28,6 @@
     <Filter Include="Header Files\Enemy">
       <UniqueIdentifier>{aa19f180-8a38-44da-9878-22506b45a02d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Field">
-      <UniqueIdentifier>{abc5967a-f1d5-4fa4-aa5b-0b01ea7e4ccd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Tower">
       <UniqueIdentifier>{b7a2f225-965e-4129-8a09-ea1ecc35c421}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,15 @@
     </Filter>
     <Filter Include="Source Files\Shop">
       <UniqueIdentifier>{f518f45a-28c6-4e64-8bf1-2574e712c859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Block on field">
+      <UniqueIdentifier>{9cec4621-41b0-4388-b984-3b239135fdb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Blocks on field">
+      <UniqueIdentifier>{097d941e-56ba-447e-922e-63789d3e3ce5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Field">
+      <UniqueIdentifier>{abc5967a-f1d5-4fa4-aa5b-0b01ea7e4ccd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -84,12 +90,6 @@
     <ClCompile Include="cycleFuncions.cpp">
       <Filter>Source Files\Functions</Filter>
     </ClCompile>
-    <ClCompile Include="blockOnField.cpp">
-      <Filter>Source Files\Field</Filter>
-    </ClCompile>
-    <ClCompile Include="blocksControl.cpp">
-      <Filter>Source Files\Field</Filter>
-    </ClCompile>
     <ClCompile Include="menu.cpp">
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
@@ -101,6 +101,24 @@
     </ClCompile>
     <ClCompile Include="shop.cpp">
       <Filter>Source Files\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="blockOnField.cpp">
+      <Filter>Source Files\Blocks on field</Filter>
+    </ClCompile>
+    <ClCompile Include="blocksControl.cpp">
+      <Filter>Source Files\Blocks on field</Filter>
+    </ClCompile>
+    <ClCompile Include="makeRoad.cpp">
+      <Filter>Source Files\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="nextWave.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="beam.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="lastEnemy.cpp">
+      <Filter>Source Files\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,14 +149,8 @@
     <ClInclude Include="missiles.h">
       <Filter>Header Files\Tower</Filter>
     </ClInclude>
-    <ClInclude Include="blockOnField.h">
-      <Filter>Header Files\Field</Filter>
-    </ClInclude>
     <ClInclude Include="cycleFuncions.h">
       <Filter>Header Files\Functions</Filter>
-    </ClInclude>
-    <ClInclude Include="blocksControl.h">
-      <Filter>Header Files\Field</Filter>
     </ClInclude>
     <ClInclude Include="menu.h">
       <Filter>Header Files\Windows</Filter>
@@ -151,6 +163,21 @@
     </ClInclude>
     <ClInclude Include="globals.h">
       <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="blockOnField.h">
+      <Filter>Header Files\Block on field</Filter>
+    </ClInclude>
+    <ClInclude Include="blocksControl.h">
+      <Filter>Header Files\Block on field</Filter>
+    </ClInclude>
+    <ClInclude Include="fieldCell.h">
+      <Filter>Header Files\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="beam.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="lastEnemy.h">
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

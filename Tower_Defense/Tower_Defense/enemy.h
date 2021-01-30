@@ -10,7 +10,7 @@ class EnemiesWave;
 // класс противника
 class Enemy
 {
-private:
+protected:
 	// жив ли юнит
 	bool m_isAlive{ 0 };
 	// убит ли юнит
@@ -38,16 +38,15 @@ private:
 	// волна
 	EnemiesWave *m_wave;
 public:
-	// в конструктор нужно передать тип монстра
 	Enemy(int type, int currentWaveLevel, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave);
 	~Enemy() {}
 
 	// сбрасываем m_distance и меняем клетку
 	void changePosition();
 	// отрисовка врага
-	void drawEnemy(sf::RenderWindow &window);
+	void drawEnemy();
 	// отрисовка шкалы здоровья
-	void drawHPBar(sf::RenderWindow &window);
+	void drawHPBar();
 	// враг двигается
 	void enemyMoves();
 	// враг получает урон, возвращает, умер ли враг
@@ -64,7 +63,9 @@ public:
 	void setDirection(RoadCell * currentPosition);
 	double getDistance() const { return m_distance; }
 
+	int getType() const { return m_type; }
 	int getCoins() const { return m_coins; }
+	double getSpeed() const { return m_speed; }
 
 	bool getIsAlive() const { return m_isAlive; }
 	void setIsAlive(bool isAlive) { m_isAlive = isAlive; }

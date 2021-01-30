@@ -26,11 +26,11 @@ public:
 	~BlockOnField() {}
 
 	// отрисовка блока
-	void drawBlock(sf::RenderWindow & window);
+	void drawBlock();
 	// получение урона
 	void getDamage(int dmg);
 	// отрисовка шкалы здоровья
-	void drawHPBar(sf::RenderWindow &window);
+	void drawHPBar();
 	// добавить клетку в m_roadCells
 	void addCell(RoadCell * cell) { m_roadCells[0] = cell; }
 	// добавить 2 клетку в m_roadCells
@@ -41,4 +41,5 @@ public:
 	RoadCell * getCell2() { return m_roadCells[1]; }
 
 	int getType() const { return m_type; }
+	int getHP() const { return m_hp; }
 };

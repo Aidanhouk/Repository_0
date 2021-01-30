@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 class RoadCell;
+class FieldCell;
+class Tower;
 
 // класс пол€
 class Field
@@ -11,7 +13,7 @@ private:
 	// уровень/карта
 	int m_level;
 	// поле
-	int **m_field;
+	FieldCell **m_field;
 	// указатель на стартовую €чейку дороги (за полем)
 	RoadCell *m_startCell{ nullptr };
 	// указатель на финишную €чейку дороги
@@ -25,18 +27,19 @@ public:
 	~Field();
 
 	// добавить €чейку в дорогу по координатам
-	void addCell(int i, int j);
+	void addRoadCell(int i, int j);
 	// создает дорогу дл€ монстров
 	void makeRoad();
 	// рисует дорогу
-	void paintRoad(sf::RenderWindow &window);
-	// провер€ет, свободна ли эта €чейка
-	int getCellValue(int i, int j) const { return m_field[i][j]; }
-	// если в €чейку поставили башню, нужно это зафиксировать
-	int &getCell(int i, int j) { return m_field[i][j]; }
+	void paintRoad();
+	// отрисовка дальности поражени€
+	void drawRange(int i, int j);
 
+	void addTowerOnCell(int i, int j, Tower * tower);
+	void removeTowerFromCell(int i, int j) { addTowerOnCell(i, j, nullptr); }
+	Tower * getTowerOnCell(int i, int j);
+	int getCellValue(int i, int j) const;
+	void setCellValue(int i, int j, int typeOfCell);
 	RoadCell * getStartPos() { return m_startCell; }
 	RoadCell * getFinishPos() { return m_finishCell; }
-	// возвращает указатель на поле
-	int** getField() const { return m_field; }
 };

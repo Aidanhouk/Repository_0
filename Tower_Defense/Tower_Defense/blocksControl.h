@@ -5,7 +5,6 @@
 
 #include "consts.h"
 
-class Field;
 class BlockOnField;
 
 // класс, отвечающий за контроль блоков на поле
@@ -16,16 +15,16 @@ private:
 	std::vector<BlockOnField*> m_blocks;
 	// тектуры блоков
 	sf::Texture* m_blocksTextures[FIELD_BLOCKS_COUNT]{ nullptr };
-	// поле
-	Field * m_field;
 public:
-	BlocksControl(Field & field);
+	BlocksControl();
 	~BlocksControl();
 
 	// поставить блок на дорогу
 	bool placeBlockOnField(int y, int x, int blockType);
 	// отрисовать все блоки
-	void drawAllBlocks(sf::RenderWindow &window);
+	void drawAllBlocks();
 	// удалить блок
 	void removeBlock(BlockOnField * block);
+	// удалить блок с поля + вернуть половину его стоимости
+	int deleteBlock(int i, int j);
 };

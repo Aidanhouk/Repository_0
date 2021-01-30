@@ -10,8 +10,6 @@ class Shop
 private:
 	// шрифт текстов
 	sf::Font *m_font;
-	// фон магазина
-	sf::RectangleShape *m_border;
 	// тектуры башен и блоков
 	sf::Texture* m_towersTextures[TOWERS_COUNT + FIELD_BLOCKS_COUNT - 1]{ nullptr };
 	// текстура монеты
@@ -30,5 +28,5 @@ public:
 	Shop();
 	~Shop();
 	// отрисовываем весь магазин
-	void drawShop(int currentWave, int maxWaveLevel, int blockType, sf::RenderWindow &window);
+	void drawShop(int currentWave, int maxWaveLevel, int blockType);
 };

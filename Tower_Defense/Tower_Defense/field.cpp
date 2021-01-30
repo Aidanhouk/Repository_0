@@ -1,19 +1,28 @@
 #include "field.h"
 
 #include "consts.h"
+#include "globals.h"
 #include "roadCell.h"
+#include "fieldCell.h"
+#include "tower.h"
 
 Field::Field(int level)
 	:m_level{ level }
 {
 	// создаем поле ROWS * COLS
-	m_field = new int*[ROWS];
+	m_field = new FieldCell*[ROWS];
 	for (int i = 0; i < ROWS; ++i) {
-		m_field[i] = new int[COLS] {0};
+		m_field[i] = new FieldCell[COLS];
+		for (int j = 0; j < COLS; ++j) {
+			m_field[i][j].setPosition(i, j);
+		}
 	}
 	// создаем текстуру дороги
 	sf::Texture *roadTexture{ new sf::Texture };
-	(*roadTexture).loadFromFile("images/field/road.png");
+	if (level != 0)
+		(*roadTexture).loadFromFile("images/field/road.png");
+	else
+		(*roadTexture).loadFromFile("images/field/roadSALAVAT.png");
 	m_roadTexture = roadTexture;
 	// создаем текстуру финишной линии
 	sf::Texture *finishLineTexture{ new sf::Texture };
@@ -34,7 +43,7 @@ Field::~Field()
 	delete m_finishLineTexture;
 }
 
-void Field::addCell(int i, int j)
+void Field::addRoadCell(int i, int j)
 {
 	RoadCell *cell = new RoadCell(i, j);
 	m_finishCell->setNextCell(cell);
@@ -43,275 +52,7 @@ void Field::addCell(int i, int j)
 	m_field[i][j] = 1;
 }
 
-void Field::makeRoad()
-{
-	// сначала ставится стартовоя ячейка (она находится вне поля), остальные добавляются через функцию addCell
-	// можно построить любую дорогу, зная координаты
-	RoadCell *cell;
-	switch (m_level)
-	{
-	case 1:
-	{
-		cell = new RoadCell(ROWS, 5);
-		m_startCell = cell;
-		m_finishCell = cell;
-
-		for (int i = ROWS - 1; i > 0; --i) {
-			addCell(i, 5);
-		}
-		for (int i = 6; i < COLS - 1; ++i) {
-			addCell(1, i);
-		}
-		for (int i = 2; i < ROWS - 1; ++i) {
-			addCell(i, COLS - 2);
-		}
-		for (int i = COLS - 3; i > 0; --i) {
-			addCell(ROWS - 2, i);
-		}
-
-		for (int i = ROWS - 3; i > 0; --i) {
-			addCell(i, 1);
-		}
-		for (int i = 2; i < 4; ++i) {
-			addCell(1, i);
-		}
-		for (int i = 2; i < ROWS - 3; ++i) {
-			addCell(i, 3);
-		}
-		for (int i = 4; i < COLS - 3; ++i) {
-			addCell(ROWS - 4, i);
-		}
-		for (int i = ROWS - 5; i > 2; --i) {
-			addCell(i, COLS - 4);
-		}
-	}
-		break;
-	case 2:
-	{
-		cell = new RoadCell(ROWS, 4);
-		m_startCell = cell;
-		m_finishCell = cell;
-
-		for (int i = ROWS - 1; i > -1; --i) {
-			addCell(i, COLS - 7);
-		}
-		for (int i = COLS - 8; i > COLS - 10; --i) {
-			addCell(0, i);
-		}
-
-		for (int i = 1; i < ROWS; ++i) {
-			addCell(i, COLS - 9);
-		}
-		for (int i = COLS - 10; i > -1; --i) {
-			addCell(ROWS - 1, i);
-		}
-
-		for (int i = ROWS - 2; i > ROWS - 4; --i) {
-			addCell(i, 0);
-		}
-		for (int i = 1; i < COLS; ++i) {
-			addCell(ROWS - 3, i);
-		}
-		for (int i = ROWS - 2; i < ROWS; ++i) {
-			addCell(i, COLS - 1);
-		}
-
-		for (int i = COLS - 2; i > COLS - 4; --i) {
-			addCell(ROWS - 1, i);
-		}
-		for (int i = ROWS - 2; i > -1; --i) {
-			addCell(i, COLS -3);
-		}
-
-		for (int i = COLS - 4; i > COLS - 6; --i) {
-			addCell(0, i);
-		}
-		for (int i = 1; i < ROWS; ++i) {
-			addCell(i, COLS - 5);
-		}
-
-		addCell(ROWS - 1, COLS - 6);
-	}
-		break;
-	case 3:
-	{
-		cell = new RoadCell(ROWS - 4, -1);
-		m_startCell = cell;
-		m_finishCell = cell;
-
-		addCell(ROWS - 4, 0);
-		addCell(ROWS - 3, 0);
-		addCell(ROWS - 3, 1);
-		addCell(ROWS - 2, 1);
-		addCell(ROWS - 2, 2);
-		addCell(ROWS - 1, 2);
-		for (int i = 3; i < COLS - 2; ++i) {
-			addCell(ROWS - 1, i);
-		}
-		addCell(ROWS - 2, COLS - 3);
-		addCell(ROWS - 2, COLS - 2);
-		addCell(ROWS - 3, COLS - 2);
-		addCell(ROWS - 3, COLS - 1);
-		for (int i = ROWS - 4; i > 1; --i) {
-			addCell(i, COLS - 1);
-		}
-		addCell(2, COLS - 2);
-		addCell(1, COLS - 2);
-		addCell(1, COLS - 3);
-		addCell(0, COLS - 3);
-		for (int i = COLS - 4; i > 1; --i) {
-			addCell(0, i);
-		}
-		addCell(1, 2);
-		addCell(1, 1);
-		addCell(2, 1);
-		addCell(2, 0);
-		for (int i = 3; i < 5; ++i) {
-			addCell(i, 0);
-		}
-
-		for (int i = 1; i < 3; ++i) {
-			addCell(4, i);
-		}
-		addCell(3, 2);
-		addCell(3, 3);
-		addCell(2, 3);
-		for (int i = 4; i < COLS - 3; ++i) {
-			addCell(2, i);
-		}
-		addCell(3, COLS - 4);
-		for (int i = 3; i < ROWS - 3; ++i) {
-			addCell(i, COLS - 3);
-		}
-		addCell(ROWS - 4, COLS - 4);
-		for (int i = COLS - 4; i > 2; --i) {
-			addCell(ROWS - 3, i);
-		}
-		addCell(ROWS - 4, 3);
-		addCell(ROWS - 4, 2);
-		for (int i = 2; i > -1; --i) {
-			addCell(ROWS - 5, i);
-		}
-	}
-		break;
-	case 4:
-	{
-		cell = new RoadCell(8, -1);
-		m_startCell = cell;
-		m_finishCell = cell;
-
-		for (int i = 0; i < 5; ++i) {
-			addCell(ROWS - 2, i);
-		}
-		for (int i = ROWS - 3; i > 2; --i) {
-			addCell(i, 4);
-		}
-		for (int i = 5; i < COLS - 3; ++i) {
-			addCell(3, i);
-		}
-		for (int i = 4; i < ROWS - 3; ++i) {
-			addCell(i, COLS - 4);
-		}
-		for (int i = COLS - 5; i > 0; --i) {
-			addCell(ROWS - 4, i);
-		}
-
-		for (int i = ROWS - 5; i > 0; --i) {
-			addCell(i, 1);
-		}
-		for (int i = 2; i < COLS - 1; ++i) {
-			addCell(1, i);
-		}
-		for (int i = 2; i < ROWS; ++i) {
-			addCell(i, COLS - 2);
-		}
-	}
-		break;
-	case 5:
-	{
-		cell = new RoadCell(ROWS, 0);
-		m_startCell = cell;
-		m_finishCell = cell;
-
-		for (int i = ROWS - 1; i > -1; --i) {
-			addCell(i, 0);
-		}
-		for (int i = 1; i < COLS; ++i) {
-			addCell(0, i);
-		}
-		for (int i = 1; i < 3; ++i) {
-			addCell(i, COLS - 1);
-		}
-		for (int i = COLS - 2; i > 1; --i) {
-			addCell(2, i);
-		}
-		for (int i = 3; i < ROWS; ++i) {
-			addCell(i, 2);
-		}
-
-		for (int i = 3; i < 5; ++i) {
-			addCell(ROWS - 1, i);
-		}
-		for (int i = ROWS - 2; i > 3; --i) {
-			addCell(i, 4);
-		}
-		for (int i = 5; i < COLS; ++i) {
-			addCell(4, i);
-		}
-		for (int i = 5; i < 7; ++i) {
-			addCell(i, COLS - 1);
-		}
-		for (int i = COLS - 2; i > 5; --i) {
-			addCell(6, i);
-		}
-		for (int i = 7; i < ROWS; ++i) {
-			addCell(i, 6);
-		}
-
-		for (int i = 7; i < COLS; ++i) {
-			addCell(ROWS - 1, i);
-		}
-	}
-		break;
-	case 6:
-	{
-		cell = new RoadCell(ROWS, 1);
-		m_startCell = cell;
-		m_finishCell = cell;
-
-		for (int i = ROWS - 1; i > 0; --i) {
-			addCell(i, 1);
-		}
-		for (int i = 2; i < COLS - 1; ++i) {
-			addCell(1, i);
-		}
-		for (int i = 2; i < ROWS - 1; ++i) {
-			addCell(i, COLS - 2);
-		}
-		for (int i = COLS - 3; i > 2; --i) {
-			addCell(ROWS - 2, i);
-		}
-
-		for (int i = ROWS - 3; i > 2; --i) {
-			addCell(i, 3);
-		}
-		for (int i = 4; i < COLS - 3; ++i) {
-			addCell(3, i);
-		}
-		for (int i = 4; i < ROWS - 3; ++i) {
-			addCell(i, COLS - 4);
-		}
-		for (int i = COLS - 5; i > 4; --i) {
-			addCell(ROWS - 4, i);
-		}
-
-		addCell(ROWS - 5, 5);
-	}
-		break;
-	}
-}
-
-void Field::paintRoad(sf::RenderWindow & window)
+void Field::paintRoad()
 {
 	// рисуем дорогу
 	for (int i = 0; i < ROWS; ++i) {
@@ -320,7 +61,7 @@ void Field::paintRoad(sf::RenderWindow & window)
 				sf::RectangleShape road(sf::Vector2f(W, W));
 				road.move(W * j, W * i);
 				road.setTexture(m_roadTexture);
-				window.draw(road);
+				(*window).draw(road);
 			}
 		}
 	}
@@ -328,5 +69,54 @@ void Field::paintRoad(sf::RenderWindow & window)
 	sf::RectangleShape finishLine(sf::Vector2f(W, W));
 	finishLine.move(W * m_finishCell->getCoordinates().second, W * m_finishCell->getCoordinates().first);
 	finishLine.setTexture(m_finishLineTexture);
-	window.draw(finishLine);
+	(*window).draw(finishLine);
+}
+
+void Field::drawRange(int i, int j)
+{
+	int range{ getTowerOnCell(i, j)->getRange() };
+	sf::RectangleShape border1(sf::Vector2f(W * (1 + 2 * range), 5));
+	border1.move(W * (j - range), W * (i - range));
+	sf::RectangleShape border2(sf::Vector2f(W * (1 + 2 * range), 5));
+	border2.move(W * (j - range), W * (i + 1 + range) - 5);
+	sf::RectangleShape border3(sf::Vector2f(5, W * (1 + 2 * range)));
+	border3.move(W * (j - range), W * (i - range));
+	sf::RectangleShape border4(sf::Vector2f(5, W * (1 + 2 * range)));
+	border4.move(W * (j + 1 + range) - 5, W * (i - range));
+	if (getTowerOnCell(i, j)->getTowerType() > 6) {
+		border1.setFillColor(sf::Color::Green);
+		border2.setFillColor(sf::Color::Green);
+		border3.setFillColor(sf::Color::Green);
+		border4.setFillColor(sf::Color::Green);
+	}
+	else {
+		border1.setFillColor(sf::Color::White);
+		border2.setFillColor(sf::Color::White);
+		border3.setFillColor(sf::Color::White);
+		border4.setFillColor(sf::Color::White);
+	}
+	(*window).draw(border1);
+	(*window).draw(border2);
+	(*window).draw(border3);
+	(*window).draw(border4);
+}
+
+void Field::addTowerOnCell(int i, int j, Tower * tower)
+{
+	m_field[i][j].setTowerOnCell(tower);
+}
+
+Tower * Field::getTowerOnCell(int i, int j)
+{
+	return m_field[i][j].getTowerOnCell();
+}
+
+int Field::getCellValue(int i, int j) const
+{
+	return m_field[i][j].getTypeOfCell();
+}
+
+void Field::setCellValue(int i, int j, int typeOfCell)
+{
+	m_field[i][j].setTypeOfCell(typeOfCell);
 }
