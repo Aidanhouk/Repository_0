@@ -1,25 +1,18 @@
-#include "mainGame.h"
-
 #include <SFML/Graphics.hpp>
-#include <ctime>
-#include <vector>
-#include <thread>
 
 #include "consts.h"
+#include "globals.h"
 #include "drawing.h"
 #include "_AI_makes_move.h"
-#include "endCheck.h"
+#include "finishLineCheck.h"
 
-void mainGame(int n, int p, int &res)
+void mainGame()
 {
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
 
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");
-
-	srand(static_cast<unsigned int>(time(0)));
-	rand();
 
 	// создаем поле размерностью nxn
 	int **field = new int*[n];
@@ -148,7 +141,7 @@ void mainGame(int n, int p, int &res)
 
 		// возвращаем значени, кто выиграл
 		if (endOfGame) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			sf::sleep(sf::Time(sf::milliseconds(500)));
 			res = whoWin;
 			// если player vs AI и при это НЕ ничья, нужно немного изменить вывод результата
 			if (p == 2 && whoWin) {
@@ -167,7 +160,7 @@ void mainGame(int n, int p, int &res)
 
 		// паузы между ходами AI vs AI
 		if (p == 3 && !endOfGame) {
-			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			sf::sleep(sf::Time(sf::milliseconds(500)));
 		}
 	}
 

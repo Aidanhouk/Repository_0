@@ -1,10 +1,26 @@
-// в заголовке consts.h можно настроить параметры поля и баланса
-// в файле field.cpp в функции makeRoad() можно создать любую дорогу по координатам
+// в заголовке consts.h можно настроить параметры баланса
 
 #include "globals.h"
 #include "menu.h"
 #include "mainGame.h"
 #include "results.h"
+
+// скорость игры
+bool gameSpeed;
+// пауза?
+bool pause;
+// результат игры
+int result;
+// какой уровень выбран
+int level;
+// на какой волне закончилась игра
+int waveLevel;
+// кол-во денег
+int money;
+// поле
+Field * field;
+// окно
+sf::RenderWindow * window;
 
 int main()
 {

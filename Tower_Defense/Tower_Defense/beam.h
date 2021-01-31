@@ -7,7 +7,7 @@ class Beam
 {
 private:
 	// скорость луча
-	float m_beamSpeed{ 0.07 };
+	float m_beamSpeed{ 0.1f };
 	// длина луча по осям x и y
 	double m_beamXVector, m_beamYVector;
 	// изначальная дистанция до центра по осям x и y

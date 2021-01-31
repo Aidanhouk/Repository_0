@@ -1,8 +1,5 @@
 #include "enemy.h"
 
-#include <ctime>
-#include <cmath>
-
 #include "globals.h"
 #include "roadCell.h"
 #include "blockOnField.h"
@@ -12,16 +9,12 @@
 Enemy::Enemy(int type, int currentWaveLevel, sf::Texture * enemyTextures[ENEMIES_COUNT], EnemiesWave * wave)
 	: m_type{ type }, m_wave{ wave },
 	m_waveLevel{ currentWaveLevel },
-	m_hp{ (int)(ENEMIES_HP[type] * (1 + 0.3 * currentWaveLevel)) },
+	m_hp{ ENEMIES_HP[type] * (1 + 0.3 * currentWaveLevel) },
 	m_coins{ ENEMIES_COINS[type] },
 	m_enemyTexture{ enemyTextures[type] },
 	m_speed{ ENEMIES_SPEED[type] * (1 + 2 * gameSpeed) },
-	m_dmg{ (int)(ENEMIES_DAMAGE[type] * (1 + 2 * gameSpeed)) }
-{
-	if (level == 0) {
-		m_enemyTexture = enemyTextures[0];
-	}
-}
+	m_dmg{ ENEMIES_DAMAGE[type] * (1 + 2 * gameSpeed) }
+{}
 
 void Enemy::setDirection(RoadCell * currentPosition)
 {

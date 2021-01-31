@@ -13,6 +13,12 @@ TowersControl::TowersControl()
 		(*tower).loadFromFile("images/towers/tower" + std::to_string(i) + ".png");
 		m_towersTextures[i] = tower;
 	}
+	// скачиваем и записываем текстуры бафов
+	for (int i = 0; i < 4; ++i) {
+		sf::Texture *buffTexture{ new sf::Texture() };
+		(*buffTexture).loadFromFile("images/buffs/buff" + std::to_string(i) + ".png");
+		m_buffsTextures[i] = buffTexture;
+	}
 }
 
 TowersControl::~TowersControl()
@@ -25,11 +31,14 @@ TowersControl::~TowersControl()
 			delete var;
 		}
 	}
+	for (auto var : m_buffsTextures) {
+		delete var;
+	}
 }
 
 void TowersControl::addTower(int i, int j, int type)
 {
-	Tower *tower = new Tower(i, j, type, m_towersTextures);
+	Tower *tower = new Tower(i, j, type, m_towersTextures, m_buffsTextures);
 	m_towersList.push_back(tower);
 	(*field).addTowerOnCell(i, j, tower);
 }
@@ -53,12 +62,12 @@ void TowersControl::towersShoot(Missiles &missiles)
 
 void TowersControl::markTowerToDelete(int i, int j)
 {
-	sf::RectangleShape cross1(sf::Vector2f(W * 1.29, W / 10));
+	sf::RectangleShape cross1(sf::Vector2f(W * 1.29f, W / 10));
 	cross1.setPosition(W * j + 8, W * i);
 	cross1.rotate(45);
 	cross1.setFillColor(sf::Color(150, 25, 25));
 	(*window).draw(cross1);
-	sf::RectangleShape cross2(sf::Vector2f(W * 1.29, W / 10));
+	sf::RectangleShape cross2(sf::Vector2f(W * 1.29f, W / 10));
 	cross2.setPosition(W * j + 2, W * (i + 1) - 6);
 	cross2.rotate(-45);
 	cross2.setFillColor(sf::Color(150, 25, 25));

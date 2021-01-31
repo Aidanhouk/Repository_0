@@ -1,5 +1,3 @@
-#include "checkLines.h"
-
 int checkLines(int **field, int n, int markAI)
 {
 	// номер €чейки, чтобы не дать завершить линию оппоненту

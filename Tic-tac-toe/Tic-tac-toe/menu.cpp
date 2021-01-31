@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
-#include "menu.h"
 
-void openMenu(int &n, int &p)
+#include "globals.h"
+
+void menu()
 {
 	using sf::Text;
 	using sf::Color;
@@ -73,20 +74,20 @@ void openMenu(int &n, int &p)
 				// если ЛКМ
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					// если была нажата одна из кнопок выбора размера
-					if (y > 80 && y < 130) {
-						if (x > 10 && x < 100) {
+					if (y > x3.getPosition().y && y < x3.getPosition().y + x3.getLocalBounds().height + 25) {
+						if (x > x3.getPosition().x - 15 && x < x3.getPosition().x + x3.getLocalBounds().width + 20) {
 							n = 3;
 							x3.setFillColor(Color::Green);
 							x4.setFillColor(Color::Black);
 							x5.setFillColor(Color::Black);
 						}
-						else if (x > 110 && x < 200) {
+						else if (x > x4.getPosition().x - 15 && x < x4.getPosition().x + x4.getLocalBounds().width + 20) {
 							n = 4;
 							x4.setFillColor(Color::Green);
 							x3.setFillColor(Color::Black);
 							x5.setFillColor(Color::Black);
 						}
-						else if (x > 210 && x < 300) {
+						else if (x > x5.getPosition().x - 15 && x < x5.getPosition().x + x5.getLocalBounds().width + 20) {
 							n = 5;
 							x5.setFillColor(Color::Green);
 							x3.setFillColor(Color::Black);
@@ -94,27 +95,29 @@ void openMenu(int &n, int &p)
 						}
 					}
 					// если была нажата одна из кнопок выбора противника
-					if (x > 10 && x < 300) {
-						if (y > 195 && y < 245) {
+					if (x > p_vs_p.getPosition().x - 15 && x < p_vs_p.getPosition().x + p_vs_p.getLocalBounds().width + 20) {
+						if (y > p_vs_p.getPosition().y && y < p_vs_p.getPosition().y + p_vs_p.getLocalBounds().height + 15) {
 							p = 1;
 							p_vs_p.setFillColor(Color::Green);
 							p_vs_AI.setFillColor(Color::Black);
 							_AI_vs_AI.setFillColor(Color::Black);
 						}
-						if (y > 250 && y < 300) {
+						if (y > p_vs_AI.getPosition().y && y < p_vs_AI.getPosition().y + p_vs_AI.getLocalBounds().height + 15) {
 							p = 2;
 							p_vs_AI.setFillColor(Color::Green);
 							p_vs_p.setFillColor(Color::Black);
 							_AI_vs_AI.setFillColor(Color::Black);
 						}
-						if (y > 305 && y < 355) {
+						if (y > _AI_vs_AI.getPosition().y && y < _AI_vs_AI.getPosition().y + _AI_vs_AI.getLocalBounds().height + 20) {
 							p = 3;
 							_AI_vs_AI.setFillColor(Color::Green);
 							p_vs_p.setFillColor(Color::Black);
 							p_vs_AI.setFillColor(Color::Black);
 						}
 					}
-					if (x > 80 && x < 230 && y > 370 && y < 420) {
+					// кнопка Play
+					if (x > play.getPosition().x - 40 && x < play.getPosition().x + play.getLocalBounds().width + 50
+						&& y > play.getPosition().y && y < play.getPosition().y + play.getLocalBounds().height + 15) {
 						menu.close();
 					}
 				}

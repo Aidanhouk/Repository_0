@@ -7,7 +7,6 @@
 
 void LastEnemy::createEffects()
 {
-	srand(time(0));
 	for (auto & var : m_beams) {
 		int xDirection;
 		int yDirection;

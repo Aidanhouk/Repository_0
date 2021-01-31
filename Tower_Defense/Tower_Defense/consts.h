@@ -19,8 +19,7 @@ const int ROWS{ 10 };
 const int COLS{ 11 };
 
 // стартовые деньги для каждого уровня
-const int START_MONEY[7]{ 1488, 30, 30, 30, 30, 30, 30 };
-//const int START_MONEY[7]{ 1488, 530, 530, 530, 530, 550, 530 };
+const int START_MONEY[7]{ 0, 30, 30, 30, 30, 30, 30 };
 
 // здоворье останавливающего блока
 const int STOP_BLOCK_HP{ 1000 };
@@ -28,7 +27,7 @@ const int STOP_BLOCK_HP{ 1000 };
 // далее индекс массива равен типу врага/башни/блока
 
 // кол-во hp у врагов
-const int ENEMIES_HP[ENEMIES_COUNT]{ 0,180,360,720,900,1800 };
+const double ENEMIES_HP[ENEMIES_COUNT]{ 0,180,360,720,900,1800 };
 // кол-во монет, падающих с врагов
 const int ENEMIES_COINS[ENEMIES_COUNT]{ 0,2,4,5,6,10 };
 // скорость врагов

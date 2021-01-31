@@ -7,14 +7,14 @@ void Field::makeRoad()
 {
 	// сначала ставитс€ стартово€ €чейка (она находитс€ вне пол€), остальные добавл€ютс€ через функцию addCell
 	// можно построить любую дорогу, зна€ координаты
-	RoadCell *cell;
+	RoadCell *startCell;
 	switch (m_level)
 	{
 	case 1:
 	{
-		cell = new RoadCell(ROWS, 5);
-		m_startCell = cell;
-		m_finishCell = cell;
+		startCell = new RoadCell(ROWS, 5);
+		m_startCell = startCell;
+		m_finishCell = startCell;
 
 		for (int i = ROWS - 1; i > 0; --i) {
 			addRoadCell(i, 5);
@@ -48,9 +48,9 @@ void Field::makeRoad()
 	break;
 	case 2:
 	{
-		cell = new RoadCell(ROWS, 4);
-		m_startCell = cell;
-		m_finishCell = cell;
+		startCell = new RoadCell(ROWS, 4);
+		m_startCell = startCell;
+		m_finishCell = startCell;
 
 		for (int i = ROWS - 1; i > -1; --i) {
 			addRoadCell(i, COLS - 7);
@@ -95,9 +95,9 @@ void Field::makeRoad()
 	break;
 	case 3:
 	{
-		cell = new RoadCell(ROWS - 4, -1);
-		m_startCell = cell;
-		m_finishCell = cell;
+		startCell = new RoadCell(ROWS - 4, -1);
+		m_startCell = startCell;
+		m_finishCell = startCell;
 
 		addRoadCell(ROWS - 4, 0);
 		addRoadCell(ROWS - 3, 0);
@@ -155,9 +155,9 @@ void Field::makeRoad()
 	break;
 	case 4:
 	{
-		cell = new RoadCell(8, -1);
-		m_startCell = cell;
-		m_finishCell = cell;
+		startCell = new RoadCell(8, -1);
+		m_startCell = startCell;
+		m_finishCell = startCell;
 
 		for (int i = 0; i < 5; ++i) {
 			addRoadCell(ROWS - 2, i);
@@ -188,9 +188,9 @@ void Field::makeRoad()
 	break;
 	case 5:
 	{
-		cell = new RoadCell(ROWS, 0);
-		m_startCell = cell;
-		m_finishCell = cell;
+		startCell = new RoadCell(ROWS, 0);
+		m_startCell = startCell;
+		m_finishCell = startCell;
 
 		for (int i = ROWS - 1; i > -1; --i) {
 			addRoadCell(i, 0);
@@ -234,9 +234,9 @@ void Field::makeRoad()
 	break;
 	case 6:
 	{
-		cell = new RoadCell(ROWS, 1);
-		m_startCell = cell;
-		m_finishCell = cell;
+		startCell = new RoadCell(ROWS, 1);
+		m_startCell = startCell;
+		m_finishCell = startCell;
 
 		for (int i = ROWS - 1; i > 0; --i) {
 			addRoadCell(i, 1);
@@ -265,66 +265,6 @@ void Field::makeRoad()
 		}
 
 		addRoadCell(ROWS - 5, 5);
-	}
-	break;
-	case 0:
-	{
-		cell = new RoadCell(ROWS, COLS - 3);
-		m_startCell = cell;
-		m_finishCell = cell;
-
-		for (int i = ROWS - 1; i > 4; --i) {
-			addRoadCell(i, COLS - 3);
-		}
-		for (int i = COLS - 4; i > 4; --i) {
-			addRoadCell(ROWS - 5, i);
-		}
-
-		for (int i = ROWS - 4; i < ROWS; ++i) {
-			addRoadCell(i, 5);
-		}
-		for (int i = 4; i > -1; --i) {
-			addRoadCell(ROWS - 1, i);
-		}
-		for (int i = 0; i < 5; ++i) {
-			addRoadCell(ROWS - 2, i);
-		}
-		for (int i = ROWS - 3; i > 4; --i) {
-			addRoadCell(i, 4);
-		}
-
-		for (int i = 3; i > -1; --i) {
-			addRoadCell(5, i);
-		}
-		for (int i = 4; i > -1; --i) {
-			addRoadCell(i, 0);
-		}
-		for (int i = 0; i < 5; ++i) {
-			addRoadCell(i, 1);
-		}
-		for (int i = 2; i < 5; ++i) {
-			addRoadCell(4, i);
-		}
-
-		for (int i = 3; i > -1; --i) {
-			addRoadCell(i, 4);
-		}
-		for (int i = 5; i < COLS - 1; ++i) {
-			addRoadCell(0, i);
-		}
-		for (int i = COLS - 2; i > 4; --i) {
-			addRoadCell(1, i);
-		}
-		for (int i = 2; i < 5; ++i) {
-			addRoadCell(i, 5);
-		}
-
-		for (int i = COLS - 5; i < COLS - 1; ++i) {
-			addRoadCell(4, i);
-		}
-		for (int i = ROWS - 5; i < ROWS; ++i) {
-			addRoadCell(i, COLS - 2);
-		}
 	}
 	break;
 	}

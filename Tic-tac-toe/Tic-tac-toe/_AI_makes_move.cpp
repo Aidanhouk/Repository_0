@@ -1,7 +1,6 @@
 #include "_AI_makes_move.h"
 
 #include <ctime>
-#include "checkLines.h"
 
 void _AI_makes_move(std::vector<int> &moves, int **field, int n, int &row, int &col)
 {

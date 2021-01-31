@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 #include "consts.h"
 
@@ -16,18 +15,22 @@ private:
 	int m_type;
 	// дальность поражения
 	int m_range{ 1 };
+	// сколько рядом бафающих башен на урон
+	int m_damageTowers{ 0 };
 	// урон башни
 	double m_dmg;
 	// указатель на тестуру башни
 	sf::Texture * m_towerTexture;
 	// координаты башни на поле
 	std::pair<int, int> m_position{ -1,-1 };
+	// текстуры бафов
+	sf::Texture *m_buffTextures[4];
 	// список клеток, по которым может стрелять башня
 	std::vector<RoadCell*> m_cellsInRange;
 	// изменить радиус поражения
 	void changeRange();
 public:
-	Tower(int i, int j, int type, sf::Texture * towersTextures[TOWERS_COUNT]);
+	Tower(int i, int j, int type, sf::Texture * towersTextures[TOWERS_COUNT], sf::Texture * buffTextures[4]);
 	~Tower() {}
 
 	// отрисовка башни

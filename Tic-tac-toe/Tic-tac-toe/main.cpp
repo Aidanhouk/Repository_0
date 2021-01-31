@@ -3,33 +3,34 @@
 // чтобы победить или не дать победить противнику, если такой линии нет, то ставиться на случайную клетку
 // кто ходит первым - рандом
 
+#include "globals.h"
 #include "menu.h"
 #include "mainGame.h"
 #include "results.h"
 
+// размерность поля + значение по умолчанию
+int n;
+// кто vs кто? 1 - player vs player, 2 - player vs AI, 3 - AI vs AI
+int p;
+// сюда запишем результат игры
+int res;
+// пока 1, игра перезапускается
+bool gameContinues{ 1 };
+
 int main()
 {
-	// размерность поля + значение по умолчанию
-	int n{ 3 };
-	// кто vs кто? 1 - player vs player, 2 - player vs AI, 3 - AI vs AI
-	int p{ 2 };
-	// сюда запишем результат игры
-	int res{ -1 };
-	// пока 1, игра перезапускается
-	bool gameContinues{ 1 };
-
 	while (gameContinues) {
 		// устанавливаем значения по умолчанию
 		n = 3, p = 2, res = -1;
 
 		// открываем меню
-		openMenu(n, p);
+		menu();
 
 		// запускаем игру
-		mainGame(n, p, res);
+		mainGame();
 
 		// реузультаты
-		results(res, p, gameContinues);
+		results(gameContinues);
 	}
 
 	return 0;

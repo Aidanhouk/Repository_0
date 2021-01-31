@@ -1,48 +1,43 @@
-#include "results.h"
-
-#include <SFML/Graphics.hpp>
-#include <string>
-
 #include "globals.h"
 
 void results(bool &exitGame)
 {
 	sf::Font font;
-	font.loadFromFile("sansation.ttf");
+	font.loadFromFile("font8bit.ttf");
 
-	// окно игры
-	sf::RenderWindow resultsWindow(sf::VideoMode(320, 250), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
+	// окно результатов
+	sf::RenderWindow resultsWindow(sf::VideoMode(390, 250), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
 
-	// сюда запиш текст с результатом игры
+	// сюда запишется текст с результатом игры
 	sf::Text resultText;
 
 	switch (result)
 	{
 		// если закрыл окно
 	case 0:
-		resultText = sf::Text("Tower Defense", font, 35);
-		resultText.setPosition(40, 20);
+		resultText = sf::Text("Tower Defense", font, 50);
+		resultText.setPosition(45, 5);
 		break;
 		// если прошел игру
 	case 1:
-		resultText = sf::Text("You won!", font, 35);
-		resultText.setPosition(85, 20);
+		resultText = sf::Text("You won!", font, 50);
+		resultText.setPosition(115, 5);
 		break;
 		// если проиграл
 	case 2:
-		resultText = sf::Text("You got to wave " + std::to_string(waveLevel), font, 35);
-		resultText.setPosition(15, 20);
+		resultText = sf::Text("You got to wave " + std::to_string(waveLevel), font, 50);
+		resultText.setPosition(15, 5);
 		break;
 	}
 	resultText.setFillColor(sf::Color(200, 200, 200));
 
-	sf::Text playAgainText("Play again", font, 35);
+	sf::Text playAgainText("Play again", font, 50);
 	playAgainText.setFillColor(sf::Color(200, 200, 200));
-	playAgainText.setPosition(75, 100);
+	playAgainText.setPosition(85, 85);
 
-	sf::Text exitText("Exit", font, 35);
+	sf::Text exitText("Exit", font, 50);
 	exitText.setFillColor(sf::Color(200, 200, 200));
-	exitText.setPosition(130, 180);
+	exitText.setPosition(150, 165);
 
 	while (resultsWindow.isOpen())
 	{
@@ -64,12 +59,12 @@ void results(bool &exitGame)
 			if (event.type == sf::Event::MouseButtonPressed) {
 				// play again
 				if (x > playAgainText.getPosition().x && x < resultsWindow.getSize().x - playAgainText.getPosition().x
-					&& y > playAgainText.getPosition().y && y < playAgainText.getPosition().y + 45) {
+					&& y > playAgainText.getPosition().y + 15 && y < playAgainText.getPosition().y + 60) {
 					resultsWindow.close();
 				}
 				// exit
 				if (x > exitText.getPosition().x && x < resultsWindow.getSize().x - exitText.getPosition().x
-					&& y > exitText.getPosition().y && y < exitText.getPosition().y + 40) {
+					&& y > exitText.getPosition().y + 15 && y < exitText.getPosition().y + 60) {
 					exitGame = 1;
 					resultsWindow.close();
 				}

@@ -5,28 +5,25 @@
 #include "roadCell.h"
 #include "lastEnemy.h"
 
-EnemiesWave::EnemiesWave(int level, int maxLevel)
-	: m_level{ level - 1 }, m_maxLevel{ maxLevel }
+EnemiesWave::EnemiesWave(int startWave, int maxWave)
+	: m_waveLevel{ startWave - 1 }, m_maxWave{ maxWave }
 {
-	m_enemiesList.reserve(50);
+	m_enemiesList.reserve(30);
 	// скачиваем и записываем текстуры врагов
 	for (int i = 1; i < ENEMIES_COUNT; ++i) {
 		m_enemiesTextures[i] = new sf::Texture();
 		(*m_enemiesTextures[i]).loadFromFile("images/enemies/enemy" + std::to_string(i) + ".png");
 	}
-
-	m_enemiesTextures[0] = new sf::Texture();
-	(*m_enemiesTextures[0]).loadFromFile("images/enemies/enemy0.png");
 }
 
 EnemiesWave::~EnemiesWave()
 {
+	cleanWave();
 	for (auto & var : m_enemiesTextures) {
 		if (var) {
 			delete var;
 		}
 	}
-	cleanWave();
 }
 
 void EnemiesWave::spawnNextEnemy(RoadCell * cellToSpawn)

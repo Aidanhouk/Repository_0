@@ -6,7 +6,7 @@
 #include "fieldCell.h"
 #include "tower.h"
 
-Field::Field(int level)
+Field::Field()
 	:m_level{ level }
 {
 	// создаем поле ROWS * COLS
@@ -19,10 +19,7 @@ Field::Field(int level)
 	}
 	// создаем текстуру дороги
 	sf::Texture *roadTexture{ new sf::Texture };
-	if (level != 0)
-		(*roadTexture).loadFromFile("images/field/road.png");
-	else
-		(*roadTexture).loadFromFile("images/field/roadSALAVAT.png");
+	(*roadTexture).loadFromFile("images/field/road.png");
 	m_roadTexture = roadTexture;
 	// создаем текстуру финишной линии
 	sf::Texture *finishLineTexture{ new sf::Texture };
@@ -39,6 +36,7 @@ Field::~Field()
 		delete[] m_field[i];
 	}
 	delete[] m_field;
+
 	delete m_roadTexture;
 	delete m_finishLineTexture;
 }

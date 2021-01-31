@@ -1,8 +1,8 @@
-#include "results.h"
-
 #include <SFML/Graphics.hpp>
 
-void results(int res, int p, bool &gameConinues)
+#include "globals.h"
+
+void results(bool &gameConinues)
 {
 	using sf::Text;
 	using sf::Color;
@@ -23,6 +23,9 @@ void results(int res, int p, bool &gameConinues)
 		switch (res)
 		{
 		case -1:
+			// game window was close
+			whoWonText = Text("Tic-tac-toe", font, 35);
+			whoWonText.setPosition(25, 20);
 			break;
 		case 0:
 			// draw
@@ -45,6 +48,9 @@ void results(int res, int p, bool &gameConinues)
 		switch (res)
 		{
 		case -1:
+			// game window was close
+			whoWonText = Text("Tic-tac-toe", font, 35);
+			whoWonText.setPosition(25, 20);
 			break;
 		case 0:
 			// draw
@@ -67,6 +73,9 @@ void results(int res, int p, bool &gameConinues)
 		switch (res)
 		{
 		case -1:
+			// game window was close
+			whoWonText = Text("Tic-tac-toe", font, 35);
+			whoWonText.setPosition(25, 20);
 			break;
 		case 0:
 			// draw
@@ -75,9 +84,6 @@ void results(int res, int p, bool &gameConinues)
 			break;
 		case 1:
 			// 1 AI won
-			whoWonText = Text("AI won", font, 35);
-			whoWonText.setPosition(60, 20);
-			break;
 		case 2:
 			// 2 AI won
 			whoWonText = Text("AI won", font, 35);
@@ -117,11 +123,13 @@ void results(int res, int p, bool &gameConinues)
 				// если ЛКМ
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					// если нажал на Play again
-					if (x > 30 && x < 200 && y > 120 && y < 160) {
+					if (x > playAgain.getPosition().x && x < playAgain.getPosition().x + playAgain.getLocalBounds().width + 10
+						&& y > playAgain.getPosition().y && y < playAgain.getPosition().y + playAgain.getLocalBounds().height + 15) {
 						result.close();
 					}
 					// если нажал на Exit
-					if (x > 80 && x < 140 && y > 220 && y < 260) {
+					if (x > exitText.getPosition().x && x < exitText.getPosition().x + exitText.getLocalBounds().width + 10
+						&& y > exitText.getPosition().y && y < exitText.getPosition().y + exitText.getLocalBounds().height + 15) {
 						gameConinues = 0;
 						result.close();
 					}
@@ -131,9 +139,7 @@ void results(int res, int p, bool &gameConinues)
 		// цвет фона
 		result.clear(Color(25, 0, 45));
 		// текст, кто победил
-		if (res != -1) {
-			result.draw(whoWonText);
-		}
+		result.draw(whoWonText);
 		// текст Play again
 		result.draw(playAgain);
 		// текст Exit

@@ -1,8 +1,5 @@
 #include "missiles.h"
 
-#include <SFML/Graphics.hpp>
-#include <cmath>
-
 #include "consts.h"
 #include "globals.h"
 #include "enemy.h"

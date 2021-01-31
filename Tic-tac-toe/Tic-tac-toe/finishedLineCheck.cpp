@@ -1,6 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include "endCheck.h"
-
 int finishedLineCheck(int **field, const int n, int &rowOrCol, int &dir)
 {
 	bool f;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 #include "consts.h"
 
@@ -16,6 +15,8 @@ private:
 	std::vector<Tower*> m_towersList;
 	// тектуры башен
 	sf::Texture* m_towersTextures[TOWERS_COUNT]{ nullptr };
+	// текстуры бафов
+	sf::Texture* m_buffsTextures[4];
 public:
 	TowersControl();
 	~TowersControl();

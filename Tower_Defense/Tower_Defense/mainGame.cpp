@@ -1,6 +1,4 @@
-#include "mainGame.h"
-
-#include <thread>
+#include <SFML/Audio.hpp>
 
 #include "consts.h"
 #include "globals.h"
@@ -12,30 +10,8 @@
 #include "blocksControl.h"
 #include "shop.h"
 
-#include <SFML/Audio.hpp>
-
-// скорость игры
-bool gameSpeed;
-// пауза?
-bool pause;
-// результат игры
-int result;
-// какой уровень выбран
-int level;
-// на какой волне закончилась игра
-int waveLevel;
-// кол-во денег
-int money;
-// поле
-Field * field;
-// окно
-sf::RenderWindow * window;
-
 void mainGame()
 {
-	sf::Font font;
-	font.loadFromFile("sansation.ttf");
-
 	// окно игры
 	sf::RenderWindow _window(sf::VideoMode(W * (COLS + 2), W * (ROWS + 1)), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
 	window = &_window;
@@ -44,7 +20,7 @@ void mainGame()
 	(*window).setFramerateLimit(60);
 
 	// объект поля
-	Field _field(level);
+	Field _field;
 	field = &_field;
 	// создаем дорогу
 	(*field).makeRoad();
@@ -79,13 +55,13 @@ void mainGame()
 
 	// сбрасываем некоторые параметры (пауза, скорость игры)
 	setToDefault();
-
+	
+	// влючаем саундтрек
 	sf::Music music;
-	if (level == 0) {
-		pause = 0;
-		music.openFromFile("sounds/secretSong.ogg");
-		music.play();
-	}
+	music.setLoop(true);
+	int musicN{ rand() % 3 + 1 };
+	music.openFromFile("music/song" + std::to_string(musicN) + ".ogg");
+	music.play();
 
 	// главный цикл игры
 	while ((*window).isOpen())
@@ -178,82 +154,16 @@ void mainGame()
 				if (x >= COLS) {
 					clickedTowerCoord.first = -1;
 					clickedTowerCoord.second = -1;
-					switch (y)
-					{
-					case 1:
-						if (x == COLS) {
-							blockType = 1;
-						}
-						else {
-							blockType = 2;
-						}
-						break;
-					case 2:
-						if (pos.y % W >= (W >> 1)) {
-							if (x == COLS) {
-								blockType = 3;
-							}
-							else {
-								blockType = 4;
-							}
-						}
-						break;
-					case 3:
-						if (pos.y % W < (W >> 1)) {
-							if (x == COLS) {
-								blockType = 3;
-							}
-							else {
-								blockType = 4;
-							}
-						}
-						break;
-					case 4:
-						if (x == COLS) {
-							blockType = 5;
-						}
-						else {
-							blockType = 6;
-						}
-						break;
-					case 5:
-						if (pos.y % W >= (W >> 1)) {
-							if (x == COLS) {
-								blockType = 7;
-							}
-							else {
-								blockType = 8;
-							}
-						}
-						break;
-					case 6:
-						if (pos.y % W < (W >> 1)) {
-							if (x == COLS) {
-								blockType = 7;
-							}
-							else {
-								blockType = 8;
-							}
-						}
-						break;
-					case 7:
-						if (x == COLS) {
-							blockType = 9;
-						}
-						else {
-							blockType = 10;
-						}
-						break;
-					case 8:
-						break;
-					case 9:
-					case 10:
+					if (y == 9 || y == 10) {
 						// ставим игру на паузу или убираем с паузы
 						pause = !pause;
 						if (!pause) {
 							resetTimeToSpawn();
 						}
 						break;
+					}
+					else {
+						blockType = shop.returnItemNumber(pos.x, pos.y);
 					}
 				}
 				// 4 нажатия в нижней области
@@ -325,7 +235,7 @@ void mainGame()
 		}
 
 		// наведение на башню для отрисовки дальности действия башни
-		if (y < ROWS&& x < COLS && y >= 0 && x >= 0 && !endOfGame) {
+		if (x >= 0 && x < COLS && y >= 0 && y < ROWS) {
 			if ((*field).getTowerOnCell(y, x)) {
 				(*field).drawRange(y, x);
 			}
@@ -333,6 +243,12 @@ void mainGame()
 
 		// рисуем область магазина
 		shop.drawShop(enemiesWave.getLevel(), enemiesWave.getMaxLevel(), blockType);
+
+		// наведение на башни и блоки в магазине для выведения инфы о них
+		if (x >= COLS && x <= COLS + 1) {
+			int itemType{ shop.returnItemNumber(pos.x, pos.y) };
+			shop.itemInfo(itemType);
+		}
 
 		(*window).display();
 
@@ -343,7 +259,7 @@ void mainGame()
 				result = 2;
 			}
 			waveLevel = enemiesWave.getLevel();
-			std::this_thread::sleep_for(std::chrono::milliseconds(700));
+			sf::sleep(sf::Time(sf::milliseconds(700)));
 			(*window).close();
 		}
 	}

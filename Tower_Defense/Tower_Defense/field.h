@@ -23,7 +23,7 @@ private:
 	// текстура финиша
 	sf::Texture *m_finishLineTexture;
 public:
-	Field(int level);
+	Field();
 	~Field();
 
 	// добавить €чейку в дорогу по координатам

@@ -29,16 +29,22 @@
       <UniqueIdentifier>{9b780586-87f5-4a2d-9b5e-8cf94d7d05d3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Other_functions">
-      <UniqueIdentifier>{71319896-858b-419d-9cc8-4d6e116fff9c}</UniqueIdentifier>
+      <UniqueIdentifier>{af02ab2b-0187-4f14-b766-52d82af80ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawing">
+      <UniqueIdentifier>{814a7d3d-e098-4842-a40a-4f659cc0c085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawing">
+      <UniqueIdentifier>{45e57530-1cce-45e3-abc6-4c8f38aa7993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{0b1a942a-84fe-4148-b58e-450ac1dd091d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Other">
+      <UniqueIdentifier>{7f45dc3a-8ddb-47f2-b83f-6ebe74a47d1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="drawing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="mainGame.cpp">
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
@@ -54,17 +60,17 @@
     <ClCompile Include="checkLines.cpp">
       <Filter>Source Files\AI</Filter>
     </ClCompile>
-    <ClCompile Include="endCheck.cpp">
+    <ClCompile Include="finishedLineCheck.cpp">
       <Filter>Source Files\Other_functions</Filter>
+    </ClCompile>
+    <ClCompile Include="drawing.cpp">
+      <Filter>Source Files\Drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="drawing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="consts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="mainGame.h">
       <Filter>Header Files\Windows</Filter>
     </ClInclude>
@@ -74,14 +80,20 @@
     <ClInclude Include="results.h">
       <Filter>Header Files\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="checkLines.h">
-      <Filter>Header Files\AI</Filter>
-    </ClInclude>
     <ClInclude Include="_AI_makes_move.h">
       <Filter>Header Files\AI</Filter>
     </ClInclude>
-    <ClInclude Include="endCheck.h">
+    <ClInclude Include="finishLineCheck.h">
       <Filter>Header Files\Other_functions</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing.h">
+      <Filter>Header Files\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="consts.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

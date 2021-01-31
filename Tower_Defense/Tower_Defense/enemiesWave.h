@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <vector>
 
 #include "consts.h"
 
@@ -14,11 +13,11 @@ class EnemiesWave
 {
 private:
 	// макс уровень волны
-	const int m_maxLevel;
+	const int m_maxWave;
 	// указатель на последнего врага
 	LastEnemy * lastEnemy{ nullptr };
 	// уровень волны
-	int m_level;
+	int m_waveLevel;
 	// осталось монстров
 	int m_enemiesLeft;
 	// все монстры в волне
@@ -26,8 +25,8 @@ private:
 	// тектуры врагов
 	sf::Texture* m_enemiesTextures[ENEMIES_COUNT]{ nullptr };
 public:
-	// принимает число - уровень волны
-	EnemiesWave(int level, int maxLevel);
+	// принимает уровень, с которого начнется игра и последний уровень волны
+	EnemiesWave(int startWave, int maxWave);
 	~EnemiesWave();
 
 	// выпустить следующего монстра
@@ -49,7 +48,7 @@ public:
 	// отрисовывать эффекты в конце волны
 	void drawLastEnemyEffects();
 
-	int getLevel() const { return m_level; }
-	int getMaxLevel() const { return m_maxLevel; }
+	int getLevel() const { return m_waveLevel; }
+	int getMaxLevel() const { return m_maxWave; }
 	int getEnemiesLeft() const { return m_enemiesLeft; }
 };

@@ -1,21 +1,16 @@
-#include "menu.h"
-
-#include <SFML/Graphics.hpp>
-#include <string>
-
 #include "globals.h"
 
 void menu(bool &exitGame)
 {
 	sf::Font font;
-	font.loadFromFile("sansation.ttf");
+	font.loadFromFile("font8bit.ttf");
 
-	// окно игры
+	// окно меню
 	sf::RenderWindow menuWindow(sf::VideoMode(410, 310), "Tower defense", sf::Style::Titlebar | sf::Style::Close);
 
-	sf::Text chooseText("Choose level" , font, 40);
+	sf::Text chooseText("Choose level" , font, 60);
 	chooseText.setFillColor(sf::Color(200, 200, 200));
-	chooseText.setPosition(90, 15);
+	chooseText.setPosition(50, -10);
 
 	sf::Texture levelTextures[6];
 	for (int i = 0; i < 6; ++i) {
@@ -30,8 +25,6 @@ void menu(bool &exitGame)
 				menuWindow.getSize().y - (2 - i) * (levelTextures[i * 3 + j].getSize().y + 20));
 		}
 	}
-
-	int secretLevel{ 0 };
 
 	while (menuWindow.isOpen())
 	{
@@ -51,15 +44,6 @@ void menu(bool &exitGame)
 			}
 			// если нажата кнопка мыши
 			if (event.type == sf::Event::MouseButtonPressed) {
-				// secret level
-				if (y > chooseText.getPosition().y && y < chooseText.getPosition().y + 45
-					&& x > chooseText.getPosition().x && x < menuWindow.getPosition().x - chooseText.getPosition().x) {
-					++secretLevel;
-					if (secretLevel == 10) {
-						level = 0;
-						menuWindow.close();
-					}
-				}
 				// первые 3 уровня
 				if (y > levelSprites[0].getPosition().y && y < levelSprites[0].getPosition().y + levelTextures[0].getSize().y) {
 					if (x > levelSprites[0].getPosition().x && x < levelSprites[0].getPosition().x + levelTextures[0].getSize().x) {
@@ -93,7 +77,7 @@ void menu(bool &exitGame)
 			}
 		}
 
-		menuWindow.clear(sf::Color(0, 0, 0));
+		menuWindow.clear(sf::Color::Black);
 
 		menuWindow.draw(chooseText);
 		for (auto & var : levelSprites) {

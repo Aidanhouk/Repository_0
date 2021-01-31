@@ -20,7 +20,7 @@ protected:
 	// уровень волны
 	int m_waveLevel;
 	// здоровье
-	int m_hp;
+	double m_hp;
 	// сколько с него падает денег
 	int m_coins;
 	// урон

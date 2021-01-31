@@ -1,14 +1,14 @@
 #include "shop.h"
 
-#include <string>
-
 #include "globals.h"
 
 Shop::Shop()
 {
-	// скачиваем шрифт
-	m_font = new sf::Font();
-	(*m_font).loadFromFile("sansation.ttf");
+	// скачиваем шрифты
+	m_font1 = new sf::Font();
+	(*m_font1).loadFromFile("font8bit.ttf");
+	m_font2 = new sf::Font();
+	(*m_font2).loadFromFile("sansation.ttf");
 
 	// скачиваем и записываем текстуры башен
 	for (int i = 1; i < TOWERS_COUNT; ++i) {
@@ -43,6 +43,10 @@ Shop::Shop()
 	// скачиваем и записываем текстуру иконки пазуы
 	m_pauseTexture = new sf::Texture();
 	(*m_pauseTexture).loadFromFile("images/other/pause.png");
+	
+	// скачиваем текстуру окна информации
+	m_infoTexture = new sf::Texture();
+	(*m_infoTexture).loadFromFile("images/other/infoWindow.png");
 
 	// добавляем прямоугольники для обводки выбранного объекта для покупки
 	sf::RectangleShape *chosenTower1{ new sf::RectangleShape(sf::Vector2f(W, W / 10)) };
@@ -64,12 +68,14 @@ Shop::~Shop()
 	}
 	delete m_chosenTowerFrame[0];
 	delete m_chosenTowerFrame[2];
-	delete m_font;
+	delete m_font1;
+	delete m_font2;
 	delete m_coinTexture;
 	delete m_normalTexture;
 	delete m_fasterTexture;
 	delete m_startTexture;
 	delete m_pauseTexture;
+	delete m_infoTexture;
 }
 
 void Shop::drawShop(int currentWave, int maxWaveLevel, int blockType)
@@ -88,7 +94,7 @@ void Shop::drawShop(int currentWave, int maxWaveLevel, int blockType)
 	sf::Sprite coin(*m_coinTexture);
 	coin.setPosition(W * (COLS + 1), 0);
 	(*window).draw(coin);
-	sf::Text moneyText(std::to_string(money), *m_font, 40);
+	sf::Text moneyText(std::to_string(money), *m_font2, 40);
 	moneyText.setFillColor(sf::Color::Yellow);
 	moneyText.setPosition(W * (COLS + 0.1), W / 5);
 	(*window).draw(moneyText);
@@ -117,9 +123,9 @@ void Shop::drawShop(int currentWave, int maxWaveLevel, int blockType)
 	(*window).draw(speedIcon);
 
 	// текст с номером волны
-	sf::Text levelText("Power  " + std::to_string(currentWave) + "/" + std::to_string(maxWaveLevel), *m_font, 40);
+	sf::Text levelText("Power  " + std::to_string(currentWave) + "/" + std::to_string(maxWaveLevel), *m_font1, 80);
 	levelText.setFillColor(sf::Color::White);
-	levelText.setPosition(W * 4 + 8, W * ROWS + 13);
+	levelText.setPosition(W * 3.25, W * ROWS - W * 0.25);
 	(*window).draw(levelText);
 
 	// рисуем башни, блоки и их стоимость
@@ -129,16 +135,16 @@ void Shop::drawShop(int currentWave, int maxWaveLevel, int blockType)
 		sf::Sprite block(*m_towersTextures[i]);
 		block.setPosition(W * (COLS + x), W * (1 + y));
 		(*window).draw(block);
-		// узнаем цену башни/блока
+		// рисуем их стоимость
 		int price{ (i < TOWERS_COUNT) ? TOWERS_PRICE[i] : BLOCKS_PRICE[i - TOWERS_COUNT + 1] };
-		sf::Text cost(std::to_string(price), *m_font, 30);
+		sf::Text cost(std::to_string(price), *m_font2, 30);
 		if (money >= price) {
 			cost.setFillColor(sf::Color::Yellow);
 		}
 		else {
 			cost.setFillColor(sf::Color::Red);
 		}
-		cost.setPosition(block.getPosition().x + W * 0.3, block.getPosition().y + W);
+		cost.setPosition(block.getPosition().x + W * 0.25, block.getPosition().y + W);
 		(*window).draw(cost);
 		if (x) {
 			y += 1.5;
@@ -162,4 +168,148 @@ void Shop::drawShop(int currentWave, int maxWaveLevel, int blockType)
 		(*m_chosenTowerFrame[3]).setPosition(W * (COLS + _x) + W - W / 10, W * (1 + _y * 1.5));
 		(*window).draw((*m_chosenTowerFrame[3]));
 	}
+}
+
+int Shop::returnItemNumber(int posX, int posY)
+{
+	int x{ posX / W };
+	int y{ posY / W };
+	switch (y)
+	{
+	case 1:
+		if (x == COLS) {
+			return 1;
+		}
+		else {
+			return 2;
+		}
+		break;
+	case 2:
+		if (posY % W >= (W >> 1)) {
+			if (x == COLS) {
+				return 3;
+			}
+			else {
+				return 4;
+			}
+		}
+		break;
+	case 3:
+		if (posY % W < (W >> 1)) {
+			if (x == COLS) {
+				return 3;
+			}
+			else {
+				return 4;
+			}
+		}
+		break;
+	case 4:
+		if (x == COLS) {
+			return 5;
+		}
+		else {
+			return 6;
+		}
+		break;
+	case 5:
+		if (posY % W >= (W >> 1)) {
+			if (x == COLS) {
+				return 7;
+			}
+			else {
+				return 8;
+			}
+		}
+		break;
+	case 6:
+		if (posY % W < (W >> 1)) {
+			if (x == COLS) {
+				return 7;
+			}
+			else {
+				return 8;
+			}
+		}
+		break;
+	case 7:
+		if (x == COLS) {
+			return 9;
+		}
+		else {
+			return 10;
+		}
+		break;
+	default:
+		break;
+	}
+	return 0;
+}
+
+void Shop::itemInfo(int itemType)
+{
+	if (!itemType) { return; }
+	sf::Sprite infoSprite(*m_infoTexture);
+	int posX{ COLS + ((itemType + 1) % 2) };
+	float posY;
+
+	sf::String typeOfTowerText, description;
+	switch (itemType)
+	{
+	default:
+		return;
+	case 1:
+	case 2:
+		posY = 1;
+		typeOfTowerText = " Attacking tower";
+		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec";
+		break;
+	case 3:
+		posY = 2.5f;
+		typeOfTowerText = " Attacking tower";
+		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec";
+		break;
+	case 4:
+		posY = 2.5f;
+		typeOfTowerText = " Attacking tower";
+		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec"
+			+ "\nAttacks 3 enemies";
+		break;
+	case 5:
+	case 6:
+		posY = 4;
+		typeOfTowerText = " Attacking tower";
+		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec";
+		break;
+	case 7:
+		posY = 5.5f;
+		typeOfTowerText = "\tSupport tower";
+		description = "Increases damage\nof nearby towers";
+		break;
+	case 8:
+		posY = 5.5f;
+		typeOfTowerText = "\tSupport tower";
+		description = "Increases range\nof nearby towers";
+		break;
+	case 9:
+		posY = 7;
+		typeOfTowerText = "\t\t\t\tZone";
+		description = "\t\t Slows down\n\t\t\tenemies";
+		break;
+	case 10:
+		posY = 7;
+		typeOfTowerText = "\t\t\t\tZone";
+		description = "    Stops enemies";
+		break;
+	}
+
+	// рисуем окно
+	infoSprite.setPosition(posX * W - W * 3, posY * W - W * 0.5f);
+	(*window).draw(infoSprite);
+
+	// рисуем текст
+	sf::Text infoText(typeOfTowerText + "\n" + description, *m_font1, 30);
+	infoText.setFillColor(sf::Color::Black);
+	infoText.setPosition(infoSprite.getPosition().x + 5, infoSprite.getPosition().y + 5);
+	(*window).draw(infoText);
 }

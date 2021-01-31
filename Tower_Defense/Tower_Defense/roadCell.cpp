@@ -7,12 +7,11 @@ RoadCell::RoadCell(int i, int j, RoadCell * nextCell)
 	m_posOnField.second = j;
 }
 
-Enemy * RoadCell::getEnemyOnCell()
+RoadCell::~RoadCell()
 {
-	if (!m_enemiesOnCell.empty()) {
-		return m_enemiesOnCell.front();
+	if (m_nextCell) {
+		delete m_nextCell;
 	}
-	return nullptr;
 }
 
 void RoadCell::removeEnemyFromCell(Enemy * enemy)
