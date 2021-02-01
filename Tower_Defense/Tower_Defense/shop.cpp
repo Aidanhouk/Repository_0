@@ -261,24 +261,20 @@ void Shop::itemInfo(int itemType)
 	case 1:
 	case 2:
 		posY = 1;
-		typeOfTowerText = " Attacking tower";
+		typeOfTowerText = "  Shooting tower";
 		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec";
 		break;
 	case 3:
-		posY = 2.5f;
-		typeOfTowerText = " Attacking tower";
-		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec";
-		break;
 	case 4:
 		posY = 2.5f;
-		typeOfTowerText = " Attacking tower";
-		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec"
-			+ "\nAttacks 3 enemies";
+		typeOfTowerText = "  Shooting tower";
+		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec";
+		if (itemType == 4) description += "\nAttacks 3 enemies";
 		break;
 	case 5:
 	case 6:
 		posY = 4;
-		typeOfTowerText = " Attacking tower";
+		typeOfTowerText = "  Shooting tower";
 		description = "  Damage: " + std::to_string((int)(TOWERS_DAMAGE[itemType]) * 60) + "/sec";
 		break;
 	case 7:
@@ -304,7 +300,7 @@ void Shop::itemInfo(int itemType)
 	}
 
 	// рисуем окно
-	infoSprite.setPosition(posX * W - W * 3, posY * W - W * 0.5f);
+	infoSprite.setPosition(posX * W - W * 3, posY * W - W * 0.6f);
 	(*window).draw(infoSprite);
 
 	// рисуем текст
