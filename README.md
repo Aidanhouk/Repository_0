@@ -7,4 +7,4 @@ Field size: 3x3, 4x4, 5x5.
 # Screenshots:
 <img src="images/TTT_menu.PNG"/>
 <img src="images/TTT_3x3.png" width="280" align="left"/>
-<img src="images/TTT_4x4.png" width="360" align="right/>
+<img src="images/TTT_4x4.png" width="360" align="right"/>
