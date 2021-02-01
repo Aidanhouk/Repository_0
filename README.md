@@ -13,6 +13,6 @@ Field size: 3x3, 4x4, 5x5.
     <img src="images/TTT_3x3.png" width="250" align="middle">
   </div>
   <div class="column3">
-    <img src="images/TTT_4x4.png" width="325" align="right">
+    <img src="images/TTT_4x4.png" width="325" align="topright">
   </div>
 </div>
