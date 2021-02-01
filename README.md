@@ -9,4 +9,4 @@ Field size: 3x3, 4x4, 5x5.
   <img src="images/TTT_menu.PNG" height="400" align="left"/>
   <img src="images/TTT_4x4.png" align="right"/>
 </div>
-<img src="images/TTT_3x3.png" align="left"/>
+<img src="images/TTT_3x3.png" align="bottom"/>
