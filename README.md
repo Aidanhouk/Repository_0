@@ -7,6 +7,6 @@ Field size: 3x3, 4x4, 5x5.
 # Screenshots:
 <div class="images">
   <img src="images/TTT_menu.PNG" align="left"/>
-  <img src="images/TTT_3x3.png" width="300" align="top"/>
-  <img src="images/TTT_4x4.png" width="390" align="right"/>
+  <img src="images/TTT_3x3.png" width="280" align="top"/>
+  <img src="images/TTT_4x4.png" width="360" align="right"/>
 </div>
