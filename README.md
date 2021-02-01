@@ -6,16 +6,7 @@ Field size: 3x3, 4x4, 5x5.
 3 game modes: player vs player, player vs AI, AI vs AI.
 # Screenshots:
 <div class="images">
-  <img src="images/TTT_menu.PNG" width="250" align="left">
-    <img src="images/TTT_3x3.png" width="250" align="top">
-    <img src="images/TTT_4x4.png" width="325" align="right">
-</div>
-<div class="row">
-  <div class="column1">
-    
-  </div>
-  <div class="column2">
-  </div>
-  <div class="column3">
-  </div>
+  <img src="images/TTT_menu.PNG" width="250" align="left"/>
+  <img src="images/TTT_3x3.png" width="250" align="top"/>
+  <img src="images/TTT_4x4.png" width="325" align="right"/>
 </div>
