@@ -1,20 +1,25 @@
-int checkLines(int **field, int n, int markAI)
+#include "_AI.h"
+
+#include "globals.h"
+#include "field.h"
+
+int AI::checkLines()
 {
 	// номер ячейки, чтобы не дать завершить линию оппоненту
 	int notMine{ -1 };
 	// приводим markAI из вида 0/1 к 1/2
-	markAI = markAI ? 1 : 2;
+	int markAI = m_markAI ? 1 : 2;
 
 	// проверяем каждый столбец
 	for (int i = 0; i < n; ++i) {
 		// кол-во пустых ячеек; занятых тем же знаком, что и у AI; занятых другим знаком
 		int blanks{ 0 }, sameAIMarks{ 0 }, notAIMarks{ 0 };
 		for (int j = 0; j < n; ++j) {
-			if (field[i][j] == 0) {
+			if ((*field)[i][j] == 0) {
 				++blanks;
 				continue;
 			}
-			if (field[i][j] == markAI) {
+			if ((*field)[i][j] == markAI) {
 				++sameAIMarks;
 			}
 			else {
@@ -28,7 +33,7 @@ int checkLines(int **field, int n, int markAI)
 				// найдем пустую клетку и вернем ее
 				// тут макс 5 ячеек нужно перебрать, так что поставим еще цикл
 				for (int j = 0; j < n; ++j) {
-					if (!field[i][j]) {
+					if (!(*field)[i][j]) {
 						return i + j * n;
 					}
 				}
@@ -36,7 +41,7 @@ int checkLines(int **field, int n, int markAI)
 			// если на всех остальных стоит знак, противоположный знаку AI
 			if (notAIMarks == n - 1) {
 				for (int j = 0; j < n; ++j) {
-					if (!field[i][j]) {
+					if (!(*field)[i][j]) {
 						notMine = i + j * n;
 						break;
 					}
@@ -50,11 +55,11 @@ int checkLines(int **field, int n, int markAI)
 		// кол-во пустых ячеек; занятых тем же знаком, что и у AI; занятых другим знаком
 		int blanks{ 0 }, sameAIMarks{ 0 }, notAIMarks{ 0 };
 		for (int j = 0; j < n; ++j) {
-			if (field[j][i] == 0) {
+			if ((*field)[j][i] == 0) {
 				++blanks;
 				continue;
 			}
-			if (field[j][i] == markAI) {
+			if ((*field)[j][i] == markAI) {
 				++sameAIMarks;
 			}
 			else {
@@ -67,7 +72,7 @@ int checkLines(int **field, int n, int markAI)
 			if (sameAIMarks == n - 1) {
 				// найдем пустую клетку и вернем ее
 				for (int j = 0; j < n; ++j) {
-					if (!field[j][i]) {
+					if (!(*field)[j][i]) {
 						return i * n + j;
 					}
 				}
@@ -75,7 +80,7 @@ int checkLines(int **field, int n, int markAI)
 			// если на всех остальных стоит знак, противоположный знаку AI
 			if (notAIMarks == n - 1) {
 				for (int j = 0; j < n; ++j) {
-					if (!field[j][i]) {
+					if (!(*field)[j][i]) {
 						notMine = i * n + j;
 						break;
 					}
@@ -89,11 +94,11 @@ int checkLines(int **field, int n, int markAI)
 		// кол-во пустых ячеек; занятых тем же знаком, что и у AI; занятых другим знаком
 		int blanks{ 0 }, sameAIMarks{ 0 }, notAIMarks{ 0 };
 		for (int i = 0; i < n; ++i) {
-			if (field[i][i] == 0) {
+			if ((*field)[i][i] == 0) {
 				++blanks;
 				continue;
 			}
-			if (field[i][i] == markAI) {
+			if ((*field)[i][i] == markAI) {
 				++sameAIMarks;
 			}
 			else {
@@ -106,7 +111,7 @@ int checkLines(int **field, int n, int markAI)
 			if (sameAIMarks == n - 1) {
 				// найдем пустую клетку и вернем ее
 				for (int i = 0; i < n; ++i) {
-					if (!field[i][i]) {
+					if (!(*field)[i][i]) {
 						return i * n + i;
 					}
 				}
@@ -114,7 +119,7 @@ int checkLines(int **field, int n, int markAI)
 			// если на всех остальных стоит знак, противоположный знаку AI
 			if (notAIMarks == n - 1) {
 				for (int i = 0; i < n; ++i) {
-					if (!field[i][i]) {
+					if (!(*field)[i][i]) {
 						notMine = i * n + i;
 						break;
 					}
@@ -128,11 +133,11 @@ int checkLines(int **field, int n, int markAI)
 		// кол-во пустых ячеек; занятых тем же знаком, что и у AI; занятых другим знаком
 		int blanks{ 0 }, sameAIMarks{ 0 }, notAIMarks{ 0 };
 		for (int i = 0; i < n; ++i) {
-			if (field[i][n - 1 - i] == 0) {
+			if ((*field)[i][n - 1 - i] == 0) {
 				++blanks;
 				continue;
 			}
-			if (field[i][n - 1 - i] == markAI) {
+			if ((*field)[i][n - 1 - i] == markAI) {
 				++sameAIMarks;
 			}
 			else {
@@ -145,7 +150,7 @@ int checkLines(int **field, int n, int markAI)
 			if (sameAIMarks == n - 1) {
 				// найдем пустую клетку и вернем ее
 				for (int i = 0; i < n; ++i) {
-					if (!field[n - 1 - i][i]) {
+					if (!(*field)[n - 1 - i][i]) {
 						return n * i + (n - 1 - i);
 					}
 				}
@@ -153,7 +158,7 @@ int checkLines(int **field, int n, int markAI)
 			// если на всех остальных стоит знак, противоположный знаку AI
 			if (notAIMarks == n - 1) {
 				for (int i = 0; i < n; ++i) {
-					if (!field[n - 1 - i][i]) {
+					if (!(*field)[n - 1 - i][i]) {
 						notMine = n * i + (n - 1 - i);
 						break;
 					}

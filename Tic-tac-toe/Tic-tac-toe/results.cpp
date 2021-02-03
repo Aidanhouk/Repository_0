@@ -1,5 +1,3 @@
-#include <SFML/Graphics.hpp>
-
 #include "globals.h"
 
 void results(bool &gameConinues)
@@ -17,10 +15,10 @@ void results(bool &gameConinues)
 	
 	Text whoWonText;
 	// обработка результата
-	switch (p)
+	switch (_WhoVsWho)
 	{
 	case 1:
-		switch (res)
+		switch (gameResult)
 		{
 		case -1:
 			// game window was close
@@ -45,7 +43,7 @@ void results(bool &gameConinues)
 		}
 		break;
 	case 2:
-		switch (res)
+		switch (gameResult)
 		{
 		case -1:
 			// game window was close
@@ -70,7 +68,7 @@ void results(bool &gameConinues)
 		}
 		break;
 	case 3:
-		switch (res)
+		switch (gameResult)
 		{
 		case -1:
 			// game window was close

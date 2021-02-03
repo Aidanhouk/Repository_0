@@ -1,5 +1,3 @@
-#include <SFML/Graphics.hpp>
-
 #include "globals.h"
 
 void menu()
@@ -97,19 +95,19 @@ void menu()
 					// если была нажата одна из кнопок выбора противника
 					if (x > p_vs_p.getPosition().x - 15 && x < p_vs_p.getPosition().x + p_vs_p.getLocalBounds().width + 20) {
 						if (y > p_vs_p.getPosition().y && y < p_vs_p.getPosition().y + p_vs_p.getLocalBounds().height + 15) {
-							p = 1;
+							_WhoVsWho = 1;
 							p_vs_p.setFillColor(Color::Green);
 							p_vs_AI.setFillColor(Color::Black);
 							_AI_vs_AI.setFillColor(Color::Black);
 						}
 						if (y > p_vs_AI.getPosition().y && y < p_vs_AI.getPosition().y + p_vs_AI.getLocalBounds().height + 15) {
-							p = 2;
+							_WhoVsWho = 2;
 							p_vs_AI.setFillColor(Color::Green);
 							p_vs_p.setFillColor(Color::Black);
 							_AI_vs_AI.setFillColor(Color::Black);
 						}
 						if (y > _AI_vs_AI.getPosition().y && y < _AI_vs_AI.getPosition().y + _AI_vs_AI.getLocalBounds().height + 20) {
-							p = 3;
+							_WhoVsWho = 3;
 							_AI_vs_AI.setFillColor(Color::Green);
 							p_vs_p.setFillColor(Color::Black);
 							p_vs_AI.setFillColor(Color::Black);

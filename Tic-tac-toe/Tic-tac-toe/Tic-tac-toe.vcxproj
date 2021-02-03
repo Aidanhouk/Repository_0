@@ -137,22 +137,24 @@
   <ItemGroup>
     <ClCompile Include="checkLines.cpp" />
     <ClCompile Include="drawing.cpp" />
-    <ClCompile Include="finishedLineCheck.cpp" />
+    <ClCompile Include="field.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="results.cpp" />
-    <ClCompile Include="_AI_makes_move.cpp" />
+    <ClCompile Include="_AI.cpp" />
+    <ClCompile Include="_AIMovesCrosses.cpp" />
+    <ClCompile Include="_AIMovesNoughts.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="consts.h" />
     <ClInclude Include="drawing.h" />
-    <ClInclude Include="finishLineCheck.h" />
+    <ClInclude Include="field.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="results.h" />
-    <ClInclude Include="_AI_makes_move.h" />
+    <ClInclude Include="_AI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

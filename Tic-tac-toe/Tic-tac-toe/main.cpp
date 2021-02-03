@@ -8,12 +8,17 @@
 #include "mainGame.h"
 #include "results.h"
 
-// размерность поля + значение по умолчанию
+// размерность поля
 int n;
-// кто vs кто? 1 - player vs player, 2 - player vs AI, 3 - AI vs AI
-int p;
-// сюда запишем результат игры
-int res;
+// кто против кого
+int _WhoVsWho;
+// результат игры
+int gameResult;
+// поле игры
+Field * field;
+// окно игры 
+sf::RenderWindow *window;
+
 // пока 1, игра перезапускается
 bool gameContinues{ 1 };
 
@@ -21,7 +26,7 @@ int main()
 {
 	while (gameContinues) {
 		// устанавливаем значения по умолчанию
-		n = 3, p = 2, res = -1;
+		n = 3, _WhoVsWho = 2, gameResult = -1;
 
 		// открываем меню
 		menu();

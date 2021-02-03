@@ -1,10 +1,8 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-
 // отрисовка сетки
-void drawField(sf::RenderWindow & window, int n);
+void drawField();
 // отрисовка крестиков и ноликов
-void drawFigures(sf::RenderWindow & window, int n, int **field);
+void drawFigures();
 // перечеркиваем выигрышную линию
-void crossFinishLine(sf::RenderWindow & window, int n, int finishLineDirection, int rowOrCol);
+void crossFinishLine();

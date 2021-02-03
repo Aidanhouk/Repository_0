@@ -1,10 +1,8 @@
-#include <SFML/Graphics.hpp>
-
 #include "consts.h"
 #include "globals.h"
+#include "field.h"
+#include "_AI.h"
 #include "drawing.h"
-#include "_AI_makes_move.h"
-#include "finishLineCheck.h"
 
 void mainGame()
 {
@@ -14,159 +12,135 @@ void mainGame()
 	sf::Font font;
 	font.loadFromFile("sansation.ttf");
 
-	// создаем поле размерностью nxn
-	int **field = new int*[n];
-	for (int i = 0; i < n; ++i) {
-		field[i] = new int[n] {0};
-	}
-
 	// окно игры
-	sf::RenderWindow window(sf::VideoMode(n * 100, n * 100), "Tic-tac-toe", sf::Style::Titlebar | sf::Style::Close, settings);
+	sf::RenderWindow _window(sf::VideoMode(n * 100, n * 100), "Tic-tac-toe", sf::Style::Titlebar | sf::Style::Close, settings);
+	window = &_window;
 
-	// 1 - сейчас должны ставиться крестики, 0 - нолики
-	bool turn{ 1 };
-	// игра закончена?
+	// поле
+	Field _field;
+	field = &_field;
+
+	// AI, в параметрах можно указать, за какую фигуру будет играть AI
+	AI _AI(static_cast<bool>(rand() % 2));
+
+	// конец игры
 	bool endOfGame{ 0 };
-	// за кого играет AI, 0 - нолики, 1 - крестики
-	bool markAI{ static_cast<bool>(rand() % 2) };
-	// нужны, чтобы перечеркнуть выигрышную линию
-	int rowOrCol, finishLineDirection;
-	// сколько осталось пустых ячеек, если 0, то это ничья
-	int blanks{ n*n };
-	// сюда запишем результат, 0 - ничья, 1 - выиграли крестики, 2 - нолики
-	int whoWin{ 0 };
-	// сюда будут записывать все ходы, нужно для работы AI
-	std::vector<int> moves;
-	moves.reserve(n*n);
+	// какая фигура победила, 0 - ничья, 1 - выиграли крестики, 2 - нолики
+	int whoWon{ 0 };
 
 	// главный цикл игры
-	while (window.isOpen())
+	while (window->isOpen())
 	{
-		// получаем координаты курсора мышы
-		sf::Vector2i pos = sf::Mouse::getPosition(window);
-		int x{ pos.x / W };
-		int y{ pos.y / W };
+		// ход игрока
+		if (!endOfGame) {
+			// получаем координаты курсора мышы
+			sf::Vector2i pos = sf::Mouse::getPosition(*window);
+			int x{ pos.x / W };
+			int y{ pos.y / W };
 
-		sf::Event event;
-		// обработчик событий
-		while (window.pollEvent(event))
-		{
-			// закрытие окна
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
-			// если нажата кнопка мыши и игра не закончена
-			if (event.type == sf::Event::MouseButtonPressed && !endOfGame) {
-
-				// если игра против игрока или против AI и при этом сейчас ход игрока
-				if (p == 1 || p == 2 && turn != markAI) {
-					// если нажата ЛКМ и это поле пустое
-					if (event.mouseButton.button == sf::Mouse::Left && field[x][y] == 0) {
-						// добавляем эту ячейку в вектор с ходами
-						if (p == 2) {
-							moves.push_back(y * n + x);
-						}
-						// если сейчас должен ставиться крестик
-						if (turn) {
-							field[x][y] = 1;
-							turn = 0;
-							--blanks;
-						}
-						// если сейчас должен ставиться нолик
-						else {
-							field[x][y] = 2;
-							turn = 1;
-							--blanks;
+			sf::Event event;
+			// обработчик событий
+			while (window->pollEvent(event))
+			{
+				// закрытие окна
+				if (event.type == sf::Event::Closed) {
+					window->close();
+				}
+				// если нажата кнопка мыши
+				if (event.type == sf::Event::MouseButtonPressed) {
+					// если игра с участием игрока и при этом сейчас ход игрока
+					if (_WhoVsWho == 1 || (_WhoVsWho == 2 && field->getTurn() != _AI.getAIMark())) {
+						// если эта ячейка пустая
+						if (!(*field)[x][y]) {
+							// добавляем эту ячейку в вектор с ходами, если игра против AI
+							if (_WhoVsWho == 2) {
+								field->getMovesVector().push_back(y * n + x);
+							}
+							(*field)[x][y] = field->getTurn() ? 1 : 2;
+							field->changeTurn();
+							field->decreaseBlanks();
 						}
 					}
 				}
 			}
-		}
-		// проверка на конец игры после хода игрока
-		if (!endOfGame && p != 3) {
-			// если whoWin = 1, то победили крестики, 2 - нолики
-			whoWin = finishedLineCheck(field, n, rowOrCol, finishLineDirection);
-			if (whoWin) {
-				endOfGame = 1;
-			}
-			// проверка на ничью
-			if (!blanks && !endOfGame) {
-				endOfGame = 1;
+			// проверка на конец игры после хода игрока
+			if (_WhoVsWho != 3) {
+				whoWon = field->finishedLineCheck();
+				// если whoWon = 1, то победили крестики, 2 - нолики
+				if (whoWon) {
+					endOfGame = 1;
+				}
+				else {
+					// проверка на ничью
+					if (field->isDraw()) {
+						endOfGame = 1;
+					}
+				}
 			}
 		}
 
 		// ход AI
-		if (!endOfGame && (p == 2 && turn == markAI || p == 3)) {
-			// сюда запишутся номера строки и столбца ячейки, которую выбрал AI
-			int row, col;
-			_AI_makes_move(moves, field, n, col, row);
-			if (turn) {
-				field[row][col] = 1;
-				turn = 0;
-				--blanks;
+		if (!endOfGame) {
+			if (_WhoVsWho == 2 && field->getTurn() == _AI.getAIMark() || _WhoVsWho == 3) {
+				// сюда запишутся номера строки и столбца ячейки, которую выбрал AI
+				int row, col;
+				_AI._AI_makes_move(col, row);
+				(*field)[row][col] = field->getTurn() ? 1 : 2;
+				field->changeTurn();
+				field->decreaseBlanks();
 			}
-			else {
-				field[row][col] = 2;
-				turn = 1;
-				--blanks;
-			}
-		}
-		// проверка на конец игры после хода AI
-		if (!endOfGame && p != 1) {
-			// если whoWin = 1, то победили крестики, 2 - нолики
-			whoWin = finishedLineCheck(field, n, rowOrCol, finishLineDirection);
-			if (whoWin) {
-				endOfGame = 1;
-			}
-			// проверка на ничью
-			if (!blanks && !endOfGame) {
-				endOfGame = 1;
+			// проверка на конец игры после хода AI
+			if (_WhoVsWho != 1) {
+				whoWon = field->finishedLineCheck();
+				// если whoWon = 1, то победили крестики, 2 - нолики
+				if (whoWon) {
+					endOfGame = 1;
+				}
+				else {
+					// проверка на ничью
+					if (field->isDraw()) {
+						endOfGame = 1;
+					}
+				}
 			}
 		}
 
 		// далее происходит отрисовка всех элементов
 
 		// цвет фона
-		window.clear(sf::Color(25, 0, 45));
+		window->clear(sf::Color(25, 0, 45));
 		// отрисовка сетки
-		drawField(window, n);
+		drawField();
 		// отрисовка крестиков и ноликов
-		drawFigures(window, n, field);
+		drawFigures();
 		// перечеркиваем выигрышную линию
-		if (endOfGame && whoWin) {
-			crossFinishLine(window, n, finishLineDirection, rowOrCol);
+		if (endOfGame && whoWon) {
+			crossFinishLine();
 		}
+		window->display();
 
-		window.display();
-
-		// возвращаем значени, кто выиграл
+		// возвращаем значение, кто выиграл
 		if (endOfGame) {
 			sf::sleep(sf::Time(sf::milliseconds(500)));
-			res = whoWin;
-			// если player vs AI и при это НЕ ничья, нужно немного изменить вывод результата
-			if (p == 2 && whoWin) {
+			gameResult = whoWon;
+			// если player vs AI и при это НЕ ничья, нужно немного изменить обработку результата
+			if (_WhoVsWho == 2 && whoWon) {
 				// если markAI = 0, то присваиваем ему 2
-				int _markAI = markAI ? 1 : 2;
+				int _markAI = _AI.getAIMark() ? 1 : 2;
 				// если фигура AI совпадает с фигурой, которая победила, то AI победил
-				if (_markAI == whoWin) {
-					res = 2;
+				if (_markAI == whoWon) {
+					gameResult = 2;
 				}
 				else {
-					res = 1;
+					gameResult = 1;
 				}
 			}
-			window.close();
+			window->close();
 		}
 
 		// паузы между ходами AI vs AI
-		if (p == 3 && !endOfGame) {
+		if (_WhoVsWho == 3 && !endOfGame) {
 			sf::sleep(sf::Time(sf::milliseconds(500)));
 		}
 	}
-
-	// освобождение памяти под поле
-	for (int i = 0; i < n; ++i) {
-		delete[] field[i];
-	}
-	delete[] field;
 }

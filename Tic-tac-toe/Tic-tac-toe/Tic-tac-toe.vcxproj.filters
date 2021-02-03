@@ -25,12 +25,6 @@
     <Filter Include="Source Files\AI">
       <UniqueIdentifier>{4b40b1a5-2313-446e-88a2-e1195ee44918}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Other_functions">
-      <UniqueIdentifier>{9b780586-87f5-4a2d-9b5e-8cf94d7d05d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Other_functions">
-      <UniqueIdentifier>{af02ab2b-0187-4f14-b766-52d82af80ddc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Drawing">
       <UniqueIdentifier>{814a7d3d-e098-4842-a40a-4f659cc0c085}</UniqueIdentifier>
     </Filter>
@@ -43,6 +37,12 @@
     <Filter Include="Source Files\Other">
       <UniqueIdentifier>{7f45dc3a-8ddb-47f2-b83f-6ebe74a47d1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Field">
+      <UniqueIdentifier>{7f91a642-7cb1-4b19-8685-b2fd8ecef27b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Field">
+      <UniqueIdentifier>{e74a661d-7ac1-4a6d-a80f-2d80598d0716}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="mainGame.cpp">
@@ -54,20 +54,26 @@
     <ClCompile Include="results.cpp">
       <Filter>Source Files\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="_AI_makes_move.cpp">
-      <Filter>Source Files\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="checkLines.cpp">
-      <Filter>Source Files\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="finishedLineCheck.cpp">
-      <Filter>Source Files\Other_functions</Filter>
-    </ClCompile>
     <ClCompile Include="drawing.cpp">
       <Filter>Source Files\Drawing</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="field.cpp">
+      <Filter>Source Files\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="_AI.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="checkLines.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="_AIMovesCrosses.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="_AIMovesNoughts.cpp">
+      <Filter>Source Files\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,12 +86,6 @@
     <ClInclude Include="results.h">
       <Filter>Header Files\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="_AI_makes_move.h">
-      <Filter>Header Files\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="finishLineCheck.h">
-      <Filter>Header Files\Other_functions</Filter>
-    </ClInclude>
     <ClInclude Include="drawing.h">
       <Filter>Header Files\Drawing</Filter>
     </ClInclude>
@@ -94,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="globals.h">
       <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="field.h">
+      <Filter>Header Files\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="_AI.h">
+      <Filter>Header Files\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
