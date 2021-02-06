@@ -1,2 +1,39 @@
-﻿  mainGame.cpp
+﻿  _AI.cpp
+  _AIMovesCrosses.cpp
+  _AIMovesNoughts.cpp
+  checkLines.cpp
+  drawing.cpp
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(11): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(12): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(16): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(17): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(62): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(66): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(67): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(71): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\timur\source\repos\tic-tac-toe\tic-tac-toe\drawing.cpp(76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  field.cpp
+  mainGame.cpp
+  Generating Code...
   Tic-tac-toe.vcxproj -> C:\Users\timur\source\repos\Tic-tac-toe\Debug\Tic-tac-toe.exe

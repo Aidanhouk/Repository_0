@@ -12,7 +12,7 @@ private:
 	// нужны, чтобы перечеркнуть выигрышную линию
 	int m_rowOrCol, m_finishLineDirection;
 	// какая фигура сейчас ставится (1 - крестики, 2 - нолики)
-	bool m_turn{ 1 };
+	int m_turn{ 1 };
 	// сюда будут записываться все ходы, нужно для работы AI
 	std::vector<int> m_moves;
 public:
@@ -26,11 +26,11 @@ public:
 	// проверка на ничью
 	bool isDraw() { return !m_blanks; }
 	// ход сменился, значит ставится должная другая фигура
-	void changeTurn() { m_turn = !m_turn; }
+	void changeTurn() { m_turn = (m_turn == 1) ? 2 : 1; }
 
 	std::vector<int> &getMovesVector() { return m_moves; }
 	void setMovesVector(std::vector<int> &vc) { m_moves = vc; }
-	bool getTurn() const { return m_turn; }
+	int getTurn() const { return m_turn; }
 	int getRowOrCol() const { return m_rowOrCol; }
 	int getFinishLineDirection() const { return m_finishLineDirection; }
 
