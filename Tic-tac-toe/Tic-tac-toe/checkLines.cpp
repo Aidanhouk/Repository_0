@@ -7,8 +7,6 @@ int AI::checkLines()
 {
 	// номер €чейки, чтобы не дать завершить линию оппоненту
 	int notMine{ -1 };
-	// приводим markAI из вида 0/1 к 1/2
-	int markAI = m_markAI ? 1 : 2;
 
 	// провер€ем каждый столбец
 	for (int i = 0; i < n; ++i) {
@@ -19,7 +17,7 @@ int AI::checkLines()
 				++blanks;
 				continue;
 			}
-			if ((*field)[i][j] == markAI) {
+			if ((*field)[i][j] == m_markAI) {
 				++sameAIMarks;
 			}
 			else {
@@ -59,7 +57,7 @@ int AI::checkLines()
 				++blanks;
 				continue;
 			}
-			if ((*field)[j][i] == markAI) {
+			if ((*field)[j][i] == m_markAI) {
 				++sameAIMarks;
 			}
 			else {
@@ -98,7 +96,7 @@ int AI::checkLines()
 				++blanks;
 				continue;
 			}
-			if ((*field)[i][i] == markAI) {
+			if ((*field)[i][i] == m_markAI) {
 				++sameAIMarks;
 			}
 			else {
@@ -137,7 +135,7 @@ int AI::checkLines()
 				++blanks;
 				continue;
 			}
-			if ((*field)[i][n - 1 - i] == markAI) {
+			if ((*field)[i][n - 1 - i] == m_markAI) {
 				++sameAIMarks;
 			}
 			else {

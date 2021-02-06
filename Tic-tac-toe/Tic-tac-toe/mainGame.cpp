@@ -20,8 +20,8 @@ void mainGame()
 	Field _field;
 	field = &_field;
 
-	// AI, в параметрах можно указать, за какую фигуру будет играть AI
-	AI _AI(static_cast<bool>(rand() % 2));
+	// AI, в параметрах можно указать, за какую фигуру будет играть AI, 1 - крестики, 2 - нолики
+	AI _AI((rand() % 2) + 1);
 
 	// конец игры
 	bool endOfGame{ 0 };
@@ -56,7 +56,7 @@ void mainGame()
 							if (_WhoVsWho == 2) {
 								field->getMovesVector().push_back(y * n + x);
 							}
-							(*field)[x][y] = field->getTurn() ? 1 : 2;
+							(*field)[x][y] = field->getTurn();
 							field->changeTurn();
 							field->decreaseBlanks();
 						}
@@ -85,7 +85,7 @@ void mainGame()
 				// сюда запишутся номера строки и столбца ячейки, которую выбрал AI
 				int row, col;
 				_AI._AI_makes_move(col, row);
-				(*field)[row][col] = field->getTurn() ? 1 : 2;
+				(*field)[row][col] = field->getTurn();
 				field->changeTurn();
 				field->decreaseBlanks();
 			}
@@ -125,15 +125,8 @@ void mainGame()
 			gameResult = whoWon;
 			// если player vs AI и при это НЕ ничья, нужно немного изменить обработку результата
 			if (_WhoVsWho == 2 && whoWon) {
-				// если markAI = 0, то присваиваем ему 2
-				int _markAI = _AI.getAIMark() ? 1 : 2;
-				// если фигура AI совпадает с фигурой, которая победила, то AI победил
-				if (_markAI == whoWon) {
-					gameResult = 2;
-				}
-				else {
-					gameResult = 1;
-				}
+				// если фигура AI совпадает с фигурой, которая победила, то AI победил (2)
+				gameResult = (_AI.getAIMark() == whoWon) ? 2 : 1;
 			}
 			window->close();
 		}
